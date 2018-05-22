@@ -1,0 +1,39 @@
+<div class="signup-page">
+
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1>{{'TREZOR_TITLE' | translate}}</h1>
+        <p>{{'TREZOR_TEXT' | translate }}</p>
+      </div>
+    </div>
+
+    <div class="col-md-offset-3 col-md-6">
+      <fieldset class="form-group">
+        <p class="text-center">{{'SIGNUP_NETWORK_SELECT' | translate}}</p>
+        <select class="form-control"
+                ng-model="$ctrl.network"
+                ng-change="$ctrl.changeNetwork($ctrl.network)"
+                ng-options="network.id as (network.id | toNetworkName) for network in $ctrl.networks">
+          <option value="" disabled selected>{{'SIGNUP_NETWORK_SELECT' | translate}}</option>
+        </select>
+      </fieldset>
+      <div class="form-group text-center">
+        <p ng-show="$ctrl.network === 104"><span ng-bind-html="'SIGNUP_NETWORK_MAINNET' | translate"></span></p>
+        <p ng-show="$ctrl.network === -104"><span ng-bind-html="'SIGNUP_NETWORK_TESTNET' | translate"></span></p>
+        <p ng-show="$ctrl.network === 96"><span ng-bind-html="'SIGNUP_NETWORK_MIJIN' | translate"></span></p>
+      </div>
+      <div class="form-group">
+        <hr style="border-color:#444;">
+        <div class="row">
+          <div class="col-md-12 col-sm-6">
+            <button class="btn btn-primary" style="width:100%;" ng-click="$ctrl.login()">
+              {{ 'GENERAL_NEXT' | translate }} <span class="fa fa-chevron-right" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

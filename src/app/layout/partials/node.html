@@ -1,0 +1,63 @@
+<div class="modal fade nodes" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="gridSystemModalLabel">{{ 'HEARDER_NODE_LIST' | translate }}</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <!-- NODES BLOCK HEIGHT -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'HEADER_NODE_BLOCK_HEIGHT' | translate }}: </label>
+                </span>
+                <span type="text" class="form-control" readOnly> {{ $ctrl._DataStore.chain.height }}</span>
+              </div>
+            </fieldset>
+            <!-- CURRENT NODE -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'HEADER_NODE_CURRENT_NODE' | translate }}: </label>
+                </span>
+                <span type="text" class="form-control" readOnly>{{ $ctrl._Wallet.node.host }}</span>
+              </div>
+            </fieldset>
+            <!-- NODE LIST -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'HEARDER_NODE_LIST' | translate }}: </label>
+                </span>
+                <select class="form-control" ng-model="$ctrl.selectedNode" ng-change="$ctrl.changeNode($ctrl.selectedNode)" ng-options="node.uri as (node.uri | toHostname) for node in $ctrl._Wallet.nodes"><option value="" disabled selected>{{ 'HEADER_NODE_SELECT' | translate }}</option></select>
+              </div>
+            </fieldset>
+            <!-- CUSTOM NODE -->
+            <fieldset class="form-group" autocomplete="off">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label data-toggle="tooltip" data-placement="bottom" title="{{ 'HEADER_NODE_CUSTOM_TOOLTIP' | translate }}">{{ 'HEADER_NODE_CUSTOM' | translate }}: <i class="fa fa-question-circle-o"></i> </label>
+                </span>
+                <input class="form-control"
+                    type="text" autocomplete="off"
+                    placeholder="{{ 'HEADER_NODE_CUSTOM_INFO' | translate }}"
+                    ng-model="$ctrl.customNode"/>
+                <span class="input-group-btn adding">
+                  <button type="button" class="btn btn-warning" ng-click="$ctrl.changeNode($ctrl.customNode)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </span>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" data-dismiss="modal">{{ 'GENERAL_CLOSE' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<li id="balanceDropdown" class="money dropdown" show-authed="true">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+    <b><small>{{$ctrl.balance}} {{$ctrl.selectedMarket}}</small></b> <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" style="z-index: 99;min-width: 100%;width: 100%;">
+    <li ng-repeat="key in $ctrl.markets" class="text-center" style="cursor:pointer;" ng-click="$ctrl.updateBalance(key);">
+      <a><b><small>{{key}}</small></b></a>
+    </li>
+  </ul>
+</li>

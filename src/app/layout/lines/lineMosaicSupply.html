@@ -1,0 +1,167 @@
+<table id="MDSTable" class="table table-bordered table-hover" title="{{ 'MOSAIC_SUPPLY_CHANGE_NAME' | translate }}" style="cursor:pointer;outline:0;margin-bottom:0;table-layout:fixed">
+    <tbody style="outline:0;" class="text-center">
+        <tr data-toggle="collapse" data-target="#MDStable{{number}}">
+            <td class="sentTx" style="overflow:hidden;text-overflow: ellipsis;"><span class="fa fa-th-large text-danger" ng-show="!parent"></span> <span class="fa fa-group text-danger" ng-show="parent"></span> <tt>{{ 'LINE_TX_DETAILS_MOS_EDIT' | translate }} <span class="text-muted">{{tx.mosaicId.namespaceId}}</span>:<strong>{{tx.mosaicId.name}}</strong>"</tt></td>
+            <td class="mosaicChange">
+                <span ng-show="!parent">
+                    <span style="color:red">-</span> <strong>{{((tx.fee) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.fee) | fmtNemValue)[1]}}</span> XEM
+                </span>
+                <span ng-show="parent">
+                    <span style="color:red">-</span>
+                    <span ng-show="parent.signatures.length">
+                        <strong>{{((tx.fee+((parent.signatures.length + 1) * parent.fee)) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.fee+((parent.signatures.length + 1) * parent.fee)) | fmtNemValue)[1]}}</span>
+                    </span>
+                    <span ng-show="!parent.signatures.length">
+                        <strong>{{((tx.fee+parent.fee) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.fee+parent.fee) | fmtNemValue)[1]}}</span>
+                    </span>
+                </span>
+                <div ng-show="needsSignature">
+                    <span style="color:red">{{ 'LINE_TX_DETAILS_NEED_SIG_2' | translate }}</span>
+                </div>
+            </td>
+            <td class="messageTx"></td>
+            <td>{{tx.timeStamp | fmtNemDate}}</td>
+        </tr>
+        </tody>
+</table>
+
+<div id="MDStable{{number}}" class="collapse">
+    <div class="accordion-inner" style="padding-left: 8px; background-color: #e3e0cf;">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <strong>
+                    <span ng-show="!parent">{{ 'MOSAIC_SUPPLY_CHANGE_NAME' | translate }}</span>
+                    <span ng-show="parent">{{ 'MOSAIC_SUPPLY_CHANGE_MULTISIG_NAME' | translate }}</span>
+                </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="border-style: dashed;margin:5px;" />
+            </div>
+        </div>
+
+        <div ng-show="parent">
+
+                    <div class="row">
+                        <div class="col-sm-3"><b>{{ 'GENERAL_MULTISIG_ACCOUNT' | translate }}</b></div>
+                        <div class="col-sm-9">
+                            <tt>{{ getContact(tx.signer | fmtPubToAddress:networkId | fmtAddress) || (tx.signer | fmtPubToAddress:networkId | fmtAddress) }}</tt>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_ISSUER' | translate }}</b></div>
+                        <div class="col-sm-9">
+                            <tt>{{ getContact(parent.signer | fmtPubToAddress:networkId | fmtAddress) || (parent.signer | fmtPubToAddress:networkId | fmtAddress) }}</tt>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <hr style="border-style: dashed;margin:5px;" />
+                        </div>
+                    </div>
+
+                </div>
+
+        <div class="row">
+            <div class="col-sm-3"><b>{{ 'GENERAL_FEE' | translate }}</b></div>
+            <div class="col-sm-9">
+                {{(tx.fee | fmtNemValue)[0]}}.<span class="text-muted">{{(tx.fee | fmtNemValue)[1]}}</span> XEM
+            </div>
+        </div>
+
+        <div class="row" ng-show="parent">
+                <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_MULTISIG_FEE' | translate }}</b></div>
+                <div class="col-sm-9" ng-show="!parent.signature.length">{{(parent.fee | fmtNemValue)[0]}}.<span class="text-muted">{{(parent.fee | fmtNemValue)[1]}}</span> XEM</div>
+                <div class="col-sm-9" ng-show="parent.signature.length">{{(((parent.signatures.length + 1) * parent.fee) | fmtNemValue)[0]}}.<span class="text-muted">{{(((parent.signatures.length + 1) * parent.fee) | fmtNemValue)[1]}}</span> XEM</div>
+            </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="border-style: dashed;margin:5px;" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3"><b>{{ 'GENERAL_NAME' | translate }}</b></div>
+            <div class="col-sm-9">
+               <span class="text-muted">{{tx.mosaicId.namespaceId}}</span>:{{tx.mosaicId.name}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3"><b>{{ 'MOSAIC_SUPPLY_CHANGE_TYPE' | translate }}</b></div>
+            <div class="col-sm-9">
+                <span ng-show="tx.supplyType === 1">{{ 'MOSAIC_SUPPLY_CHANGE_TYPE_1' | translate }}</span>
+                <span ng-show="tx.supplyType === 2">{{ 'MOSAIC_SUPPLY_CHANGE_TYPE_2' | translate }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3"><b>{{ 'MOSAIC_SUPPLY_CHANGE_AMOUNT' | translate }}</b></div>
+            <div class="col-sm-9">
+               {{tx.delta}}
+            </div>
+        </div>
+
+        <div class="row" ng-show="parent.signatures.length">
+
+                <div class="col-sm-12">
+                    <hr style="border-style: dashed;margin:5px;" />
+                </div>
+
+                <div class="col-sm-12" >
+                    <strong>{{ 'LINE_TX_DETAILS_SIGNATURES' | translate }}: </strong>
+                </div>
+            </div>
+
+            <div ng-repeat="sig in parent.signatures">
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_COSIGNATORY' | translate }}</b></div>
+                    <div class="col-sm-8">{{ getContact(sig.signer | fmtPubToAddress:networkId | fmtAddress) || (sig.signer | fmtPubToAddress:networkId | fmtAddress) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_TIMESTAMP' | translate }}</b></div>
+                    <div class="col-sm-8">{{sig.timeStamp | fmtNemDate}}</div>
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <hr style="border-style: dashed;margin:5px;" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3"><b>{{ 'GENERAL_BLOCK' | translate }}</b></div>
+            <div class="col-sm-9">
+                <span ng-show="{{meta.height}} !== 9007199254740991">{{meta.height}}</span>
+                <span ng-show="{{meta.height}} === 9007199254740991">{{ 'LINE_TX_DETAILS_WAITING' | translate }} <span ng-show="parent">- {{ 'LINE_TX_DETAILS_NEED_SIG' | translate }}</span></span>
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="col-sm-3">
+                    <b>{{ 'LINE_TX_DETAILS_HASH' | translate }}</b>
+                </div>
+                <div class="col-sm-9">
+                    <span ng-show="parent"> {{meta.innerHash.data}} </span>
+                    <span ng-show="!parent"> {{meta.hash.data}} </span>
+                </div>
+            </div>
+
+            <div class="row" ng-show="parent">
+                <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_MULTISIG_HASH' | translate }}</b></div>
+                <div class="col-sm-9"><tt>{{meta.hash.data}}</tt></div>
+            </div>
+
+    </div>
+
+    <sign-transaction tx="tx" parent-tx="parent" meta="meta" needs-signature="needsSignature"></sign-transaction>
+
+</div>

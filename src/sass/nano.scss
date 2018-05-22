@@ -1,0 +1,139 @@
+/*** GLOBAL FONTS ***/
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Thin-webfont.woff') format('woff'),
+         url('fonts/Roboto-Thin-webfont.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Light-webfont.woff') format('woff'),
+         url('fonts/Roboto-Light-webfont.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Medium-webfont.woff') format('woff'),
+         url('fonts/Roboto-Medium-webfont.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Bold-webfont.woff') format('woff'),
+         url('fonts/Roboto-Bold-webfont.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/*** GLOBAL VARIABLES ***/
+$blue: #0d5295; /*#69b2e5;**/
+$blueLite: rgba(015, 122, 225, 0.6);
+$blueXLite: rgba(015, 122, 225, 0.1);
+$blueDark: darken( $blue, 10% );
+$pad: 20px;
+$grayLite: rgba(0 ,0 ,0 ,0.1);
+$gray: rgba(0 ,0 ,0 ,0.3);
+$borderUnderline: 1px solid $blueLite !important;
+$red: #d9534f;
+$redLite: lighten( $red, 2% );
+$green: green;
+$greenLite: lighten( $green, 10% );
+$black: #333;
+$white: white;
+
+
+$xl: 1500px;
+$lg: 1200px;
+$md: 992px;
+$sm: 768px;
+
+/*** GLOBAL EXTENDS ***/
+%plusMinus {
+  .input-group-btn.showHide, .dLoad {
+    max-width: $pad * 2;
+    background: transparent;
+    text-align: center;
+    .btn-primary, .btn-danger {
+      width: 100%;
+      color: white;
+      background: $blue;
+      border: 1px solid $blue;
+      &:hover, &:active {
+        background: $blueLite;
+        border: 1px solid $blueLite;
+        color: white;
+      }
+    }
+  }
+}
+%overflowHide {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+%tableHeaderDisplay {
+  font-family: 'Roboto';
+  font-size: 12px;
+  color: grey;
+  font-weight: 500;
+}
+%tableDisplay {
+  font-family: 'Roboto';
+  font-size: 13px;
+  color: grey;
+  font-weight: 500;
+}
+/*** GLOBAL EXTENDS END ***/
+
+
+/*** MOSTLY DEPRECATED STYLES, place new styles in _new.scss ***/
+.noPadding {
+	padding: 0px;
+}
+.noPaddingLeft {
+	padding-left: 0px;
+}
+@media (max-width: 768px) {
+	.noPaddingLeft {
+		padding-left: 15px;
+	}
+}
+.dropdown-menu {
+	border: 1px solid white;
+}
+.alert-danger {
+    color: #fff;
+    background-color: #d15050 !important;
+    border-color: #d15050 !important;
+}
+.bg-danger {
+	color: #fff;
+    background-color: #d15050 !important;
+}
+.alert-success {
+    color: #444;
+}
+.nav-tabs li a {
+	border-radius: 0px;
+}
+.dropdown-menu {
+	padding: 0px 0px;
+}
+select {
+	border-radius: 0px !important;
+}
+.pull-xs-right {
+	float: right;
+}
+.well:hover{
+	background-color: #dbdada;
+}
+.well {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+@import 'new';

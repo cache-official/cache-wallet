@@ -1,0 +1,115 @@
+<div class="namespace-provision-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-sm-8">
+        <h2>{{ 'RENEW_NS_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9 col-lg-7">
+
+        <div class="panel-heading">
+          <div class="tabDescription">
+            <span ng-show="!$ctrl.formData.isMultisig">{{ 'NAMESPACE_PROVISION_NAME' | translate }}</span>
+            <span ng-show="$ctrl.formData.isMultisig">{{ 'NAMESPACE_PROVISION_MULTISIG_NAME' | translate }}</span>
+          </div>
+          <ul class="nav nav-tabs">
+            <li ng-class="$ctrl.formData.isMultisig ? '' : 'active'"><a ng-click="$ctrl.formData.isMultisig = false;$ctrl.updateCurrentAccountNS();">{{ 'GENERAL_TAB_NORMAL' | translate }}</a></li>
+            <li ng-show="$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length" ng-class="$ctrl.formData.isMultisig ? 'active' : ''"><a ng-click="$ctrl.formData.isMultisig = true;$ctrl.updateCurrentAccountNS();">{{ 'GENERAL_TAB_MULTISIG' | translate }}</a></li>
+          </ul>
+        </div>
+
+        <div class="panel-body">
+
+            <!-- Multisig select -->
+            <multisig-select ng-show="$ctrl.formData.isMultisig" multisig-account="$ctrl.formData.multisigAccount" update-ctrl="$ctrl.updateCurrentAccountNS();"></multisig-select>
+
+            <!-- List of renewable namespaces -->
+            <fieldset class="form-group" ng-show="$ctrl.needRenew">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'GENERAL_NAMESPACES' | translate }}: </label>
+                </span>
+                <select class="form-control" ng-options="namespace.fqn as namespace.fqn for namespace in $ctrl.getExpiringNamespaces($ctrl.namespaceOwned)" ng-model="$ctrl.formData.namespaceName" ng-change="$ctrl.prepareTransaction()">
+                  <option value="" selected disabled>{{ 'FORM_SELECT_NAMESPACE' | translate }}</option>
+                </select>
+              </div>
+            </fieldset>
+
+            <!-- Text if no renewable namespaces -->
+            <fieldset class="form-group" ng-show="!$ctrl.needRenew">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'GENERAL_NAMESPACES' | translate }}: </label>
+                </span>
+                <input class="form-control" value="{{ 'RENEW_NS_NONE' | translate }}" disabled />
+              </div>
+            </fieldset>
+
+            <!-- Namespace sink address -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'GENERAL_SINK_ADDRESS' | translate }}: </label>
+                </span>
+                <input type="text" class="form-control" ng-model="$ctrl.formData.rentalFeeSink" readOnly>
+              </div>
+            </fieldset>
+            
+            <!-- Transaction and rental fee -->
+            <div class="row" class="dualFees">
+              <div class="col-sm-6">
+                <!-- Transaction fee -->
+                <fee-input tx="$ctrl.preparedTransaction" is-multisig="$ctrl.formData.isMultisig"></fee-input>
+              </div>
+              <!-- Rental fee -->
+              <div class="col-sm-6">
+                <fieldset class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-btn">
+                      <label>{{ 'FORM_SIDE_BTN_RENTAL_FEE' | translate }}:</label>
+                    </span>
+                    <div class="form-control formFloat" readOnly>
+                      <span class="feeAmount">
+                        <span ng-show="$ctrl.formData.isMultisig">{{($ctrl.preparedTransaction.otherTrans.rentalFee | fmtNemValue)[0]}}.{{($ctrl.preparedTransaction.otherTrans.rentalFee | fmtNemValue)[1]}}</span>
+                        <span ng-show="!$ctrl.formData.isMultisig">{{($ctrl.preparedTransaction.rentalFee | fmtNemValue)[0]}}.{{($ctrl.preparedTransaction.rentalFee | fmtNemValue)[1]}}</span>
+                      </span>
+                      <label class="floatRight"><small>XEM</small></label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <password-input common="$ctrl.common"></password-input>
+
+            <!-- Send transaction -->
+            <button class="btn btn-success pull-xs-right"
+              type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || !$ctrl.formData.namespaceName.length || !$ctrl.namespaceIsValid($ctrl.formData.namespaceName)" ng-click="$ctrl.send()">
+              <i class="fa fa-angle-double-right"></i> {{ 'GENERAL_RENEW' | translate }}
+            </button>
+        </div>
+      </div>
+
+      <!-- Information panel -->
+      <div class="col-md-3 col-lg-5">
+        <div class="panel-heading">
+          <h3>{{ 'RENEW_NS_INFORMATION_TITLE' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+          <h5>{{ 'RENEW_NS_INFORMATION_TITLE_1' | translate }}</h5>
+          <p>{{ 'RENEW_NS_INFORMATION_1' | translate }}</p>
+          <h5>{{ 'RENEW_NS_INFORMATION_TITLE_2' | translate }}</h5>
+          <p>{{ 'RENEW_NS_INFORMATION_2' | translate }}</p>
+          <h5>{{ 'RENEW_NS_INFORMATION_TITLE_3' | translate }}</h5>
+          <p>{{ 'RENEW_NS_INFORMATION_3' | translate }}</p>
+          <p>{{ 'RENEW_NS_INFORMATION_4' | translate }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

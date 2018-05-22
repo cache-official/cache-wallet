@@ -1,0 +1,129 @@
+<div class="explorer-namespaces-mosaics-page">
+  <div class="container-fluid main">
+    <div class="row">
+      <div class="col-sm-11">
+        <h2>{{ 'EXPLORER_NS_MOS_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <explorer-nav></explorer-nav>
+
+    <div class="row namespaceRules">
+
+      <div class="col-lg-3 col-md-6 col-sm-6">
+
+        <div class="panel-heading">
+              <h4>{{ 'GENERAL_NAMESPACES' | translate }}</h4>
+            <paginate data="$ctrl.namespaces" current-page="$ctrl.currentPage" page-size="$ctrl.pageSize"></paginate>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel-body" ng-show="$ctrl.namespaces.length">
+              <!-- SEARCH NAMESPACES -->
+              <div class="form-control formFloat">
+                <input ng-model="$ctrl.searchText" type="text" placeholder="{{ 'EXPLORER_NS_MOS_SEARCH' | translate }}">
+                <label><i class="fa fa-search"></i></label>
+              </div>
+              <br>
+              <ul class="list-group" ng-repeat="ns in $ctrl.namespaces | orderBy:'namespace.fqn' | filter:$ctrl.searchText | startFrom:$ctrl.currentPage*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+                <li class="list-group-item" ng-class="$ctrl.selectedNamespaceName === ns.namespace.fqn ? 'active' : ''" ng-click="$ctrl.getSubNamespaces(ns.namespace.owner, ns.namespace.fqn);$ctrl.getMosaics(ns.namespace.owner, ns.namespace.fqn)">{{ns.namespace.fqn}}</li>
+              </ul>
+              <div class="panel-body nothing" ng-show="!$ctrl.namespaces.length">
+                <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RESULTS SUBNAMESPACES -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="panel-heading">
+          <h4>{{ 'GENERAL_SUB_NAMESPACES' | translate }}</h4>
+          <paginate data="$ctrl.subNamespaces" current-page="$ctrl.currentPageSubNs" page-size="$ctrl.pageSize"></paginate>
+        </div>
+        <div class="panel-body" ng-show="$ctrl.subNamespaces.length" >
+          <ul class="list-group" ng-repeat="ns in $ctrl.subNamespaces | orderBy:'fqn' | startFrom:$ctrl.currentPageSubNs*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+            <li class="list-group-item" ng-class="$ctrl.selectedSubNamespaceName === ns.fqn ? 'active' : ''" ng-click="$ctrl.getMosaics(ns.owner, ns.fqn)">{{ $ctrl.substringSubNs(ns.fqn) }}</li>
+          </ul>
+        </div>
+        <div class="panel-body nothing" ng-show="!$ctrl.subNamespaces.length">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+      </div>
+      <!-- RESULTS MOSAICS -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="panel-heading">
+          <h4>{{ 'GENERAL_MOSAICS' | translate }}</h4>
+          <paginate data="$ctrl.mosaics" current-page="$ctrl.currentPageMos" page-size="$ctrl.pageSize"></paginate>
+        </div>
+        <div class="panel-body" ng-show="$ctrl.mosaics.length" >
+          <ul class="list-group" ng-repeat="mos in $ctrl.mosaics | orderBy:'id.name' | startFrom:$ctrl.currentPageMos*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+            <li class="list-group-item" ng-class="$ctrl.selectedMosaicName === mos.id.namespaceId + ':' + mos.id.name ? 'active' : ''" ng-click="$ctrl.processMosaic(mos)">{{mos.id.name}}</li>
+          </ul>
+        </div>
+        <div class="panel-body nothing" ng-show="!$ctrl.mosaics.length">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+      </div>
+      <!-- RESULTS MOSAICS DETAILS -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="panel-heading">
+          <h4>{{ $ctrl.selectedMosaicName }}</h4>
+        </div>
+        <div class="panel-body" ng-show="$ctrl.selectedMosaic" >
+          <p class="bg-info"><span ng-bind="$ctrl.selectedMosaic.description"></span></p>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>{{ 'GENERAL_NAME' | translate }}</th>
+                <th>{{ 'GENERAL_VALUE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr ng-show="$ctrl.selectedMosaic.supply && $ctrl.selectedMosaic.supply !== $ctrl.selectedMosaic.properties[1].value">
+                <td>{{ 'MOSAIC_SUPPLY_CHANGE_SUPPLY' | translate }}</td>
+                <td>{{$ctrl.selectedMosaic.supply}}</td>
+              </tr>
+              <tr>
+                <td>{{ 'MOSAIC_DEFINITION_INITIAL_SUPPLY' | translate }}</td>
+                <td>{{$ctrl.selectedMosaic.properties[1].value}}</td>
+              </tr>
+              <tr>
+                <td>{{ 'MOSAIC_DEFINITION_DIV' | translate }}</td>
+                <td>{{$ctrl.selectedMosaic.properties[0].value}}</td>
+              </tr>
+              <tr ng-show="$ctrl.selectedMosaic.levy.type">
+                <td>{{ 'EXPLORER_HOME_MOSAICS_LEVY' | translate }}</td>
+                <td>
+                  <span>{{ $ctrl.formatMosaicId($ctrl.selectedMosaic.levy.mosaicId) }}</span>
+                </td>
+              </tr>
+              <tr ng-show="$ctrl.selectedMosaic.levy.type">
+                <td>{{ 'GENERAL_LEVY' | translate }}</td>
+                <td>
+                  <span ng-show="$ctrl.selectedMosaic.levy.type === 1 && $ctrl.selectedMosaicLevyDefinition[$ctrl.formatMosaicId($ctrl.selectedMosaic.id)]">{{ 'MOSAIC_DEFINITION_LEVY_FEE_TYPE_1' | translate }} ({{$ctrl.selectedMosaic | fmtLevyFee:1:$ctrl.selectedMosaic.levy:$ctrl.selectedMosaicLevyDefinition}})</span>
+                  <span ng-show="$ctrl.selectedMosaic.levy.type === 2">{{ 'MOSAIC_DEFINITION_LEVY_FEE_TYPE_2' | translate }} (x{{($ctrl.selectedMosaic.levy.fee / 10000).toFixed(4)}})</span>
+                </td>
+              </tr>
+              <tr>
+                <td>{{ 'MOSAIC_DEFINITION_MUTABLE_SUPPLY' | translate }}</td>
+                <td>{{$ctrl.selectedMosaic.properties[2].value}}</td>
+              </tr>
+              <tr>
+                <td>{{ 'MOSAIC_DEFINITION_TRANSFERABLE' | translate }}</td>
+                <td>{{$ctrl.selectedMosaic.properties[3].value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-body nothing" ng-show="!$ctrl.selectedMosaic">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

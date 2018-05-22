@@ -1,0 +1,256 @@
+<div class="account-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-sm-8">
+        <h2>{{ 'ACCOUNT_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="panel-heading">
+           <h3>{{ 'ACCOUNT_ACCOUNT_INFORMATION' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+          <fieldset class="form-group" ng-show="$ctrl.showAccounts">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'ACCOUNT_ACCOUNT_SELECT_LABEL' | translate }}: </label>
+              </span>
+              <select class="form-control" ng-model="$ctrl.selectedAccount" ng-options="address as (account.label || account.address) for (address, account) in $ctrl._Wallet.current.accounts" ng-change="$ctrl.changeCurrentAccount($ctrl.selectedAccount)">
+                <option value="" disabled selected>{{ 'ACCOUNT_ACCOUNT_SELECT' | translate }}</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <!-- ACCOUNT ADDRESS -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'GENERAL_ADDRESS' | translate }}: </label>
+              </span>
+              <span class="form-control">{{ $ctrl._DataStore.account.metaData.account.address | fmtAddress }}</span>
+              <span class="input-group-btn" style="min-width: inherit;">
+                <button class="btn btn-primary" type="button" ng-click="$ctrl.copyAddress();"><i class="fa fa-clipboard" ></i></button>
+              </span>
+            </div>
+          </fieldset>
+
+          <!-- ACCOUNT PUBLIC KEY -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'GENERAL_PUBLIC_KEY' | translate }}: </label>
+              </span>
+              <span class="block">
+                <span type="text" class="form-control"> {{ $ctrl._DataStore.account.metaData.account.publicKey || 'ACCOUNT_NO_PUBLIC_KEY' | translate }}</span>
+              </span>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'ACCOUNT_IMPORTANCE_SCORE' | translate }}: </label>
+              </span>
+              <span class="form-control">{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[1] }} * 10<sup>(-4)</sup></span>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'ACCOUNT_VESTED_BALANCE' | translate }}: </label>
+              </span>
+              <span class="form-control">{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[1] }} <b>XEM</b></span>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group" ng-show="$ctrl._Wallet.algo == 'trezor'" ng-click="$ctrl._Trezor.showAccount($ctrl._Wallet.currentAccount)">
+          <button type="button" class="btn btn-success">
+            <i class="fa fa-eye"></i> {{ 'ACCOUNT_SHOW_ON_TREZOR_BTN' | translate }}
+          </button>
+          </fieldset>
+
+          <fieldset class="form-group">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAccountModal">
+            <i class="fa fa-plus"></i> {{ 'ACCOUNT_ADD_NEW_ACCOUNT_BTN' | translate }}
+          </button>
+          <!-- <button type="button" class="btn btn-default">Add an existing account into wallet</button>-->
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div ng-show="$ctrl._Wallet.algo !== 'trezor'">
+          <div class="panel-heading">
+            <h3>{{ 'GENERAL_PRIVATE_KEY' | translate }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <p class="bg-info"><span ng-bind-html="'ACCOUNT_PRIVATE_KEY_NOTE' | translate"></span></p>
+              <div class="input-group">
+                <span class="input-group-btn short" ng-show="$ctrl.commonPK.privateKey">
+                  <label>{{ 'GENERAL_PRIVATE_KEY' | translate }}:</label>
+                </span>
+                <password-input common="$ctrl.commonPK" ng-show="$ctrl._Wallet.algo !== 'trezor' && !$ctrl.commonPK.privateKey"></password-input>
+                <input class="form-control" ng-model="$ctrl.commonPK.privateKey" ng-show="$ctrl.commonPK.privateKey" readOnly></input>
+                <span class="input-group-btn showHide">
+                  <button class="btn btn-primary" type="button" ng-show="!$ctrl.commonPK.privateKey" ng-disabled="$ctrl._Wallet.algo !== 'trezor' && !$ctrl.commonPK.password" ng-click="$ctrl.showPrivateKey()" title="{{ 'ACCOUNT_PRIVATE_KEY_SHOW' | translate }}" style="margin-bottom: 15px;" ng-style="$ctrl._Wallet.algo === 'trezor' ? {'width': '100%'} : {}">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <button class="btn btn-danger" type="button" ng-show="$ctrl.commonPK.privateKey" ng-click="$ctrl.reset()" title="{{ 'GENERAL_CLEAR_ALL' | translate }}">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-heading">
+          <h3>{{'ACCOUNT_EXPORT_MOBILE' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-block" data-toggle="modal" data-target="#accountInfoModal">{{'ACCOUNT_INFO_QR_BTN' | translate }}</button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-block" data-toggle="modal" data-target="#walletModalMobileApps" ng-disabled="$ctrl._Wallet.algo === 'trezor'">{{'ACCOUNT_WALLET_QR_BTN_2' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-heading">
+          <h3>{{ 'ACCOUNT_BACKUP_WALLET' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+          <p class="bg-info" ng-bind-html="'ACCOUNT_BACKUP_WALLET_NOTE' | translate"></p>
+
+          <fieldset class="form-group">
+            <div class="input-group" >
+              <span class="input-group-btn">
+                <label>{{ 'ACCOUNT_BACKUP_WALLET' | translate }}: </label>
+              </span>
+              <select class="form-control" ng-model="$ctrl.selectedWallet" ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
+                <option value="" disabled selected>{{ 'LOGIN_SELECT_WALLET' | translate }}</option>
+              </select>
+              <span class="input-group-btn dLoad">
+                <button class="btn btn-primary" type="button" ng-show="$ctrl.selectedWallet" ng-click="$ctrl.downloadWallet()" title="{{'ACCOUNT_BACKUP_WALLET_DOWNLOAD' | translate}}"><i class="fa fa-download"></i></button>
+              </span>
+            <a id="downloadWallet" target="_blank"></a>
+          </div>
+        </fieldset>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Account info qr Modal -->
+  <div id="accountInfoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ 'ACCOUNT_INFO_QR_TITLE' | translate }}</h4>
+        </div>
+        <div class="modal-body">
+          <center><div id="accountInfoQR"></div></center>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'GENERAL_CLOSE' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wallet qr Modal -->
+  <div id="walletModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ 'ACCOUNT_WALLET_QR_BTN' | translate }}</h4>
+        </div>
+        <div class="modal-body">
+         <center><div id="exportWalletQR"></div></center>
+         <p class="text-center">{{ 'ACCOUNT_WALLET_QR_NOTE' | translate }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'GENERAL_CLOSE' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wallet qr Modal for ios and android -->
+  <div id="walletModalMobileApps" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.showMobileQRPass = true;">&times;</button>
+          <h4 class="modal-title">{{ 'ACCOUNT_WALLET_QR_ANDROID_IOS_TITLE' | translate }}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="text-center" id="mobileWalletQR" ng-show="!$ctrl.showMobileQRPass"></div>
+          <div ng-show="$ctrl.showMobileQRPass">
+            <!-- Password Field -->
+            <password-input common="$ctrl.commonQR"></password-input>
+            <button class="btn btn-success"
+              type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.commonQR.password.length" ng-click="$ctrl.generateWalletQR()">
+              {{'GENERAL_REVEAL' | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.showMobileQRPass = true;">{{ 'GENERAL_CLOSE' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add new account modal -->
+  <div id="addAccountModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ 'ACCOUNT_ADD_NEW_ACCOUNT_BTN' | translate }}</h4>
+        </div>
+        <p class="bg-danger"><i class="fa fa-exclamation-triangle "></i> <span ng-bind-html="'ACCOUNT_ADD_NEW_ACCOUNT_WARNING' | translate"></span></p>
+        <div class="modal-body">
+          <!-- Password Field -->
+          <password-input common="$ctrl.common"></password-input>
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'GENERAL_ACCOUNT_LABEL' | translate }}:</label>
+              </span>
+              <input class="form-control form-control-lg"
+                type="text"
+                placeholder="{{ 'GENERAL_ACCOUNT_LABEL' | translate }} {{ 'GENERAL_OPTIONAL' | translate }}"
+              ng-model="$ctrl.newAccountLabel"/>
+            </div>
+          </fieldset>
+          <button class="btn btn-success"
+            type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length" ng-click="$ctrl.addNewAccount()">
+            {{ 'ACCOUNT_ADD_NEW_ACCOUNT' | translate }}
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'GENERAL_CLOSE' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

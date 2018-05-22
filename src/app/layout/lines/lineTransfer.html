@@ -1,0 +1,244 @@
+<table id="txTable" class="table table-bordered table-hover" title="{{ 'TRANSFER_TRANSACTION_NAME' | translate }}" style="cursor:pointer;outline:0;margin-bottom:0;table-layout:fixed">
+    <tbody style="outline:0;">
+        <tr data-toggle="collapse" data-target="#table{{number}}" style="outline:0">
+            <td class="sentTx" style="overflow:hidden;text-overflow: ellipsis;" ng-show="tx.recipient !== mainAccount && !parent"><span class="fa fa-send-o text-danger"></span> <tt>{{ getContact(tx.recipient | fmtAddress) || (tx.recipient | fmtAddress) }}</tt></td>
+            <td class="receivedTx"style="overflow:hidden;text-overflow: ellipsis;" ng-show="tx.recipient === mainAccount && !parent && !parent"><span class="fa fa-send text-success"></span> <tt>{{ getContact(tx.signer | fmtPubToAddress:networkId | fmtAddress) || (tx.signer | fmtPubToAddress:networkId | fmtAddress) }}</tt></td>
+
+            <td class="multisigTx" style="overflow:hidden;text-overflow: ellipsis;" ng-show="parent">
+                <span ng-show="parent.otherTrans.recipient !== mainAccount"class="fa fa-group text-danger"></span>
+                <span ng-show="parent.otherTrans.recipient === mainAccount"class="fa fa-group text-success"></span>
+                 <tt>{{ getContact(parent.otherTrans.signer | fmtPubToAddress:networkId | fmtAddress) || (parent.otherTrans.signer | fmtPubToAddress:networkId | fmtAddress) }}</tt>
+            </td>
+            <td class="amountTx">
+                <span ng-show="tx.mosaics.length">
+                    <span style="color:red" ng-show="!parent && (tx.recipient !== mainAccount)">-</span> 
+                    <span style="color:green" ng-show="!parent && (tx.recipient === mainAccount)">+</span>
+                    <span style="color:red" ng-show="parent && (parent.otherTrans.recipient !== mainAccount)">-</span> 
+                    <span style="color:green" ng-show="parent && (parent.otherTrans.recipient === mainAccount)">+</span>  
+                {{tx.mosaics.length}} <span class="fa fa-th text-info"></span></strong>
+                </span>
+                <span ng-hide="tx.mosaics.length">
+                    <span ng-show="!parent">
+                        <span ng-show="tx.recipient !== mainAccount">
+                           <span style="color:red">-</span> <strong>{{((tx.amount+tx.fee) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.amount+tx.fee) | fmtNemValue)[1]}}</span>
+                        </span>
+                        <span ng-show="tx.recipient === mainAccount">
+                            <span style="color:green">+</span> <strong>{{((tx.amount) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.amount) | fmtNemValue)[1]}}</span>
+                        </span>
+                         XEM
+                    </span>
+                    <span ng-show="parent">
+                        <span ng-show="parent.otherTrans.recipient !== mainAccount">
+                            <span style="color:red">-</span>
+                            <span ng-show="parent.signatures.length">
+                                <strong>{{((tx.amount + tx.fee + ((parent.signatures.length + 1) * parent.fee)) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.amount + tx.fee + ((parent.signatures.length + 1) * parent.fee)) | fmtNemValue)[1]}}</span>
+                            </span>
+                            <span ng-show="!parent.signatures.length">
+                                <strong>{{((tx.amount+tx.fee+parent.fee) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.amount+tx.fee+parent.fee) | fmtNemValue)[1]}}</span>
+                            </span>
+                        </span>
+                        <span ng-show="parent.otherTrans.recipient === mainAccount">
+                            <span style="color:green">+</span> <strong>{{((tx.amount) | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{((tx.amount) | fmtNemValue)[1]}}</span>
+                        </span>
+                         XEM
+                    </span>
+                </span>
+                <div id="needsSignature-{{tx.timeStamp}}" ng-show="needsSignature">
+                    <span style="color:red">{{ 'LINE_TX_DETAILS_NEED_SIG_2' | translate }}</span>
+                </div>
+            </td>
+            <td class="messageTx" ng-show="!tx.message.type"></td>
+            <td class="messageTx" style="" ng-show="tx.message.type === 1"><span ng-bind="tx.message | fmtHexMessage"></span></td>
+            <td class="messageTx" ng-show="tx.message.type === 2" id="line-{{tx.timeStamp}}">{{ 'GENERAL_ENCRYPTED' | translate }}</td>
+            <td class="timestampTx">{{tx.timeStamp | fmtNemDate}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="table{{number}}" class="collapse">
+    <div class="accordion-inner" style="word-break: break-all;background-color: #e3e0cf;padding-left: 8px;">
+
+        <div class="row">
+                <div class="col-sm-12">
+                    <span ng-show="!parent"><b>{{ 'TRANSFER_TRANSACTION_NAME' | translate }}</b></span>
+                    <span ng-show="parent"><b>{{ 'TRANSFER_TRANSACTION_MULTISIG_NAME' | translate }}</b></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr style="border-style: dashed;margin:5px;" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <b>
+                        <span ng-if="!parent">{{ 'LINE_TX_DETAILS_FROM' | translate }}</span>
+                        <span ng-if="parent">{{ 'LINE_TX_DETAILS_FROM_MULTISIG' | translate }}</span>
+                    </b>
+                </div>
+                <div class="col-sm-9">
+                    {{ getContact(tx.signer | fmtPubToAddress:networkId | fmtAddress) || (tx.signer | fmtPubToAddress:networkId | fmtAddress) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <b>{{ 'GENERAL_TO' | translate }}</b>
+                </div>
+                <div class="col-sm-9">
+                    {{ getContact(tx.recipient | fmtAddress) || (tx.recipient | fmtAddress) }}
+                </div>
+            </div>
+
+            <div class="row" ng-show="parent">
+                <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_ISSUER' | translate }}</b></div>
+                <div class="col-sm-9">{{ getContact(parent.signer | fmtPubToAddress:networkId | fmtAddress) || (parent.signer | fmtPubToAddress:networkId | fmtAddress) }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr style="border-style: dashed;margin:5px;" />
+                </div>
+            </div>
+
+            <div class="row" ng-show="!tx.mosaics.length">
+                <div class="col-sm-3"><b>{{ 'GENERAL_AMOUNT' | translate }}</b></div>
+                <div class="col-sm-9">
+                    <strong>{{(tx.amount | fmtNemValue)[0]}}</strong>.<span class="text-muted">{{(tx.amount | fmtNemValue)[1]}}</span> XEM
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <b>{{ 'GENERAL_FEE' | translate }}</b>
+                </div>
+                <div class="col-sm-9">
+                    {{(tx.fee | fmtNemValue)[0]}}.<span class="text-muted">{{(tx.fee | fmtNemValue)[1]}}</span> XEM
+                </div>
+            </div>
+
+            <div class="row" ng-show="parent">
+                <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_MULTISIG_FEE' | translate }}</b></div>
+                <div class="col-sm-9" ng-show="!parent.signature.length">{{(parent.fee | fmtNemValue)[0]}}.<span class="text-muted">{{(parent.fee | fmtNemValue)[1]}}</span> XEM</div>
+                <div class="col-sm-9" ng-show="parent.signature.length">{{(((parent.signatures.length + 1) * parent.fee) | fmtNemValue)[0]}}.<span class="text-muted">{{(((parent.signatures.length + 1) * parent.fee) | fmtNemValue)[1]}}</span> XEM</div>
+            </div>
+
+            <div class="row" ng-show="tx.mosaics.length">
+
+                    <div class="col-sm-12">
+                        <hr style="border-style: dashed;margin:5px;" />
+                    </div>
+
+                <div class="col-sm-12">
+                    <strong>{{ 'LINE_TX_DETAILS_MOS_ATTACHED' | translate }}: </strong> {{tx.mosaics.length}} <span class="fa fa-th text-info"></span>
+                </div>
+            </div>
+
+            <div ng-repeat="mos in tx.mosaics">
+
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-2"><b>{{ 'GENERAL_NAME' | translate }}</b></div>
+                    <div class="col-sm-9"><span class="text-muted">{{mos.mosaicId.namespaceId}}</span>:{{mos.mosaicId.name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-2"><b>{{ 'MOSAIC_DEFINITION_QUANTITY' | translate }}</b></div>
+                    <div class="col-sm-9"><strong>{{(mos.quantity | fmtSupply:mos.mosaicId:mosaicDefinitionMetaDataPair)[0]}}</strong><span class="text-muted">.{{(mos.quantity | fmtSupply:mos.mosaicId:mosaicDefinitionMetaDataPair)[1]}}</span></div>
+                </div>
+
+                <tag-levy mos="mos" tx="tx" mosaics="mosaicDefinitionMetaDataPair">
+                    <div class="row" ng-show="levy.type">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-2"><strong>{{ 'FORM_SIDE_BTN_LEVY_FEE' | translate }}</strong></div>
+                        <div class="col-sm-9">
+                            <span ng-show="levy.type === 1">{{ 'LINE_TX_DETAILS_LEVY_TYPE_1' | translate }}:</span>
+                            <span ng-show="levy.type === 2">{{ 'LINE_TX_DETAILS_LEVY_TYPE_2' | translate }}:</span>
+                            <strong>{{mos | fmtLevyFee:tx.amount:levy:mosaics}}</strong>
+                            <span class="text-muted">{{levy.mosaicId.namespaceId}}</span>:{{levy.mosaicId.name}}
+                        </div>
+                    </div>
+                </tag-levy>
+            </div>
+
+            <div class="row" ng-show="tx.message.payload">
+
+                    <div class="col-sm-12">
+                        <hr style="border-style: dashed;margin:5px;" />
+                    </div>
+
+                <div class="col-sm-3">
+                    <b>{{ 'GENERAL_MESSAGE' | translate }}</b>
+                </div>
+                <div class="col-sm-9">
+                    <span ng-show="tx.message.type === 1" style="white-space: pre-line;"><span ng-bind="tx.message | fmtHexMessage"></span></span>
+                    <span ng-show="tx.message.type === 2" id="details-{{tx.timeStamp}}" style="white-space: pre-line;"> <span style="white-space: normal;"> {{ 'GENERAL_ENCRYPTED' | translate }} <span ng-show="!disableDecryption"> <b>--></b> <a ng-click="showDecodeMessage = ! showDecodeMessage" style="cursor:pointer">{{ 'LINE_TX_DETAILS_MESS_DEC' | translate }}</a></span></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row" ng-show="parent.signatures.length">
+
+                <div class="col-sm-12">
+                    <hr style="border-style: dashed;margin:5px;" />
+                </div>
+
+                <div class="col-sm-12" >
+                    <strong>{{ 'LINE_TX_DETAILS_SIGNATURES' | translate }}: </strong>
+                </div>
+            </div>
+
+            <div ng-repeat="sig in parent.signatures">
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_COSIGNATORY' | translate }}</b></div>
+                    <div class="col-sm-8">{{ getContact(sig.signer | fmtPubToAddress:networkId | fmtAddress) || (sig.signer | fmtPubToAddress:networkId | fmtAddress) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_TIMESTAMP' | translate }}</b></div>
+                    <div class="col-sm-8">{{sig.timeStamp | fmtNemDate}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr style="border-style: dashed;margin:5px;" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <b>{{ 'GENERAL_BLOCK' | translate }}</b>
+                </div>
+                <div class="col-sm-9">
+                    <span ng-show="meta.height !== 9007199254740991">{{meta.height}}</span>
+                    <span ng-show="meta.height === 9007199254740991 || !meta.height">{{ 'LINE_TX_DETAILS_WAITING' | translate }}
+                    <span ng-if="parent">- {{ 'LINE_TX_DETAILS_NEED_SIG' | translate }}</span></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <b>{{ 'LINE_TX_DETAILS_HASH' | translate }}</b>
+                </div>
+                <div class="col-sm-9">
+                    <span ng-show="parent"> {{meta.innerHash.data}} </span>
+                    <span ng-show="!parent"> {{meta.hash.data}} </span>
+                </div>
+            </div>
+
+            <div class="row" ng-show="parent">
+                <div class="col-sm-3"><b>{{ 'LINE_TX_DETAILS_MULTISIG_HASH' | translate }}</b></div>
+                <div class="col-sm-9"><tt>{{meta.hash.data}}</tt></div>
+            </div>
+
+    </div>
+
+    <sign-transaction tx="tx" parent-tx="parent" meta="meta" needs-signature="needsSignature"></sign-transaction>
+
+    <decode-message tx="tx" show-decode-message="showDecodeMessage" disable-decryption="disableDecryption"></decode-message>
+
+</div>

@@ -1,0 +1,19 @@
+ <!-- Message Field -->
+<fieldset class="form-group">
+  <div class="input-group">
+    <span class="input-group-btn message">
+      <label>{{'FORM_MESSAGE_PLACEHOLDER' | translate}}: </label>
+    </span>
+    <textarea class="form-control" ng-model="$ctrl.message" placeholder="{{'FORM_MESSAGE_PLACEHOLDER' | translate}}" rows="4" ng-change="$ctrl.updateCharactersLeft();" ng-class="$ctrl.charactersLeft < 0 || $ctrl.messageType === 0 && $ctrl.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.message) ? 'has-error' : ''"></textarea>
+    <p style="text-align:right;border-bottom:1px solid rgba(15, 122, 225, 0.6);background-color: #eee;"><span style="margin-right: 5px;"><b>{{ 'GENERAL_CHARACTERS_LEFT' | translate }}</b>: {{ $ctrl.charactersLeft }}</span></p>
+  </div>
+</fieldset>
+<!-- Message type -->
+<fieldset class="form-group">
+  <div class="input-group">
+    <span class="input-group-btn">
+      <label for="box1">{{'TRANSFER_TRANSACTION_MESSAGE_TYPE' | translate}}:</label>
+    </span>
+    <select class="form-control" ng-options="type.value as type.name for type in $ctrl.messageTypes" ng-model="$ctrl.messageType" ng-change="$ctrl.updateCharactersLeft();"></select>
+  </div>
+</fieldset>

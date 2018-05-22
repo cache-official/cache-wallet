@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title ng-bind="pageTitle"></title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/nano.css">
+    <link rel="stylesheet" href="css/ngToast.min.css">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,400,700,900"> -->
+  </head>
+
+  <body>
+
+    <div ui-view></div>
+    <toast></toast>
+
+    <!-- Utils -->
+    <script src="vendors/qrcode.js"></script>
+    <script src="vendors/kjua.min.js"></script>
+    <script src="vendors/jszip.min.js"></script>
+    <script src="vendors/FileSaver.min.js"></script>
+    <script src="vendors/connect.js"></script>
+
+    <!-- app -->
+    <script src="main.js"></script>
+
+  </body>
+</html>

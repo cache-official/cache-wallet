@@ -1,0 +1,218 @@
+<div class="create-apostille-page">
+  <div class="loading-overlay" ng-show="$ctrl.okPressed">
+    <div class="loader text-center">
+      <img src="images/logomark.png" class="loader-image"/>
+      <p class="loading-text">{{ 'GENERAL_PROCESSING' | translate }}</p>
+    </div>
+  </div>
+  <div class="container-fluid main">
+    <div class="row">
+      <div class="col-sm-8">
+        <h2>{{ 'APOSTILLE_CREATE_TITLE' | translate }}</h2>
+      </div>
+      <div class="col-sm-4 helper">
+        <h4 data-toggle="modal" data-target="#apostilleHelp">{{ 'APOSTILLE_CREATE_HELP' | translate }}</h4>
+      </div>
+    </div>
+
+    <p ng-show="!$ctrl._Wallet.ntyData" class="bg-info" ng-click="$ctrl.uploadNty()" style="cursor:pointer">
+      <b><i class="fa fa-exclamation-triangle "></i> {{ 'APOSTILLE_NO_NTY' | translate }}</b>
+    </p>
+    <input id="uploadNty" style="visibility:hidden;position:absolute;" import-nty-file="$ctrl.loadNty($fileContent)" type="file">
+
+    <div class="row">
+      <div class="col-sm-7">
+        <div class="panel-heading">
+          <div class="tabDescription">
+            <span ng-show="!$ctrl.formData.isMultisig">{{ 'APOSTILLE_TRANSACTION_NAME' | translate }}</span>
+            <span ng-show="$ctrl.formData.isMultisig">{{ 'APOSTILLE_TRANSACTION_MULTISIG_NAME' | translate }}</span>
+          </div>
+          <ul class="nav nav-tabs">
+            <li ng-class="$ctrl.formData.isMultisig ? '' : 'active'"><a ng-click="$ctrl.formData.isMultisig = false;$ctrl.formData.isPrivate = true;">{{ 'GENERAL_TAB_NORMAL' | translate }}</a></li>
+            <li ng-show="$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length" ng-class="$ctrl.formData.isMultisig ? 'active' : ''"><a ng-click="$ctrl.formData.isMultisig = true;$ctrl.formData.isPrivate = false;">{{ 'GENERAL_TAB_MULTISIG' | translate }}</a></li>
+          </ul>
+        </div>
+        <div class="panel-body">
+          <!-- Password Field -->
+          <password-input common="$ctrl.common"></password-input>
+          <!-- Multisig select -->
+          <multisig-select ng-show="$ctrl.formData.isMultisig" multisig-account="$ctrl.formData.multisigAccount"></multisig-select>
+          <fieldset class="form-group" ng-show="$ctrl.isUpdate">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{'APOSTILLE_NTY_ACCOUNT' | translate}}: </label>
+              </span>
+              <input class="form-control" type="text" ng-model="$ctrl._$state.params.address" readOnly/>
+            </div>
+          </fieldset>
+          <!-- TAGS SECTION -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label ng-class="$ctrl.common.password.length && !$ctrl.formData.tags.length ? 'has-error' : ''">{{ 'GENERAL_TAGS' | translate }}: </label>
+              </span>
+              <input class="form-control" type="text" placeholder="{{ 'GENERAL_TAGS' | translate }}" ng-model="$ctrl.formData.tags" ng-disabled="!$ctrl.common.password" ng-class="$ctrl.common.password.length && !$ctrl.formData.tags.length ? 'has-error' : ''" ng-readonly="$ctrl.isUpdate"/>
+            </div>
+          </fieldset>
+          <!-- HASH FUNCTION -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'GENERAL_HASH_FUNCTION' | translate }}: </label>
+              </span>
+              <select class="form-control" ng-options="value.name for (key, value) in $ctrl.hashing" ng-model="$ctrl.formData.selectedHashing">
+              </select>
+            </div>
+          </fieldset>
+          <!-- STORAGE LOCATION -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'GENERAL_STORAGE' | translate }}:</label>
+              </span>
+              <select class="form-control" ng-options="type.value as type.name for type in $ctrl.types" ng-model="$ctrl.formData.isPrivate" ng-disabled="$ctrl.isUpdate">
+              </select>
+            </div>
+          </fieldset>
+          <!-- SEND TRANSACTION -->
+          <button class="btn btn-success" type="submit" ng-disabled="$ctrl.okPressed || !$ctrl.common.password.length || !$ctrl.apostilles.length" ng-click="$ctrl.send()">
+            <i class="fa fa-send"></i> {{ 'GENERAL_SEND' | translate }}
+          </button>
+
+        </div>
+      </div>
+      <!-- ADD APOSTILLE DOC START -->
+      <div class="col-sm-5">
+      	<div class="form-group">
+          <div class="addApostilleFile">
+            <div class="panel-heading">
+              <div class="tabDescription">
+                <span ng-show="!$ctrl.formData.isText">{{ 'APOSTILLE_IMPORT_FILES' | translate }}</span>
+                <span ng-show="$ctrl.formData.isText">{{ 'APOSTILLE_CREATE_TEXT' | translate }}</span>
+              </div>
+              <ul class="nav nav-tabs">
+                <li ng-class="!$ctrl.formData.isText ? 'active' : ''"><a ng-click="$ctrl.formData.isText = false;$ctrl.showInfo = false;"><i class="fa fa-files-o"></i></a></li>
+                <li ng-class="$ctrl.formData.isText ? 'active' : ''"><a ng-click="$ctrl.formData.isText = true;$ctrl.showInfo = false;"><i class="fa fa-edit"></i></a></li>
+              </ul>
+            </div>
+
+            <div class="panel-body">
+              <!-- ADD TEXT DOC -->
+              <div ng-show="$ctrl.formData.isText">
+                <input class="form-control" type="text" ng-disabled="$ctrl.common.password.length === 0 || $ctrl.formData.tags.length === 0" placeholder="{{ 'APOSTILLE_DOCUMENT_TITLE' | translate }}" ng-model="$ctrl.formData.textTitle"/>
+                <textarea class="form-control" rows="7" cols="50" placeholder="{{ 'APOSTILLE_ENTER_TEXT' | translate }}" ng-disabled="$ctrl.common.password.length === 0 || $ctrl.formData.tags.length === 0" ng-model="$ctrl.formData.textContent"></textarea>
+                <!-- ADD TEXT DOC BUTTON -->
+                <button class="btn btn-success" type="submit" style="width:100%;" ng-disabled="$ctrl.common.password.length === 0 || $ctrl.formData.tags.length === 0 || !$ctrl.formData.textTitle.length || !$ctrl.formData.textContent.length" ng-click="$ctrl.processFile($ctrl.formData.textContent, $ctrl.formData.textTitle)">
+                  <i class="fa fa-plus"></i> {{ 'GENERAL_ADD' | translate }}
+                </button>
+              </div>
+              <!-- ADD FILE -->
+              <div class="drop" ng-style="$ctrl.common.password.length===0 || $ctrl.formData.tags.length===0 ? { 'background-color':'#eeeeee', 'cursor': 'not-allowed'} : { 'background-color':'white', 'cursor': 'pointer' }" style="height:220px;" ng-show="!$ctrl.formData.isText">
+              <p style="padding-top:100px;">
+                <b class="text-muted" style="color:#444;">
+                  <span ng-show="$ctrl.common.password.length && $ctrl.formData.tags.length"><span class="fa fa-cloud-upload"></span> <i>{{ 'GENERAL_DROPBOX' | translate }} </i></span>
+                  <span ng-show="!$ctrl.common.password.length || !$ctrl.formData.tags.length"><span class="fa fa-lock"></span> <i>{{ 'APOSTILLE_DROPBOX_MESSAGE' | translate }}</i></span>
+                </b>
+              </p>
+              <input type="file" multiple class="upload" id="fileToNotary" style="height: 220px; width: 100%; position: relative; margin-top: -130px;" import-apostille-files="$ctrl.processFile($fileContent, $fileData)" ng-disabled="$ctrl.common.password.length===0 || $ctrl.formData.tags.length===0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- APOSTILLE's LIST START -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel-heading">
+              <h4>{{ 'APOSTILLE_FILES_TO_NOTARIZE' | translate }}</h4>
+              <span ng-show="$ctrl.rejected.length" class="rejected"><b>{{ 'APOSTILLE_REJECTED' | translate }}: {{$ctrl.rejected.length}}</b> - <a><i ng-show="!$ctrl.viewRejected" class="fa fa-eye" ng-click="$ctrl.viewRejected = true" style="cursor:pointer"></i><i ng-show="$ctrl.viewRejected" class="fa fa-eye-slash" ng-click="$ctrl.viewRejected = false" style="cursor:pointer"></i></a></span>
+              <paginate data="$ctrl.apostilles" current-page="$ctrl.currentPage" page-size="$ctrl.pageSize" ng-show="!$ctrl.viewRejected"></paginate>
+              <paginate data="$ctrl.rejected" current-page="$ctrl.currentPageRej" page-size="$ctrl.pageSize" ng-show="$ctrl.viewRejected"></paginate>
+        </div>
+        <div class="panel-body" ng-show="!$ctrl.viewRejected">
+          <table class="table table-condensed" style="table-layout:fixed;word-break:break-all;">
+            <thead style="color:white;">
+              <tr>
+                <th>{{ 'APOSTILLE_FILENAME' | translate }}</th>
+                <th>{{ 'GENERAL_TAGS' | translate }}</th>
+                <th>{{ 'GENERAL_SINK' | translate }}</th>
+                <th>{{ 'APOSTILLE_FILE_HASH' | translate }}</th>
+                <th>{{ 'APOSTILLE_PRIVATE' | translate }}</th>
+                <th>{{ 'GENERAL_NETWORK_FEE' | translate }}</th>
+                <th>{{ 'GENERAL_REMOVE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="apostille in $ctrl.apostilles | reverse | startFrom:$ctrl.currentPage*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+                <td>{{apostille.data.file.name}}</td>
+                <td>{{apostille.data.tags}}</td>
+                <td>{{apostille.data.dedicatedAccount.address}}</td>
+                <td>{{apostille.data.checksum + apostille.data.file.hash}}</td>
+                <td><span ng-if="apostille.data.dedicatedAccount.privateKey.length === 64"><i class="fa fa-check" style="color:green;"></i></span><span ng-if="apostille.data.dedicatedAccount.privateKey.length !== 64"><i class="fa fa-times" style="color:red;"></i></span></td>
+                <td>{{apostille.transaction.fee/1000000}} <span ng-if="apostille.transaction.otherTrans"><br>+<br>{{apostille.transaction.otherTrans.fee/1000000}}</span></td>
+                <td class="pointer"><i class="fa fa-times" ng-click="$ctrl.removeFileFromList($ctrl.apostilles, apostille)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-body" ng-show="!$ctrl.apostilles.length && !$ctrl.viewRejected">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+        <div class="panel-body">
+          <table ng-show="$ctrl.viewRejected" class="table table-condensed">
+            <thead>
+              <tr>
+                <th>{{ 'APOSTILLE_FILENAME' | translate }}</th>
+                <th>{{ 'GENERAL_TAGS' | translate }}</th>
+                <th>{{ 'GENERAL_REASON' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="apostille in $ctrl.rejected | reverse | startFrom:currentPageRej*pageSize | limitTo:pageSize">
+                <td>{{apostille.data.file.name}}</td>
+                <td>{{apostille.data.tags}}</td>
+                <td>{{apostille.reason}}</td> <!-- -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-body" ng-show="!$ctrl.rejected.length && $ctrl.viewRejected">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+        <div class="bg-info">
+          <small><b><i>{{ 'APOSTILLE_MAX_NUMBER' | translate }}</i></b></small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL SECTION -->
+<div id="apostilleHelp" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{ 'APOSTILLE_INFORMATION_TITLE' | translate }}</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <p>{{ 'APOSTILLE_INFORMATION_1' | translate }} </p>
+          <p><span ng-bind-html="'APOSTILLE_INFORMATION_2' | translate"></span></p>
+          <p>{{ 'APOSTILLE_INFORMATION_3' | translate }} </p>
+          <p>{{ 'APOSTILLE_INFORMATION_4' | translate }} </p>
+          <p><span ng-bind-html="'APOSTILLE_INFORMATION_5' | translate"></span></p>
+          <p>{{ 'APOSTILLE_INFORMATION_6' | translate }} </p>
+          <p><span ng-bind-html="'APOSTILLE_INFORMATION_7' | translate"></span></p>
+          <p>{{ 'APOSTILLE_INFORMATION_8' | translate }} </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" data-dismiss="modal">{{ 'GENERAL_CLOSE' | translate }}</button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,29 @@
+<!--  ADDRESS BOOK, RECIPIENT ADDRESS, ALIAS-->
+<fieldset class="form-group">
+  <div class="input-group">
+    <span class="input-group-btn">
+      <label>{{(!$ctrl.isCosignatory ? 'GENERAL_TO' : 'GENERAL_COSIGNATORY') | translate}}:</label>
+    </span>
+    <input ng-show="!$ctrl.showContacts" class="form-control form-control-lg" type="text" placeholder="{{ (!$ctrl.isCosignatory ? 'FORM_RECIPIENT_PLACEHOLDER' : 'FORM_ADDRESS_ALIAS_PLACEHOLDER') | translate}}" ng-model="$ctrl.accountView" ng-change="$ctrl.processInput(false)" ng-class="!$ctrl.isValid($ctrl.accountView) ? 'has-error' : ''"/>
+    <select ng-show="$ctrl.showContacts" class="form-control form-control-lg" ng-model="$ctrl.accountView" ng-options="contact.address as contact.label for contact in $ctrl._Wallet.contacts" ng-change="$ctrl.processInput(false);$ctrl.showContacts = false;">
+       <option value="" disabled selected>{{ 'FORM_SELECT_CONTACT' | translate }}</option>
+     </select>
+    <span class="input-group-btn addSubtract">
+      <button type="button" class="btn btn-warning" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="{{ 'FORM_BTN_GET_ALIAS' | translate }}" ng-click="$ctrl.processInput(true);" ng-disabled="$ctrl.showContacts || !$ctrl.isAlias($ctrl.accountView) || !($ctrl.accountView.length > 1)">
+        <i class="fa fa-at"></i>
+      </button>
+      <button type="button" class="btn btn-warning" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="{{ 'FORM_BTN_OPEN_ADB' | translate }}" ng-click="$ctrl.showHideAddressBook();">
+        <i class="fa">&#xf2b9;</i>
+      </button>
+    </span>
+  </div>
+</fieldset>
+<!-- ADDRESS THAT BELONGS TO ALIAS -->
+<fieldset class="form-group" ng-show="$ctrl.alias.length">
+  <div class="input-group">
+    <span class="input-group-btn">
+      <label>{{ 'GENERAL_ALIAS' | translate }}: </label>
+    </span>
+    <input class="form-control form-control-lg" type="text" ng-model="$ctrl.alias" readOnly/>
+  </div>
+</fieldset>

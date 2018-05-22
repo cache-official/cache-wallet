@@ -1,0 +1,220 @@
+<div class="services-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-sm-9">
+        <h2>{{ 'PORTAL_TITLE' | translate }}</h2>
+      </div>
+      
+    </div>
+
+    <div class="row portalWrap">
+      <div class="col-sm-12 col-lg-9">
+
+      <div class="row row1">
+
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-user-plus fa-4x"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'PORTAL_MULTISIG_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_MULTISIG_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn"  ui-sref="app.createMultisig">{{ 'PORTAL_MULTISIG_BTN_1' | translate }}</button>
+            <br>
+            <button class="btn" ng-disabled="!$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length" ui-sref="app.editMultisig">{{ 'PORTAL_MULTISIG_BTN_2' | translate }}</button>
+            <br>
+            <button class="btn"  ui-sref="app.signMultisig">{{ 'PORTAL_MULTISIG_BTN_3' | translate }}</button>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-sitemap fa-4x"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'PORTAL_NS_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_NS_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" class="" ui-sref="app.namespaces">{{ 'PORTAL_NS_BTN' | translate }}</button>
+            <br>
+            <button class="btn" ui-sref="app.renewNamespaces">{{ 'RENEW_NS_TITLE' | translate }}</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="">
+            <div class="panel-heading row">
+              <div class="col-sm-3">
+                <i class="fa fa-chain fa-4x"></i>
+              </div>
+              <div class="col-sm-9">
+                <h5>{{ 'PORTAL_HARVESTING_TITLE' | translate }}</h5>
+              </div>
+            </div>
+            <div class="panel-body">
+              <p>{{ 'PORTAL_HARVESTING_TEXT' | translate }}</p>
+            </div>
+            <div class="panelFooter">
+              <button class="btn" ui-sref="app.importanceTransfer">{{ 'IMPORTANCE_TRANSFER_TITLE' | translate }}</button>
+              <br>
+              <button class="btn" ui-sref="app.multisigImportanceTransfer" ng-disabled="!$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length || $ctrl._Wallet.algo === 'trezor'">{{ 'IMPORTANCE_TRANSFER_MULTISIGNATURE_TITLE' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECOND ROW STARTS -->
+      <div class="row row2">
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <img src="images/apostille.png"/>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'PORTAL_APOSTILLE_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_APOSTILLE_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" ui-sref="app.createApostille" ng-disabled="$ctrl._Wallet.algo === 'trezor'">{{ 'PORTAL_APOSTILLE_BTN_1' | translate }}</button>
+            <br>
+            <button class="btn" ui-sref="app.auditApostille">{{ 'PORTAL_APOSTILLE_BTN_2' | translate }}</button>
+            <br>
+            <button class="btn" ui-sref="app.apostilleHistory">{{ 'GENERAL_HISTORY' | translate }}</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-th fa-4x"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'PORTAL_MOSAIC_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_MOSAIC_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter" >
+            <button class="btn" ng-disabled="($ctrl._DataStore.account.metaData.account === undefined || $ctrl._DataStore.namespace.ownedBy[$ctrl._Wallet.currentAccount.address] === undefined && !$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length)" ui-sref="app.createMosaic">{{ 'PORTAL_MOSAIC_BTN_1' | translate }}</button>
+            <br>
+            <button class="btn" ng-disabled="($ctrl._DataStore.account.metaData.account === undefined || $ctrl._Helpers.objectSize($ctrl._DataStore.mosaic.ownedBy[$ctrl._Wallet.currentAccount.address]) < 2 && !$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length)" ui-sref="app.editMosaic">{{ 'PORTAL_MOSAIC_BTN_2' | translate }}</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-exchange fa-4x"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5> {{ 'PORTAL_EXCHANGE_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_EXCHANGE_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" ui-sref="app.changelly">{{ 'PORTAL_EXCHANGE_BTN' | translate }} on Changelly</button>
+            <br>
+            <button class="btn" ui-sref="app.shapeshift">{{ 'PORTAL_EXCHANGE_BTN' | translate }} on ShapeShift</button>
+          </div>
+        </div>
+      </div>
+      <!-- THIRD ROW STARTS -->
+      <div class="row row3">
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-4x">&#xf2bb; </i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'ADDRESS_BOOK_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_ADDRESS_BOOK_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" ui-sref="app.addressBook">{{ 'PORTAL_ADDRESS_BOOK_BTN' | translate }}</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-4x fa-pie-chart" aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'PORTAL_VOTING_TITLE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_VOTING_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" ui-sref="app.votingPolls" ng-disabled="$ctrl._Wallet.algo === 'trezor'">{{ 'PORTAL_VOTING_BTN1' | translate }}</button>
+            <br>
+            <button class="btn" ui-sref="app.votingCreatePoll"  ng-disabled="$ctrl._Wallet.algo === 'trezor'">{{ 'PORTAL_VOTING_BTN2' | translate }}</button>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-file-text fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{ 'GENERAL_INVOICE' | translate }}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{ 'PORTAL_INVOICE_TEXT' | translate }}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" ui-sref="app.invoice">{{ 'CREATE_INVOICE_TITLE' | translate }}</button>
+          </div>
+        </div>
+      </div>
+      <!-- FOURTH ROW STARTS -->
+      <div class="row row4">
+        <div class="col-sm-4">
+          <div class="panel-heading row">
+            <div class="col-sm-3">
+              <i class="fa fa-envelope fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-9">
+              <h5>{{'CREATE_SIGNED_MSG_NAME' | translate}}</h5>
+            </div>
+          </div>
+          <div class="panel-body">
+            <p>{{'PORTAL_SIGNED_MSG_TEXT' | translate}}</p>
+          </div>
+          <div class="panelFooter">
+            <button class="btn" ui-sref="app.signedMessageCreation">{{'CREATE_SIGNED_MSG_TITLE' | translate}}</button>
+            <br>
+            <button class="btn" ui-sref="app.signedMessageVerification">{{ 'VERIFY_SIGNED_MSG_TITLE' | translate }}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MARKET INFO WIDGET -->
+  	<div class="col-sm-12 col-lg-3">
+      <market-data></market-data>
+    </div>
+
+  </div>
+</div>
+</div>

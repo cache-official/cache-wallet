@@ -1,0 +1,23 @@
+<fieldset class="form-group">
+  <!-- SELECT MULTISIG ACCOUNT -->
+  <div class="input-group">
+    <span class="input-group-btn">
+      <label class="control-label">{{ 'GENERAL_ACCOUNT' | translate }}:</label>
+    </span>
+    <select class="form-control" ng-disabled="$ctrl.isDisabled" ng-options="(acc.address | fmtContact:Wallet.current) for acc in $ctrl._DataStore.account.metaData.meta.cosignatoryOf track by acc.address" ng-model="$ctrl.multisigAccount" ng-change="$ctrl.update();">
+      <option value="" selected disabled>{{'FORM_SELECT_MULTISIG' | translate}}</option>
+    </select>
+  </div>
+</fieldset>
+<!-- MULTISIG ACCOUNT BALANCE -->
+<fieldset class="form-group" ng-show="$ctrl.multisigAccount">
+  <div class="input-group">
+    <span class="input-group-btn">
+      <label>{{'FORM_SIDE_BTN_BALANCE' | translate}}: </label>
+    </span>
+    <div class="form-control formFloat" readOnly>
+      <input type="text" value="{{ ($ctrl.multisigAccount.balance | fmtNemValue)[0] }}.{{ ($ctrl.multisigAccount.balance | fmtNemValue)[1] }}" readOnly disabled/>
+      <label class="floatRight"><small>XEM</small></label>
+    </div>
+  </div>
+</fieldset>

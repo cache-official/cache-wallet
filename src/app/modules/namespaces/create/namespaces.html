@@ -1,0 +1,113 @@
+<div class="namespace-provision-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-sm-11">
+        <h2>{{ 'NAMESPACE_PROVISION_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9 col-lg-7">
+
+        <div class="panel-heading">
+          <div class="tabDescription">
+            <span ng-show="!$ctrl.formData.isMultisig">{{ 'NAMESPACE_PROVISION_NAME' | translate }}</span>
+            <span ng-show="$ctrl.formData.isMultisig">{{ 'NAMESPACE_PROVISION_MULTISIG_NAME' | translate }}</span>
+          </div>
+          <ul class="nav nav-tabs">
+            <li ng-class="$ctrl.formData.isMultisig ? '' : 'active'"><a ng-click="$ctrl.formData.isMultisig = false;$ctrl.updateCurrentAccountNS();">{{ 'GENERAL_TAB_NORMAL' | translate }}</a></li>
+            <li ng-show="$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length" ng-class="$ctrl.formData.isMultisig ? 'active' : ''"><a ng-click="$ctrl.formData.isMultisig = true;$ctrl.updateCurrentAccountNS();">{{ 'GENERAL_TAB_MULTISIG' | translate }}</a></li>
+          </ul>
+        </div>
+
+        <div class="panel-body">
+             <!-- Multisig select -->
+            <multisig-select ng-show="$ctrl.formData.isMultisig" multisig-account="$ctrl.formData.multisigAccount" update-ctrl="$ctrl.updateCurrentAccountNS();"></multisig-select>
+
+            <!-- Parent namespace -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label for="namespaceParent">{{ 'NAMESPACE_PROVISION_PARENT' | translate }}: </label>
+                </span>
+                <select class="form-control" ng-options="namespace.fqn for namespace in $ctrl.namespaceOwned | objValues | filter:$ctrl.isNotLevel3 " ng-model="$ctrl.formData.namespaceParent" ng-change="$ctrl.prepareTransaction()">
+                  <option value=""> . ({{ 'NAMESPACE_PROVISION_NEW_ROOT' | translate }}) </option>
+                </select>
+              </div>
+            </fieldset>
+
+            <!-- Namespace name -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'NAMESPACE_PROVISION_NS' | translate }}: </label>
+                </span>
+               <input autofocus="autofocus" type="text" class="form-control" ng-model="$ctrl.formData.namespaceName" placeholder="{{ 'NAMESPACE_PROVISION_NS_NAME' | translate }}" maxlength="64" ng-change="$ctrl.processNamespaceName()">
+             </div>
+            </fieldset>
+
+            <!-- Namespace sink address -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'GENERAL_SINK_ADDRESS' | translate }}: </label>
+                </span>
+                <input type="text" class="form-control" ng-model="$ctrl.formData.rentalFeeSink" readOnly>
+              </div>
+            </fieldset>
+
+            <!-- Transaction and rental fee -->
+            <div class="row" class="dualFees">
+              <div class="col-sm-6">
+                <!-- Transaction fee -->
+                <fee-input tx="$ctrl.preparedTransaction" is-multisig="$ctrl.formData.isMultisig"></fee-input>
+              </div>
+              <!-- Rental fee -->
+              <div class="col-sm-6">
+                <fieldset class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-btn">
+                      <label>{{ 'FORM_SIDE_BTN_RENTAL_FEE' | translate }}:</label>
+                    </span>
+                    <div class="form-control formFloat" readOnly>
+                      <span class="feeAmount">
+                        <span ng-show="$ctrl.formData.isMultisig">{{($ctrl.preparedTransaction.otherTrans.rentalFee | fmtNemValue)[0]}}.{{($ctrl.preparedTransaction.otherTrans.rentalFee | fmtNemValue)[1]}}</span>
+                        <span ng-show="!$ctrl.formData.isMultisig">{{($ctrl.preparedTransaction.rentalFee | fmtNemValue)[0]}}.{{($ctrl.preparedTransaction.rentalFee | fmtNemValue)[1]}}</span>
+                      </span>
+                      <label class="floatRight"><small>XEM</small></label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <password-input common="$ctrl.common"></password-input>
+
+            <!-- Send transaction -->
+            <button class="btn btn-success pull-xs-right" type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || !$ctrl.formData.namespaceName.length || !$ctrl.namespaceIsValid($ctrl.formData.namespaceName)" ng-click="$ctrl.send()">
+              <i class="fa fa-send"></i> {{ 'GENERAL_REGISTER' | translate }}
+            </button>
+        </div>
+      </div>
+
+      <!-- Information panel -->
+      <div class="col-md-3 col-lg-5">
+        <div class="panel-heading">
+          <h3>{{ 'NAMESPACE_PROVISION_RESTRICTIONS' | translate }}</h3>
+        </div>
+        <div class="panel-body row">
+          <div class="col-md-12 col-lg-12">
+            <p>{{ 'NAMESPACE_PROVISION_INFORMATION_1' | translate }}</p>
+            <pre>a, b, c, ..., z, 0, 1, 2, ..., 9, _ , -</pre>
+            <p>{{ 'NAMESPACE_PROVISION_INFORMATION_2' | translate }}</p>
+            <pre>nem, user, account, org, com, biz, net, edu, mil, gov and info.</pre>
+            <p>{{ 'NAMESPACE_PROVISION_INFORMATION_3' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

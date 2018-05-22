@@ -1,0 +1,131 @@
+<div class="login-page">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1>{{ 'LOGIN_MEMBER_TITLE' | translate }}</h1>
+      </div>
+    </div>
+
+    <div ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <p class="control-label">{{ 'LOGIN_SELECT_WALLET_YOURS' | translate }}: </p>
+              </span>
+              <select class="form-control" ng-model="$ctrl.selectedWallet" ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
+                <option value="" disabled selected>{{ 'LOGIN_SELECT_WALLET' | translate }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <p>{{ 'FORM_PASSWORD' | translate }}: </p>
+              </span>
+              <input class="form-control" type="password" ng-model="$ctrl.common.password" placeholder="{{ 'FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row loginButtons">
+        <div class="col-md-3 col-md-offset-3 col-sm-6">
+          <button class="btn btn-lg btn-success btn-block"
+                type="submit" ng-click="$ctrl.login($ctrl.selectedWallet)" ng-disabled="!$ctrl.selectedWallet || !$ctrl.common.password.length">
+                {{ 'LOGIN_LOGIN_BUTTON' | translate }}
+          </button>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="form-group">
+            <div type="button" class="fileUpload btn btn-lg btn-block btn-import">
+              <span>{{ 'LOGIN_IMPORT_BUTTON' | translate }}</span>
+              <input type="file" class="upload" multiple='multiple' read-wallet-files="$ctrl.loadWallet($fileContent, $isNCC)" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row loginButtons" ng-show="!$ctrl.hideTrezor">
+        <div class="col-md-4 col-md-offset-4 col-sm-6">
+          <button class="btn btn-lg btn-success btn-block" ui-sref="app.trezor">
+                {{ 'TREZOR_BUTTON' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="$ctrl.needsUpgrade">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="form-group text-center">
+            <h4>{{ 'LOGIN_UPGRADE_TITLE' | translate }}</h4>
+            <hr>
+          </div>
+          <div class="form-group" ng-show="$ctrl.needsUpgrade">
+            <p><i class="fa fa-exclamation-triangle"></i> <span ng-bind-html="'LOGIN_UPGRADE_MESSAGE' | translate"></span></p>
+            <hr>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <p>{{ 'FORM_PASSWORD' | translate }}: </p>
+              </span>
+              <input class="form-control" type="password" ng-model="$ctrl.common.password" placeholder="{{ 'FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}"/>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-2 col-sm-6">
+            <button class="btn btn-dark" style="width: auto;"
+              type="submit" ng-click="$ctrl.needsUpgrade = false;">
+              <span class="fa fa-chevron-left" aria-hidden="true"></span> {{ 'GENERAL_GO_BACK' | translate }}
+              </button>
+            </div>
+            <div class="col-md-10 col-sm-6">
+              <button class="btn btn-success"
+              type="submit" ng-disabled="$ctrl.okPressed || !$ctrl.common.password.length" ng-click="$ctrl.upgradeWallet()">
+              {{ 'LOGIN_UPGRADE_BUTTON' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="$ctrl.showSafetyMeasure">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="form-group text-center">
+            <h4>{{ 'SIGNUP_COMMON_WALLET_WARNING_TITLE' | translate }}</h4>
+            <hr>
+          </div>
+          <div class="form-group">
+            <p><span ng-bind-html="'SIGNUP_COMMON_WALLET_WARNING_2' | translate"></span></p>
+            <div class="form-group">
+              <a class="btn btn-dark" style="width: 100%;" id="downloadWallet"><span class="fa fa-download" aria-hidden="true"></span> {{ 'SIGNUP_COMMON_WALLET_WARNING_DOWNLOAD' | translate }}</a>
+            </div>
+            <p><span ng-bind-html="'SIGNUP_COMMON_WALLET_WARNING_3' | translate"></span></p>
+            <div class="form-group">
+              <button type="button" class="btn btn-dark" style="width:100%;" ng-click="!$ctrl.showRawWallet ? $ctrl.showRawWallet = true : $ctrl.showRawWallet = false"><span class="fa fa-file-text" aria-hidden="true"></span> {{ 'SIGNUP_COMMON_WALLET_WARNING_BTN_1' | translate }}</button>
+            </div>
+            <div ng-show="$ctrl.showRawWallet">
+              <pre style="color: white;background-color: #444;font-weight: bold;"><code>{{ $ctrl.rawWallet }}</code></pre>
+              <p><i class="fa fa-info-circle"></i> <span ng-bind-html="'SIGNUP_COMMON_WALLET_WARNING_BTN_1_INFO' | translate"></span></p>
+           </div>
+            <div class="form-group">
+              <hr style="border-color:#444;">
+              <button class="btn btn-primary" style="width:100%;" ng-click="$ctrl.showSafetyMeasure = false;">{{ 'SIGNUP_COMMON_WALLET_WARNING_CONFIRM_1' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3" ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure">
+      <hr>
+      <p class="text-center"><span ng-bind-html="'LOGIN_NOTE' | translate"></span></p>
+    </div>
+  </div>
+</div>

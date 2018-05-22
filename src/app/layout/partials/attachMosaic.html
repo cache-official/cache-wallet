@@ -1,0 +1,83 @@
+<div class="mosaic col-lg-6 col-md-12">
+  <div class="panel-heading">
+    <h3>{{ 'TRANSFER_TRANSACTION_ATTACH_MOSAIC' | translate }} <i class="fa fa-paperclip"></i></h3>
+  </div>
+  <div class="panel-body">
+    <!-- MOSAIC SELECT -->
+    <fieldset class="form-group">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <label class="control-label">{{ 'GENERAL_CURRENCY' | translate }}: </label>
+        </span>
+        <select class="col-sm-7 form-control" ng-options="mosaicName for mosaicName in $ctrl.toSortedKeys($ctrl.accountMosaics)" ng-model="$ctrl.selectedMosaic" required="required" id="mosaic"></select>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-success" ng-click="$ctrl.attachMosaic()">{{ 'TRANSFER_TRANSACTION_ATTACH' | translate }}</button>
+        </span>
+      </div>
+    </fieldset>
+    <!-- MOSAIC BALANCE -->
+    <div class="form-group" ng-show="$ctrl.selectedMosaic !== 'nem:xem'">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <label>{{'FORM_SIDE_BTN_BALANCE' | translate}}: </label>
+        </span>
+        <div class="form-control formFloat" disabled>
+          <input class="readOnly mosaic" type="text" value="{{($ctrl.accountMosaics[$ctrl.selectedMosaic].quantity | fmtSupply:$ctrl.accountMosaics[$ctrl.selectedMosaic].mosaicId:$ctrl.mosaicsMetaData)[0]}}.{{($ctrl.accountMosaics[$ctrl.selectedMosaic].quantity | fmtSupply:$ctrl.accountMosaics[$ctrl.selectedMosaic].mosaicId:$ctrl.mosaicsMetaData)[1]}}" readOnly/>
+          <label class="floatRight"><small>{{$ctrl.accountMosaics[$ctrl.selectedMosaic].mosaicId.name}}</small></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mosaic col-lg-6 col-md-12">
+  <div class="panel-heading">
+    <h3>{{ 'TRANSFER_TRANSACTION_MOSAICS_ATTACHED' | translate }} <i class="fa fa-paperclip"></i></h3>
+  </div>
+  <!-- NEW MOSAIC DISPLAY -->
+  <div class="panel-body" ng-show="$ctrl.formData.mosaics.length" ng-repeat="mos in $ctrl.formData.mosaics">
+    <!-- ATTACHED MOSAIC NAME -->
+    <fieldset class="form-group">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <label>{{ 'GENERAL_MOSAIC' | translate }}: </label>
+        </span>
+        <input type="text" class="form-control" value="{{mos.mosaicId.namespaceId}}:{{mos.mosaicId.name}}" readOnly />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-success mosaics" ng-click="$ctrl.removeMosaic($index)">{{ 'GENERAL_REMOVE' | translate }}</button>
+        </span>
+      </div>
+    </fieldset>
+    <!-- ATTACHED MOSAIC AMOUNT TO SEND -->
+    <fieldset class="form-group">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <label>{{ 'GENERAL_AMOUNT' | translate }}: </label>
+        </span>
+        <input id="{{mos.gid}}" type="text" class="form-control" ng-model="mos.quantity" maxlength="17" ng-change="$ctrl.updateCtrl();">
+      </div>
+    </fieldset>
+    <!-- ATTACHED LEVY -->
+    <fieldset class="form-group" ng-show="$ctrl.mosaicsMetaData[mos.mosaicId.namespaceId +':'+mos.mosaicId.name].mosaicDefinition.levy.type">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <label>{{ 'GENERAL_LEVY' | translate }}: </label>
+        </span>
+        <div class="form-control formFloat" readOnly>
+          <span class="feeAmount">
+            <span>{{$ctrl._Helpers.cleanMosaicAmounts(mos, $ctrl.mosaicsMetaData)[0] | fmtLevyFee:1000000:$ctrl.mosaicsMetaData[mos.mosaicId.namespaceId +':'+mos.mosaicId.name].mosaicDefinition.levy:$ctrl.mosaicsMetaData}}</span>
+            <span ng-show="$ctrl.mosaicsMetaData[mos.mosaicId.namespaceId +':'+mos.mosaicId.name].mosaicDefinition.levy.type === 1">-- {{ 'GENERAL_LEVY_TYPE_1' | translate }}</span>
+            <span ng-show="$ctrl.mosaicsMetaData[mos.mosaicId.namespaceId +':'+mos.mosaicId.name].mosaicDefinition.levy.type === 2">-- {{ 'GENERAL_LEVY_TYPE_2' | translate }}</span>
+          </span>
+          <label class="floatRight"><small><span class="text-muted">{{$ctrl.mosaicsMetaData[mos.mosaicId.namespaceId +':'+mos.mosaicId.name].mosaicDefinition.levy.mosaicId.namespaceId}}</span>:{{$ctrl.mosaicsMetaData[mos.mosaicId.namespaceId +':'+mos.mosaicId.name].mosaicDefinition.levy.mosaicId.name}}</small></label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="panel-body" ng-show="!$ctrl.formData.mosaics.length">
+    <!-- ATTACHED MOSAIC NAME -->
+    <div class="form-group">
+      <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+    </div>
+  </div>
+</div>
