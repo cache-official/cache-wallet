@@ -11,7 +11,6 @@ class SignupCtrl {
      */
     constructor(AppConstants, $state, Alert, WalletBuilder, $localStorage, $timeout, $scope, Wallet, AddressBook) {
         'ngInject';
-
         //// Module dependencies region ////
 
         this._storage = $localStorage;
@@ -69,7 +68,7 @@ class SignupCtrl {
         }];
 
         // Selected wallet type
-        this._selectedType = undefined;
+        this._selectedType = this.walletTypes[0];
 
         // Password strength info given by zxcvbn
         this.passwordStrengthInfo = {};
@@ -89,8 +88,11 @@ class SignupCtrl {
      *
      * @param {number} type - Type number
      */
-    changeWalletType(type) {
-        this._selectedType = this.walletTypes[type - 1];
+    changeWalletType() {
+        this._selectedType = this.walletTypes[0];
+        this.network = this._AppConstants.defaultNetwork;
+        this.step1 = false;
+        this.step2 = true;
     }
 
     /**
@@ -98,20 +100,20 @@ class SignupCtrl {
      *
      * @param {number} id - The network id to use at wallet creation
      */
-    changeNetwork(id) {
-        if (id == nem.model.network.data.mijin.id && this._AppConstants.mijinDisabled) {
-            this._Alert.mijinDisabled();
-            // Reset network to default
-            this.network = this._AppConstants.defaultNetwork;
-            return;
-        } else if (id == nem.model.network.data.mainnet.id && this._AppConstants.mainnetDisabled) {
-            this._Alert.mainnetDisabled();
-            // Reset network to default
-            this.network = this._AppConstants.defaultNetwork;
-            return;
-        }
+    changeNetwork() {
+        // if (id == nem.model.network.data.mijin.id && this._AppConstants.mijinDisabled) {
+        //     this._Alert.mijinDisabled();
+        //     // Reset network to default
+        //     this.network = this._AppConstants.defaultNetwork;
+        //     return;
+        // } else if (id == nem.model.network.data.mainnet.id && this._AppConstants.mainnetDisabled) {
+        //     this._Alert.mainnetDisabled();
+        //     // Reset network to default
+        //     this.network = this._AppConstants.defaultNetwork;
+        //     return;
+        // }
         // Set Network
-        this.network = id;
+        this.network = this._AppConstants.defaultNetwork;
     }
 
     /**
@@ -293,8 +295,8 @@ class SignupCtrl {
      * Hide signup steps / reset to wallet type selection
      */
     hideAllSteps() {
-        this.start = false;
-        this.step1 = false;
+        // this.start1 = true;
+        this.step1 = true;
         this.step2 = false;
         this.step3 = false;
         this.step4 = false;

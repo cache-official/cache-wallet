@@ -16,6 +16,15 @@
     <toast></toast>
 
     <!-- Utils -->
+    <script>
+        document.addEventListener("keydown", function (e) {
+            if (e.which === 123) {
+                require('remote').getCurrentWindow().toggleDevTools();
+            } else if (e.which === 116) {
+                location.reload();
+            }
+        });
+    </script>
     <script src="vendors/qrcode.js"></script>
     <script src="vendors/kjua.min.js"></script>
     <script src="vendors/jszip.min.js"></script>

@@ -27,6 +27,24 @@
     font-weight: 700;
     font-style: normal;
 }
+@font-face {
+  font-family: 'Sans Bold';
+  src: url('../css/fonts/SourceSansPro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sans Regular';
+  src: url('../css/fonts/SourceSansPro-Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Sans Light';
+  src: url('../css/fonts/SourceSansPro-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
 
 /*** GLOBAL VARIABLES ***/
 $blue: #0d5295; /*#69b2e5;**/
@@ -36,7 +54,7 @@ $blueDark: darken( $blue, 10% );
 $pad: 20px;
 $grayLite: rgba(0 ,0 ,0 ,0.1);
 $gray: rgba(0 ,0 ,0 ,0.3);
-$borderUnderline: 1px solid $blueLite !important;
+$borderUnderline: 1px solid #615FC1 !important;
 $red: #d9534f;
 $redLite: lighten( $red, 2% );
 $green: green;
@@ -75,13 +93,13 @@ $sm: 768px;
   white-space: nowrap;
 }
 %tableHeaderDisplay {
-  font-family: 'Roboto';
+  font-family: 'Sans Regular';
   font-size: 12px;
   color: grey;
   font-weight: 500;
 }
 %tableDisplay {
-  font-family: 'Roboto';
+  font-family: 'Sans Regular';
   font-size: 13px;
   color: grey;
   font-weight: 500;

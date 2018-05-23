@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29px" height="39px" viewBox="0 0 29 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icons8-download_filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard---Cache-Wallet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="My-Account---Cache-Wallet" transform="translate(-1116.000000, -583.000000)" fill="#61AAFF" fill-rule="nonzero">
+            <g id="icons8-download_filled" transform="translate(1116.000000, 583.000000)">
+                <path d="M14.5,0 C14.0563153,0 13.6944444,0.357541653 13.6944444,0.795918367 L13.6944444,11.9387755 L15.3055556,11.9387755 L15.3055556,0.795918367 C15.3055556,0.357541653 14.946832,0 14.5,0 Z M15.3055556,11.9387755 L15.3055556,25.1460459 L20.3654514,20.1218112 C20.6801215,19.8109056 21.2087674,19.8109056 21.5234375,20.1218112 C21.8381076,20.4327168 21.8381076,20.9550383 21.5234375,21.2659439 L14.5,28.1804847 L7.4765625,21.2659439 C7.16189236,20.9550383 7.16189236,20.4327168 7.4765625,20.1218112 C7.79123264,19.8109056 8.31987847,19.8109056 8.63454861,20.1218112 L13.6944444,25.1460459 L13.6944444,11.9387755 L0,11.9387755 L0,39 L29,39 L29,11.9387755 L15.3055556,11.9387755 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

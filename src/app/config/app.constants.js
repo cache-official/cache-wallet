@@ -1,6 +1,6 @@
 const AppConstants = {
     //Application name
-    appName: 'Nano Wallet',
+    appName: 'Cache Wallet',
 
     version: '2.2.0',
 

@@ -4,7 +4,7 @@ function EnglishProvider($translateProvider) {
     $translateProvider.translations('en', {
 
         // HEADER COMPONENT
-        WALLET_NAME_1: 'nano',
+        WALLET_NAME_1: 'Cache',
         WALLET_NAME_2: 'Wallet',
         APP_NAME_SUB: 'The secure interface connecting to the NEM platform',
         HEADER_LOGIN_BUTTON: 'Login',
@@ -645,22 +645,27 @@ function EnglishProvider($translateProvider) {
         SIGN_MULTISIG_TRANSACTIONS_TITLE: 'Sign multisignature transactions',
 
         // LOGIN MODULE
-        LOGIN_MEMBER_TITLE: 'Already a NEMber?',
+        LOGIN_MEMBER_TITLE: 'Login',
         LOGIN_UPGRADE_TITLE: 'Wallet needs an upgrade',
         LOGIN_UPGRADE_MESSAGE: 'Selected wallet needs an upgrade. This action will generate a child public key and add it into your primary account.',
         LOGIN_UPGRADE_BUTTON: 'Upgrade wallet',
-        LOGIN_IMPORT_BUTTON: 'Import Wallet',
+        LOGIN_IMPORT_BUTTON: 'Import Wallet from File',
         LOGIN_SELECT_WALLET_YOURS: 'Select wallet',
-        LOGIN_SELECT_WALLET: 'Select a wallet in local storage',
+        LOGIN_SELECT_WALLET: 'Select wallet',
         LOGIN_LOGIN_BUTTON: 'Sign In',
-        LOGIN_NOTE: 'No wallet? Import one or <a href="#!/signup">signup</a>.',
+        LOGIN_NOTE: 'New to Cache?',
+        CACHE_LOGIN_NOTE: 'New to Cache? ',
 
         // SIGNUP MODULE
-        SIGNUP_TITLE: 'New to NEM?',
+        // SIGNUP_TITLE: 'New to NEM?',
+        CREATE_WALLET_TITLE: 'Create Wallet',
+        ENTER_WALLET_NAME: 'Enter a wallet name',
         SIGNUP_SELECT_WALLET_TYPE: 'Select a type of wallet to create',
         SIGNUP_SELECT_WALLET_TYPE_STAND_BY: 'Place the cursor on a wallet type to show information.',
         SIGNUP_CREATE_WALLET_TITLE: 'Simple wallet',
+        CACHE_SIGNUP_CREATE_WALLET_TITLE: "I'm ready",
         SIGNUP_CREATE_WALLET_INFO: 'Simple wallets contains a primary private key that is generated randomly.',
+        CACHE_SIGNUP_CREATE_WALLET_INFO: 'Please follow each step carefully! It is recommended to disconnect from internet while creating your wallet and backing up your data',
         SIGNUP_PRIVATE_KEY_WALLET_TITLE: 'Private key wallet',
         SIGNUP_PRIVATE_KEY_WALLET_INFO: 'Private key wallets contains a primary private key that you want to import.',
         SIGNUP_BRAIN_WALLET_TITLE: 'Brain wallet',
@@ -743,13 +748,13 @@ function EnglishProvider($translateProvider) {
         FAQ_ANSWER_12_4: 'To fix, just choose another node from the dropdown in the node panel, it will restore your account at it\'s latest state on the real network.',
 
         // FORM RELATED
-        FORM_PASSWORD_FIELD_PLACEHOLDER: 'Enter your wallet password or passphrase',
-        FORM_WALLET_NAME_FIELD_PLACEHOLDER: 'Wallet name',
+        FORM_PASSWORD_FIELD_PLACEHOLDER: 'Password',
+        FORM_WALLET_NAME_FIELD_PLACEHOLDER: 'Wallet Name',
         FORM_SIGNUP_PASSWORD_FIELD_PLACEHOLDER: 'Password',
         FORM_PASSWORD: 'Password',
         FORM_PASSWORD_CONFIRM: 'Confirm Password',
         FORM_PASSPHRASE_CONFIRM: 'Confirm Passphrase',
-        FORM_CONFIRM_PASSWORD_FIELD_PLACEHOLDER: 'Confirm your password',
+        FORM_CONFIRM_PASSWORD_FIELD_PLACEHOLDER: 'Confirm Password',
         FORM_PASSPHRASE_FIELD_PLACEHOLDER: 'Passphrase',
         FORM_CONFIRM_PASSPHRASE_FIELD_PLACEHOLDER: 'Confirm your passphrase',
         FORM_ADDRESS_FIELD_PLACEHOLDER: 'Account address',
@@ -817,7 +822,10 @@ function EnglishProvider($translateProvider) {
         VERIFY_SIGNED_MSG_TITLE: "Verify a signed message",
         VERIFY_SIGNED_MSG_SIG_VALID: 'Signature is valid',
         VERIFY_SIGNED_MSG_SIG_NOT_VALID: 'Signature is <b>NOT</b> valid',
-        VERIFY_SIGNED_MSG_NOT_VALID: 'Signed message is not valid!'
+        VERIFY_SIGNED_MSG_NOT_VALID: 'Signed message is not valid!',
+
+        // CACHE CONSTANTS
+        CACHE_ENTER_PASSWORD: 'Enter a password',
 
     });
 

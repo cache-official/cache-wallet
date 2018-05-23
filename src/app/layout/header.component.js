@@ -9,9 +9,7 @@ class AppHeaderCtrl {
      */
     constructor(Alert, $localStorage, $translate, Wallet, $location, DataBridge, DataStore) {
         'ngInject';
-
         //// Module dependencies region ////
-
         this._storage = $localStorage;
         this._Alert = Alert;
         this._$translate = $translate;

@@ -5,47 +5,38 @@
         <h1>{{ 'LOGIN_MEMBER_TITLE' | translate }}</h1>
       </div>
     </div>
-
     <div ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <p class="control-label">{{ 'LOGIN_SELECT_WALLET_YOURS' | translate }}: </p>
-              </span>
-              <select class="form-control" ng-model="$ctrl.selectedWallet" ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
+          <div class="flexing">
+            <div class="">
+              <!-- <span class="input-group-btn">
+              </span> -->
+              <select style="width: 300px; margin-bottom: 20px" class="form-control" ng-model="$ctrl.selectedWallet" ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
                 <option value="" disabled selected>{{ 'LOGIN_SELECT_WALLET' | translate }}</option>
               </select>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <p>{{ 'FORM_PASSWORD' | translate }}: </p>
-              </span>
-              <input class="form-control" type="password" ng-model="$ctrl.common.password" placeholder="{{ 'FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}"/>
+          <div class="flexing">
+            <div class="">
+              <!--<span class="input-group-btn">-->
+
+              <!--</span>-->
+              <input style='width: 300px; margin-bottom: 30px; border-radius: 3px' class="form-control" type="password" ng-model="$ctrl.common.password" placeholder="{{ 'FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}"/>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row loginButtons">
-        <div class="col-md-3 col-md-offset-3 col-sm-6">
-          <button class="btn btn-lg btn-success btn-block"
-                type="submit" ng-click="$ctrl.login($ctrl.selectedWallet)" ng-disabled="!$ctrl.selectedWallet || !$ctrl.common.password.length">
+      <div class="flexing">
+        <div class="">
+          <button class="sign-in-button"
+                type="submit" ng-click="$ctrl.login($ctrl.selectedWallet)">
                 {{ 'LOGIN_LOGIN_BUTTON' | translate }}
           </button>
         </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="form-group">
-            <div type="button" class="fileUpload btn btn-lg btn-block btn-import">
-              <span>{{ 'LOGIN_IMPORT_BUTTON' | translate }}</span>
-              <input type="file" class="upload" multiple='multiple' read-wallet-files="$ctrl.loadWallet($fileContent, $isNCC)" />
-            </div>
-          </div>
-        </div>
+
       </div>
 
       <div class="row loginButtons" ng-show="!$ctrl.hideTrezor">
@@ -64,10 +55,10 @@
             <h4>{{ 'LOGIN_UPGRADE_TITLE' | translate }}</h4>
             <hr>
           </div>
-          <div class="form-group" ng-show="$ctrl.needsUpgrade">
+          <!-- <div class="form-group" ng-show="$ctrl.needsUpgrade">
             <p><i class="fa fa-exclamation-triangle"></i> <span ng-bind-html="'LOGIN_UPGRADE_MESSAGE' | translate"></span></p>
             <hr>
-          </div>
+          </div> -->
           <div class="form-group">
             <div class="input-group">
               <span class="input-group-btn">
@@ -125,7 +116,7 @@
 
     <div class="col-md-6 col-md-offset-3" ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure">
       <hr>
-      <p class="text-center"><span ng-bind-html="'LOGIN_NOTE' | translate"></span></p>
+      <p class="text-center"><span style="color: white; font-family: 'Sans Light'" ng-bind-html="'LOGIN_NOTE' | translate"></span> <a style="color: #61AAFF" href="#!/signup">Create a wallet</a></p>
     </div>
   </div>
 </div>
