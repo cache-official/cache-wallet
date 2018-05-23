@@ -593,10 +593,13 @@ input[type=checkbox]:checked + label:before {
 	box-shadow: 0 1px 0 rgba(0,0,0,0.05);
   z-index: 10;
 }
+.navbar-account {
+  background-color: #615FC1;
+}
 .navbar-default {
   background-color: #19173F;
   .navbar-brand {
-  	color: black;
+  	color: white;
     background-color: #19173F;
   	box-shadow: 1px 0 0 rgba(0,0,0,0.05);
   }
@@ -609,7 +612,7 @@ input[type=checkbox]:checked + label:before {
       color: pink !important;
     }
     a {
-      color: $black;
+      color: white;
       font-weight: 500;
       &.active {
         color: grey;
@@ -825,14 +828,17 @@ footer {
   }
   .progressBar {
     width: 100%;
-    background-color: #ddd;
+    background-color: #24234D;
+    border-radius: 10px;
   }
   #pBar {
     width: 0%;
-    height: 30px;
-    background-color: #4CAF50;
+    height: 20px;
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(0deg, #75F0E0, #404BDE);
+    //background-color: #4CAF50;
     text-align: center;
-    line-height: 30px;
+    line-height: 20px;
     color: white;
   }
 }
@@ -850,13 +856,14 @@ footer {
 /*** DASHBOARD PAGE ***/
 .dashboard-page {
   h1 {
-    color: black;
-    font-weight: 500;
+    color: white;
+    font-family: "Sans Regular";
     font-size: 26px;
     margin-top: 0px;
   }
   h5 {
-    color: black;
+    color: white;
+    font-family: "Sans Regular";
     font-size: 15px;
   }
   .harvestedBlocks {
@@ -1435,6 +1442,7 @@ textarea {
 }
 
 .sign-in-button {
+  outline: none;
   height: 40px;
   width: 150px;
   font-family: "Sans Regular";
@@ -1479,4 +1487,31 @@ textarea {
   min-width: 400px;
   max-width: 400px;
   text-align: center;
+}
+
+.cache-subtext {
+  font-family: "Sans Light";
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+}
+.cache-confirm-button {
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #61AAFF;
+  font-family: "Sans Light";
+  font-size: 1em;
+}
+.cache-warn-text {
+  width: 80%;
+  font-family: "Sans Light";
+  font-size: 0.8em;
+  color: white;
+  text-align: center;
+}
+.cache-navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }

@@ -654,7 +654,6 @@ function EnglishProvider($translateProvider) {
         LOGIN_SELECT_WALLET: 'Select wallet',
         LOGIN_LOGIN_BUTTON: 'Sign In',
         LOGIN_NOTE: 'New to Cache?',
-        CACHE_LOGIN_NOTE: 'New to Cache? ',
 
         // SIGNUP MODULE
         // SIGNUP_TITLE: 'New to NEM?',
@@ -690,7 +689,7 @@ function EnglishProvider($translateProvider) {
         SIGNUP_CREATE_CONFIRM_PASSPHRASE: 'Confirm above passphrase',
         SIGNUP_CREATE_ENTER_PRIVATE_KEY: 'Enter a private key',
         SIGNUP_CREATE_ADDRESS_FROM_PK: 'Address corresponding to above key',
-        SIGNUP_CREATE_WALLET_ADD_ENTROPY_INFO: 'We are now going to generate your primary private key. <b>Please click on start and move your cursor around to add more entropy.</b>',
+        SIGNUP_CREATE_WALLET_ADD_ENTROPY_INFO: 'Please move the cursor around until completed',
         SIGNUP_COMMON_WALLET_WARNING_TITLE: 'Account safety protocol',
         SIGNUP_COMMON_WALLET_WARNING_1: 'Wallets are stored <b><u>temporarily</u></b> in the browser local storage! Browsers can be configured (e.g. by add-ons) to clear the local storage at times. This will lead to the loss of the data and which can\'t be undone easily. In such a case, your wallets will be gone, so it is very important to make sure you have all needed information to restore your accounts.',
         SIGNUP_COMMON_WALLET_WARNING_2: 'Please click below to download your wallet. It is the <b><i>.wlt</i></b> file used as a backup and to import back if your browser’s local storage is erased.',
@@ -826,7 +825,25 @@ function EnglishProvider($translateProvider) {
 
         // CACHE CONSTANTS
         CACHE_ENTER_PASSWORD: 'Enter a password',
-
+        CACHE_LOGIN_NOTE: 'New to Cache? ',
+        CACHE_CREATE_KEY: 'Generate private key',
+        CACHE_ADD_ENTROPY_INFO: 'Please move the cursor around until completed',
+        CACHE_ACCOUNT_SAFETY: "Wallets are stored temporarily in the browser local storage! Browsers can be configured (e.g. by add-ons) to clear the local storage at times. This will lead to the loss of the data and which can't be undone easily. In such a case, your wallets will be gone, so it is very important to make sure you have all needed information to restore your accounts",
+        CACHE_DOWNLOAD_WALLET_FILE: "Please click below to download your wallet. It is the .wlt file used as a backup and to import back if your browser's local storage is erased.",
+        CACHE_ACCOUNT_SAFETY_HEADER: 'Account Safety',
+        CACHE_DOWNLOAD_WALLET: 'Download Wallet',
+        CACHE_CONFIRM: 'I have my wallet file and am ready to continue',
+        CACHE_ACCOUNT_SAFETY_2: "It is also important to take note of your private key. It is recommended to save this somewhere on your computer as a backup.",
+        CACHE_SHOW_PRIVATE_KEY: 'Show my private key',
+        CACHE_SAVED_PRIVATE_KEY: 'I have saved my private key and am ready to continue',
+        CACHE_ACCOUNT_SAFETY_3: 'It is your responsibility to always make sure you have your private key backed up before sending any funds to your account.',
+        CACHE_FINAL_CONFIRM: 'By clicking below, you agree that you have your private key, password, and wallet file backed up.',
+        CACHE_AGREE_END_SIGNUP: 'Agree',
+        CACHE_WALLET_CREATED: 'Your Cache wallet has been created',
+        CACHE_WALLET_CONGRATS: 'Congratulations! Your Cache Wallet Address is:',
+        CACHE_LOGIN_TO_DASHBOARD: 'or login to dashboard',
+        CACHE_BUY_CACHE: 'Buy Cache',
+        CACHE_MY_ACCOUNT: 'My Account'
     });
 
 }

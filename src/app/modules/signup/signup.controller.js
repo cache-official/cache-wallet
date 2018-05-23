@@ -12,6 +12,8 @@ class SignupCtrl {
     constructor(AppConstants, $state, Alert, WalletBuilder, $localStorage, $timeout, $scope, Wallet, AddressBook) {
         'ngInject';
         //// Module dependencies region ////
+        this.step6 = false;
+        this.step7 = false;
 
         this._storage = $localStorage;
         this._Alert = Alert;
@@ -113,7 +115,8 @@ class SignupCtrl {
         //     return;
         // }
         // Set Network
-        this.network = this._AppConstants.defaultNetwork;
+        // this.network = this._AppConstants.defaultNetwork;
+        this.network = nem.model.network.data[1];
     }
 
     /**
@@ -349,8 +352,8 @@ class SignupCtrl {
         this._Alert.createWalletSuccess();
         // Reset form data
         this.formData = {};
-        this.step8 = false;
-        this.step9 = true;
+        this.step7 = false;
+        this.step8 = true;
     }
 
     /**
