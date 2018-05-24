@@ -310,9 +310,40 @@ class SignupCtrl {
     }
     goBackToPreviousPage() {
         switch (true) {
-            case this.step1 === undefined: {
-                return ui-sref="app.login"
+            case this.step2: {
+                this.step2 = false;
+                this.step1 = undefined;
+                break;
             }
+            case this.step3: {
+                this.step3 = false;
+                this.step2 = true;
+                break;
+            }
+            case this.step4: {
+                this.step4 = false;
+                this.step3 = true;
+                break;
+            }
+            case this.step5: {
+                this.step5 = false;
+                this.step4 = true;
+                break;
+            }
+            case this.step6: {
+                this.step6 = false;
+                this.step5 = true;
+                break;
+            }
+            case this.step7: {
+                this.step7 = false;
+                this.step6 = true;
+                break;
+            }
+            default: {
+                break;
+            }
+
         }
     }
 

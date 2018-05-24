@@ -1,9 +1,14 @@
 <div class="signup-page">
+  <div style="float: left; margin-left: 30px">
+    <a ng-show="$ctrl.step1 !== undefined && !$ctrl.this.step8" style="background: transparent; outline: none; float: left; border: none" ng-click="$ctrl.goBackToPreviousPage()">
+      <img src="../../../images/back-light.svg"/>
+    </a>
+    <a ng-show="$ctrl.step1 === undefined" style="background: transparent; outline: none; float: left; border: none" ui-sref="app.login">
+      <img src="../../../images/back-light.svg"/>
+    </a>
+  </div>
   <div class="container">
     <div class="row text-center" style="display: flex">
-      <a style="background: transparent; outline: none; float: left; border: none" ng-click="" ui-sref="$ctrl.">
-        <img src="../../../images/back-light.svg"/>
-      </a>
       <div class="col-md-12">
         <h1 style="color: white;" ng-show="$ctrl.step1 === undefined">{{'CREATE_WALLET_TITLE' | translate}}</h1>
         <h1 style="color: white;" ng-show="$ctrl.step2">{{'ENTER_WALLET_NAME' | translate}}</h1>

@@ -585,6 +585,7 @@ function DutchProvider($translateProvider) {
         ALERT_MAX_MOSAIC_SUPPLY: 'Maximale mozaïekvoorraad is 9.000.000.000',
         ALERT_GET_MOSAIC_SUPPLY_ERROR: 'Fout tijdens ophalen van mozaïekvoorraad, reden: ',
         ALERT_ENCRYPTED_MSG_OFFLINE: 'Versleutelde berichten is niet geactiveerd in offline transacties',
+        ADDRESS_COPIED: 'Address Copied',
 
         // SUCCESS ALERTS
         ALERT_CREATE_WALLET_SUCCESS: 'Portemonnee is succesvol aangemaakt en geladen!',

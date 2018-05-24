@@ -619,6 +619,13 @@ export default class Alert {
         });
     }
 
+    addressCopiedSuccess() {
+        this._ngToast.create({
+            content: this._$filter('translate')('ADDRESS_COPIED'),
+            className: 'success'
+        });
+    }
+
     addressBookFileSuccess() {
         this._ngToast.create({
             content: this._$filter('translate')('ALERT_ADDRESS_BOOK_FILE_SUCCESS'),

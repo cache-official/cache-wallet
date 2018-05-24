@@ -2,7 +2,7 @@ function AppRun(AppConstants, $rootScope, $timeout, Wallet, Alert, $transitions)
     'ngInject';
 
     const publicStates = [
-        "app.home",
+        // "app.home",
         "app.login",
         "app.signup",
         "app.faq",
@@ -31,8 +31,8 @@ function AppRun(AppConstants, $rootScope, $timeout, Wallet, Alert, $transitions)
         }
     }, (transition) => {
         if (!Wallet.current) {
-            Alert.noWalletLoaded();
-            return transition.router.stateService.target('app.home');
+            // Alert.noWalletLoaded();
+            return transition.router.stateService.target('app.login');
         }
     });
 
