@@ -36,6 +36,7 @@ import './modules/signup';
 import './modules/login';
 import './modules/languages';
 import './modules/transferTransaction';
+import './modules/transferCache';
 import './modules/portal';
 import './modules/account';
 import './modules/multisignature';
@@ -64,6 +65,7 @@ const requires = [
     'app.home',
     'app.dashboard',
     'app.transferTransaction',
+    'app.transferCache',
     'app.createMultisig',
     'app.editMultisig',
     'app.signMultisig',

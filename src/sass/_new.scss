@@ -15,7 +15,8 @@ h1 {
   font-size: 50px;
 }
 h2 {
-	color: $gray;
+  font-family: "Sans Regular";
+	color: white;
 	font-size: 55px;
 	font-weight: 100;
   text-align: left;
@@ -26,14 +27,14 @@ h3 {
   margin: 0;
   font-family: "Sans Light";
   font-size: 19px;
-  color: $gray;
+  color: white;
   font-weight: 300;
 }
 h4{
+  font-family: "Sans Light";
 	padding-top: $pad;
-	color: $gray;
+	color: white;
 	font-size: 24px;
-	font-weight: 300;
 }
 .secondary h4 {
   padding-top: 0px !important;
@@ -42,7 +43,8 @@ h4{
   }
 }
 h5 {
-  color: $gray;
+  font-family: "Sans Regular";
+  color: white;
   font-weight: 300;
   font-size: 16px;
 }
@@ -69,18 +71,19 @@ td {
   vertical-align: middle !important;
 }
 th {
-  color: grey;
-  font-size: 13px;
-  font-weight: 500;
+  color: white;
+  //font-size: 13px;
+  //font-weight: 500;
   min-width: 55px;
   border-bottom: $borderUnderline;
   padding-top: $pad * 2;
 	a, a:active, a:focus {
-		color: grey;
+		color: #61AAFF;
 		text-decoration: none;
 	}
 	a:hover {
-		color: $blue;
+      background-color: transparent;
+		color: white;
 		text-decoration: none;
 	}
 
@@ -93,6 +96,10 @@ tt {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.flexing-start {
+  @extend .flexing;
+  align-items: flex-start;
 }
 
 .table-hover>tbody>tr:hover {
@@ -199,7 +206,7 @@ label {
   text-align: right;
   cursor: pointer;
   h4:hover{
-    color: $blue;
+    color: white;
   }
 }
 .input-group-btn {
@@ -260,7 +267,7 @@ label {
   background: transparent;
   .btn:hover, .btn:active, .btn:focus {
     background: transparent;
-    color: black;
+    //color: black;
   }
 }
 .btn-dark {
@@ -384,7 +391,7 @@ fieldset .form-control.has-error {
 /*** CONFIRMED/UNCONFIRMED TABS, SEND/RECEIVE TABS **/
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover, .nav-tabs > li > a.active {
   cursor: default;
-  background-color: $blue;
+  background-color: #615FC1;
 	color: white;
   padding-bottom: 12px;
   border: 0;
@@ -394,33 +401,36 @@ fieldset .form-control.has-error {
   border-bottom: none;
   /*z-index: 10;*/
   li a {
-  	color: grey;
+  	color: white;
     outline: 0;
     cursor: pointer;
     display: inline;
     letter-spacing: .8px;
     &:hover {
+      border: none;
+      outline: none;
+      background-color: transparent;
       text-decoration: underline;
     }
     &:hover .badge {
     // color: $blue;
-    // background-color: white;
+      background-color: #615FC1;
     }
   }
   li.active .badge {
-      color: $blue;
+      color: white;
       //background-color: white;
   }
   .badge {
     color: white;
-    background-color: $blue;
+    background-color: #615FC1;
     margin-right: $pad / 2;
   }
 }
 .tabDescription {
   float: right;
   position: relative;
-  color: $gray;
+  color: white;
   font-weight: 500;
   @media only screen and (max-width : $lg) {
     display: none;
@@ -597,7 +607,7 @@ input[type=checkbox]:checked + label:before {
   background-color: #615FC1;
 }
 .navbar-default {
-  background-color: #19173F;
+  background-color: #27254B;
   .navbar-brand {
   	color: white;
     background-color: #19173F;
@@ -615,7 +625,10 @@ input[type=checkbox]:checked + label:before {
       color: white;
       font-weight: 500;
       &.active {
-        color: grey;
+        color: #61AAFF;
+      }
+      &:hover {
+        color: #61AAFF
       }
     }
 		.dropdown-menu {
@@ -789,6 +802,7 @@ footer {
     cursor: pointer;
     display: inline;
     &:hover {
+      color: white;
       background: $blueLite;
       border: 0;
       text-decoration: none;
@@ -944,6 +958,19 @@ td:last-of-type {
 .form-control::-webkit-input-placeholder {
    text-align: center;
  }
+.ph-left {
+  &::-webkit-input-placeholder {
+  text-align: left !important;
+  }
+}
+.sendXem {
+  text-indent: 10px;
+  @extend .form-control;
+  &::-webkit-input-placeholder {
+    text-align: left;
+    text-indent: 10px;
+  }
+}
 textarea {
   border-bottom: $borderUnderline;
   box-shadow: inherit;
@@ -1068,7 +1095,7 @@ textarea {
     }
   }
   th {
-    color: $gray;
+    color: white;
     font-weight: 700;
     font-size: 12px;
   }
@@ -1300,6 +1327,7 @@ textarea {
     }
   }
   .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+    color: white;
     background-color: $blue;
     border-color: $blue;
   }
@@ -1477,6 +1505,13 @@ textarea {
     height: 30px;
   }
 }
+.sign-in-button[disabled] {
+  opacity: 0.7;
+  &:hover {
+    cursor: not-allowed;
+    background: transparent;
+  }
+}
 .wallet-name {
   margin-bottom: 30px;
   font-family: "Sans Light";
@@ -1515,3 +1550,48 @@ textarea {
   align-items: center;
   justify-content: space-evenly;
 }
+.cache-import-wallet {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 95%;
+}
+.feeText {
+  margin-top: 20px;
+  font-family: "Sans Regular";
+  font-size: 1em;
+  color: white;
+  text-align: left;
+  letter-spacing: 0.8px;
+}
+.account-labels {
+  color: white;
+  font-family: "Sans Light";
+  text-align: left;
+  label {
+    font-size: 1em;
+    letter-spacing: 0.5px;
+  }
+}
+.show-pk-btn {
+  color: white;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin-left: 10px;
+  background: #61AAFF;
+  z-index: 10;
+}
+.show-pk-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.add-account-btn {
+  @extend .sign-in-button;
+  height: 50px;
+  width: 250px;
+  margin-top: 30px;
+  font-size: 1.2em;
+}
+

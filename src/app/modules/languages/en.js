@@ -174,7 +174,7 @@ function EnglishProvider($translateProvider) {
         HOME_FEATURE_1: 'Send and receive XEM easily and almost instantly, only 1 minute block time!',
 
         // TRANSFER TRANSACTION MODULE
-        TRANSFER_TRANSACTION_TITLE: 'Send a transaction',
+        TRANSFER_TRANSACTION_TITLE: 'Send XEM',
         TRANSFER_TRANSACTION_NAME: 'Transfer transaction',
         TRANSFER_TRANSACTION_MULTISIG_NAME: 'Multisignature transfer transaction',
         TRANSFER_TRANSACTION_INVOICE: 'Create invoice',
@@ -335,8 +335,8 @@ function EnglishProvider($translateProvider) {
         // ACCOUNT MODULE
         ACCOUNT_TITLE: 'Account',
         ACCOUNT_ACCOUNT_INFORMATION: 'Account information',
-        ACCOUNT_IMPORTANCE_SCORE: 'Importance score',
-        ACCOUNT_VESTED_BALANCE: 'Vested balance',
+        ACCOUNT_IMPORTANCE_SCORE: 'Importance Score',
+        ACCOUNT_VESTED_BALANCE: 'Vested Balance',
         ACCOUNT_HARVESTING: 'Harvesting',
         ACCOUNT_REMOTE_STATUS: 'Remote status',
         ACCOUNT_DELEGATED_PUBLIC: 'Delegated public key',
@@ -763,7 +763,7 @@ function EnglishProvider($translateProvider) {
         FORM_SIDE_BTN_TX_FEE: 'Transaction fee',
         FORM_SIDE_BTN_RENTAL_FEE: 'Rental fee',
         FORM_SIDE_BTN_LEVY_FEE: 'Levy fee',
-        FORM_RECIPIENT_PLACEHOLDER: 'Recipient address or @alias',
+        FORM_RECIPIENT_PLACEHOLDER: 'Recipient address',
         FORM_INVOICE_RECIPIENT_PLACEHOLDER: 'Recipient address',
         FORM_SIDE_BTN_ALIAS_OF: 'Alias of',
         FORM_MESSAGE_PLACEHOLDER: 'Message',
@@ -843,7 +843,21 @@ function EnglishProvider($translateProvider) {
         CACHE_WALLET_CONGRATS: 'Congratulations! Your Cache Wallet Address is:',
         CACHE_LOGIN_TO_DASHBOARD: 'or login to dashboard',
         CACHE_BUY_CACHE: 'Buy Cache',
-        CACHE_MY_ACCOUNT: 'My Account'
+        CACHE_MY_ACCOUNT: 'My Account',
+        CACHE_SEND_CACHE: 'Send Cache',
+        CACHE_SEND_XEM: 'Send XEM',
+        CACHE_LOGIN_BUTTON: 'Sign In',
+        CACHE_LOGIN_TITLE: 'Login',
+        CACHE_LOGIN_SELECT_WALLET: 'Select wallet',
+        CACHE_HEADER_DASHBOARD: 'Dashboard',
+        CACHE_FORM_RECIPIENT_PLACEHOLDER: 'Recipient address',
+        CACHE_FORM_MESSAGE_PLACEHOLDER: 'Message (Optional)',
+        CACHE_FEE: 'Fee:   0.05 XEM',
+        CACHE_FORM_PASSWORD_FIELD_PLACEHOLDER: 'Enter password',
+        CACHE_TRANSFER_TITLE: 'Send Cache',
+        CACHE_PRIVATE_KEY_NOTE: 'Your private key holds all the power of your account. It is a priority to make sure it is stored safely somewhere <b><u>offline</u></b>: password encrypted into a .wlt file, written on a piece of paper, or on a picture.',
+        CACHE_GENERAL_PASSWORD: 'Password',
+        CACHE_ADD_NEW_ACCOUNT_BTN: 'Add New Account'
     });
 
 }

@@ -17,6 +17,7 @@ class AppHeaderCtrl {
         this._DataBridge = DataBridge;
         this._$location = $location;
         this._DataStore = DataStore;
+        this.loggedOut = false;
 
         //// End dependencies region ////
 
@@ -54,6 +55,7 @@ class AppHeaderCtrl {
         this._DataBridge.reset();
         // Reset data in Wallet service
         this._Wallet.reset();
+        this.loggedOut = true;
         return;
     }
 

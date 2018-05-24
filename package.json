@@ -43,6 +43,9 @@
     "vinyl-source-stream": "^1.1.0",
     "zxcvbn": "4.4.2"
   },
+  "window": {
+    "toolbar": true
+  },
   "directories": {
     "test": "tests"
   },
