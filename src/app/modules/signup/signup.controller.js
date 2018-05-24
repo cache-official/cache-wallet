@@ -299,7 +299,7 @@ class SignupCtrl {
      */
     hideAllSteps() {
         // this.start1 = true;
-        this.step1 = true;
+        this.step1 = undefined;
         this.step2 = false;
         this.step3 = false;
         this.step4 = false;
@@ -307,6 +307,13 @@ class SignupCtrl {
         this.entropyDone = false;
         document.getElementById("pBar").style.width = '0%';
         this.formData.entropy = "";
+    }
+    goBackToPreviousPage() {
+        switch (true) {
+            case this.step1 === undefined: {
+                return ui-sref="app.login"
+            }
+        }
     }
 
     /**

@@ -1,6 +1,9 @@
 <div class="signup-page">
   <div class="container">
-    <div class="row text-center">
+    <div class="row text-center" style="display: flex">
+      <a style="background: transparent; outline: none; float: left; border: none" ng-click="" ui-sref="$ctrl.">
+        <img src="../../../images/back-light.svg"/>
+      </a>
       <div class="col-md-12">
         <h1 style="color: white;" ng-show="$ctrl.step1 === undefined">{{'CREATE_WALLET_TITLE' | translate}}</h1>
         <h1 style="color: white;" ng-show="$ctrl.step2">{{'ENTER_WALLET_NAME' | translate}}</h1>
@@ -63,7 +66,7 @@
       </div> -->
     </div>
     <!-- Start the signup process -->
-    <div class="col-md-offset-3 col-md-6" ng-show="$ctrl.start">
+    <!--<div class="col-md-offset-3 col-md-6" ng-show="$ctrl.start">-->
       <!-- <div class="form-group">
         <p class="text-center"><span class="fa fa-exclamation-triangle" aria-hidden="true"></span> {{ 'SIGNUP_CREATE_START_WARNING' | translate }}</p>
         <p class="text-center">{{ 'SIGNUP_CREATE_START_CONNECTION_WARNING' | translate }}</p>
@@ -79,32 +82,32 @@
           </div>
         </div>
       </div> -->
-    </div>
+    <!--</div>-->
     <!-- 1st step: Select a network -->
-    <div class="col-md-offset-3 col-md-6" ng-show="$ctrl.step1">
-      <fieldset class="form-group">
-        <p class="text-center">{{'SIGNUP_NETWORK_SELECT' | translate}}</p>
-        <select class="form-control" ng-model="$ctrl.network" ng-change="$ctrl.changeNetwork($ctrl.network)" ng-options="network.id as (network.id | toNetworkName) for network in $ctrl.networks">
-          <option value="" disabled selected>{{'SIGNUP_NETWORK_SELECT' | translate}}</option>
-        </select>
-      </fieldset>
-      <div class="form-group text-center">
-        <p ng-show="$ctrl.network === 104"><span ng-bind-html="'SIGNUP_NETWORK_MAINNET' | translate"></span></p>
+    <!--<div class="col-md-offset-3 col-md-6" ng-show="$ctrl.step1">-->
+      <!--<fieldset class="form-group">-->
+        <!--<p class="text-center">{{'SIGNUP_NETWORK_SELECT' | translate}}</p>-->
+        <!--<select class="form-control" ng-model="$ctrl.network" ng-change="$ctrl.changeNetwork($ctrl.network)" ng-options="network.id as (network.id | toNetworkName) for network in $ctrl.networks">-->
+          <!--<option value="" disabled selected>{{'SIGNUP_NETWORK_SELECT' | translate}}</option>-->
+        <!--</select>-->
+      <!--</fieldset>-->
+      <!--<div class="form-group text-center">-->
+        <!--<p ng-show="$ctrl.network === 104"><span ng-bind-html="'SIGNUP_NETWORK_MAINNET' | translate"></span></p>-->
         <!-- <p ng-show="$ctrl.network === -104"><span ng-bind-html="'SIGNUP_NETWORK_TESTNET' | translate"></span></p>
         <p ng-show="$ctrl.network === 96"><span ng-bind-html="'SIGNUP_NETWORK_MIJIN' | translate"></span></p> -->
-      </div>
-      <div class="form-group">
-        <hr style="border-color:#444;">
-        <div class="row">
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<hr style="border-color:#444;">-->
+        <!--<div class="row">-->
           <!-- <div class="col-md-2 col-sm-6">
             <button class="btn btn-dark" ng-click="$ctrl._selectedType = undefined;$ctrl.hideAllSteps();$ctrl.exitEntropy();" style="width:auto;" ng-show="!$ctrl.step5 && !$ctrl.step6 && !$ctrl.step7 && !$ctrl.step8"><span class="fa fa-chevron-left" aria-hidden="true"></span> {{ 'GENERAL_GO_BACK' | translate }}</button>
           </div> -->
-          <div class="col-md-10 col-sm-6">
-            <button class="btn btn-primary" style="width:100%;" ng-click="$ctrl.step1 = false;$ctrl.step2 = true;">{{ 'GENERAL_NEXT' | translate }} <span class="fa fa-chevron-right" aria-hidden="true"></span></button>
-          </div>
-        </div>
-      </div>
-    </div>
+          <!--<div class="col-md-10 col-sm-6">-->
+            <!--<button class="btn btn-primary" style="width:100%;" ng-click="$ctrl.step1 = false;$ctrl.step2 = true;">{{ 'GENERAL_NEXT' | translate }} <span class="fa fa-chevron-right" aria-hidden="true"></span></button>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
     <!-- 2nd step: Enter a name -->
     <div class="flexing" ng-show="$ctrl.step2">
         <!--<p class="text-center">{{ 'SIGNUP_CREATE_ENTER_NAME' | translate }}</p>-->
