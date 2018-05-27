@@ -5,13 +5,10 @@ const {app, BrowserWindow, protocol} = require('electron')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-// const prodDebug = false;
+const prodDebug = false;
 
-// if (process.env.NODE_ENV === 'development' || prodDebug) {
-//     require('electron-debug')({enabled: true});
-// }
-if (process.env.NODE_ENV === 'development') {
-    require('electron-debug')({enabled: false});
+if (process.env.NODE_ENV === 'development' || prodDebug) {
+    require('electron-debug')({enabled: true});
 }
 
 function createWindow () {
@@ -20,7 +17,11 @@ function createWindow () {
 	  width: 1280,
 	  height: 728,
 	  minHeight: 570,
-	  minWidth: 1280})
+	  minWidth: 1280,
+      webPreferences: {
+	      devTools: prodDebug
+      }
+  })
 
 	protocol.registerFileProtocol('atom', (request, callback) => {
 		const url = request.url.substr(7)

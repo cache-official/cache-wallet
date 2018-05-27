@@ -27,7 +27,7 @@ class SignupCtrl {
         //// Module properties region ////
 
         // Default network
-        this.network = this._AppConstants.testNetwork;
+        this.network = this._AppConstants.defaultNetwork;
 
         // Available networks
         this.networks = nem.model.network.data;
@@ -93,7 +93,7 @@ class SignupCtrl {
     changeWalletType() {
         this._selectedType = this.walletTypes[0];
         // this.network = this._AppConstants.defaultNetwork;
-        this.network = this._AppConstants.testNetwork;
+        this.network = this._AppConstants.defaultNetwork;
         this.showBackBtn = true;
         this.step1 = false;
         this.step2 = true;

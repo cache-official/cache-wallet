@@ -32,7 +32,7 @@
         </li>
         <balance class="nav navbar-nav"></balance>
         <li id="balanceDropdown" class="money dropdown" show-authed="true">
-          <a style="outline: 0">{{$ctrl.getCacheBalance()}} CHE</a>
+          <a style="outline: 0">{{$ctrl.getCacheBalance().toFixed(2)}} CHE</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right" style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly">

@@ -37,8 +37,10 @@ class AppHeaderCtrl {
     }
 
     getCacheBalance() {
-        if (this._DataStore = undefined) { return 0.0 }
         let address = this._DataStore.account.metaData.account.address;
+        if (undefined === this._DataStore.mosaic.ownedBy[address]['devslopes:cache']) {
+            return 0
+        }
         let supply = this._DataStore.mosaic.ownedBy[address]['devslopes:cache'].quantity;
         return supply / 1000000;
     }
