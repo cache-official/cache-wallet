@@ -1,0 +1,99 @@
+<div class="explorer-home-page">
+  <div class="container-fluid main">
+    <div class="row">
+      <div class="col-sm-11">
+        <h2>{{ 'EXPLORER_HOME_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+  	<explorer-nav></explorer-nav>
+
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <div class="row">
+      <div class="col-lg-12 col-sm-6">
+        <!-- YOUR NAMESPACES -->
+        <div class="panel-heading">
+          <h4>{{ 'EXPLORER_HOME_NS' | translate }}</h4>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group" ng-repeat="namespace in $ctrl._DataStore.namespace.ownedBy[$ctrl._Wallet.currentAccount.address] | objValues | orderBy:'fqn'" ng-show="$ctrl._DataStore.namespace.ownedBy[$ctrl._Wallet.currentAccount.address]">
+            <li class="list-group-item">{{namespace.fqn}}</li>
+          </ul>
+          <p class="nothing" ng-show="!$ctrl._DataStore.namespace.ownedBy[$ctrl._Wallet.currentAccount.address]">{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+      </div>
+      <!-- YOUR MULTISIG OWNED NAMESPACES -->
+      <div class="col-lg-12 col-sm-6">
+        <div ng-show="$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length">
+          <div class="panel-heading">
+            <h4>{{ 'EXPLORER_HOME_NS_MULTISIG' | translate }}</h4>
+          </div>
+          <div class="panel-body">
+              <ul class="list-group" ng-repeat="namespace in $ctrl.multisigNamespaces | orderBy">
+                <li class="list-group-item">{{namespace}}</li>
+              </ul>
+              <p  class="nothing" ng-show="!$ctrl.multisigNamespaces.length">{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+      <div class="col-lg-9 col-sm-12">
+        <div class="panel-heading">
+          <h4>{{ 'EXPLORER_HOME_MOSAICS' | translate }}</h4>
+        </div>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>{{ 'GENERAL_NAME' | translate }}</th>
+              <th>{{ 'MOSAIC_DEFINITION_QUANTITY' | translate }}</th>
+              <th>{{ 'EXPLORER_HOME_MOSAICS_LEVY' | translate }}</th>
+              <th>{{ 'GENERAL_LEVY' | translate }}</th>
+            </tr>
+          </thead>
+        </table>
+        <table class="table" ng-show="$ctrl._DataStore.mosaic.ownedBy[$ctrl._Wallet.currentAccount.address]">
+          <tbody>
+            <tr ng-repeat="mos in $ctrl._DataStore.mosaic.ownedBy[$ctrl._Wallet.currentAccount.address] | objValues | orderBy:'mosaicId.namespaceId'">
+              <td title="{{mos.mosaicId.namespaceId}}:{{mos.mosaicId.name}}"><b>{{mos.mosaicId.namespaceId}}</b>:{{mos.mosaicId.name}}</td>
+              <td>{{(mos.quantity | fmtSupply:mos.mosaicId:$ctrl._DataStore.mosaic.metaData)[0]}}<span class="text-muted">.{{(mos.quantity | fmtSupply:mos.mosaicId:$ctrl._DataStore.mosaic.metaData)[1]}}</span></td>
+              <td>
+                <tag-levy mos="mos" tx="" mosaics="$ctrl._DataStore.mosaic.metaData">
+                  <span ng-show="levy.type">
+                    <b>{{levy.mosaicId.namespaceId}}</b>:{{levy.mosaicId.name}}
+                  </span>
+                  <span ng-show="!levy.type">
+                      {{ 'GENERAL_NONE' | translate }}
+                  </span>
+                </tag-levy>
+              </td>
+              <td>
+                <tag-levy mos="mos" tx="" mosaics="$ctrl._DataStore.mosaic.metaData">
+                  <span ng-show="levy.type === 1">
+                      I ({{mos | fmtLevyFee:tx.amount:levy:mosaics}})
+                  </span>
+                  <span ng-show="levy.type === 2">
+                      II (x{{(levy.fee / 10000).toFixed(4)}})
+                  </span>
+                  <span ng-show="!levy.type">
+                        {{ 'GENERAL_NONE' | translate }}
+                  </span>
+                </tag-levy>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body nothing" ng-show="!$ctrl._DataStore.mosaic.ownedBy[$ctrl._Wallet.currentAccount.address]">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+        <div class="panel-footer text-center bg-info">
+          <small><i><b>{{ 'GENERAL_LEVY_TYPES' | translate }}: {{ 'GENERAL_LEVY_TYPES_NOTE' | translate }}</b></i></small>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

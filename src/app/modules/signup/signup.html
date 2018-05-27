@@ -1,0 +1,121 @@
+<div class="signup-page">
+  <div style="float: left; margin-left: 30px">
+    <a ng-show="$ctrl.step1 !== undefined && $ctrl.showBackBtn" style="background: transparent; outline: none; float: left; border: none" ng-click="$ctrl.goBackToPreviousPage()">
+      <img src="images/back-light.svg"/>
+    </a>
+    <a ng-show="$ctrl.step1 === undefined" style="background: transparent; outline: none; float: left; border: none" ui-sref="app.login">
+      <img src="images/back-light.svg"/>
+    </a>
+  </div>
+  <div class="container">
+    <div class="row text-center" style="display: flex">
+      <div class="col-md-12">
+        <h1 style="color: white;" ng-show="$ctrl.step1 === undefined">{{'CREATE_WALLET_TITLE' | translate}}</h1>
+        <h1 style="color: white;" ng-show="$ctrl.step2">{{'ENTER_WALLET_NAME' | translate}}</h1>
+        <h1 style="color: white;" ng-show="$ctrl.step3">{{'CACHE_ENTER_PASSWORD' | translate}}</h1>
+        <h1 style="color: white;" ng-show="$ctrl.step4">{{'CACHE_CREATE_KEY' | translate}}</h1>
+        <h1 style="color: white;" ng-show="$ctrl.step5 || $ctrl.step6 || $ctrl.step7">{{'CACHE_ACCOUNT_SAFETY_HEADER' | translate}}</h1>
+        <h1 style="color: white;" ng-show="$ctrl.step8">{{'CACHE_WALLET_CREATED' | translate}}</h1>
+      </div>
+    </div>
+    <div class="flexing">
+      <p ng-show="$ctrl.step1 === undefined" style="font-size: 1.8em;font-family: 'Sans Light'; color: white; text-align: center; margin-bottom: 30px">Please follow each step carefully! it is recommended to disconnect from internet<br/>while creating your wallet and backing up your data</p>
+      <div class="flexing" ng-show="$ctrl.step1 === undefined">
+        <button class="btn btn-primary sign-in-button" ng-click="$ctrl.changeWalletType();" ng-mouseover="$ctrl.showInfo = 1;">
+          {{'CACHE_SIGNUP_CREATE_WALLET_TITLE' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="flexing" ng-show="$ctrl.step2">
+    <input class="form-control wallet-name" type="text" placeholder="{{'FORM_WALLET_NAME_FIELD_PLACEHOLDER' | translate}}" ng-model="$ctrl.formData.walletName" />
+    <div class="row form-group">
+      <div class="flexing">
+        <button class="sign-in-button" ng-click="$ctrl.step2 = false;$ctrl.step3 = true;" ng-disabled="!$ctrl.formData.walletName || $ctrl.checkWalletNamePresence()">{{ 'GENERAL_NEXT' | translate }} <span class="fa fa-chevron-right" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="flexing" ng-show="$ctrl.step3">
+    <fieldset class="form-group">
+      <div class="input-group flexing">
+        <input class="form-control wallet-name" type="{{!$ctrl.showPassword ? 'password' : 'text'}}" placeholder="{{ $ctrl._selectedType.type === 2 ? ('FORM_PASSPHRASE_FIELD_PLACEHOLDER' | translate) : ('FORM_SIGNUP_PASSWORD_FIELD_PLACEHOLDER' | translate) }}" ng-model="$ctrl.formData.password" ng-change="$ctrl._selectedType.type === 2 ? $ctrl.updatePasswordStrengthInfo(): ''" />
+      </div>
+    </fieldset>
+    <fieldset class="form-group">
+      <div class="flexing">
+        <input class="form-control wallet-name" type="password" placeholder="{{ $ctrl._selectedType.type === 2 ? ('FORM_CONFIRM_PASSPHRASE_FIELD_PLACEHOLDER' | translate) : ('FORM_CONFIRM_PASSWORD_FIELD_PLACEHOLDER' | translate)}}" ng-model="$ctrl.formData.confirmPassword" />
+      </div>
+    </fieldset>
+    <div class="row form-group">
+      <div class="flexing" ng-show="$ctrl._selectedType.type === 1 || $ctrl._selectedType.type === 3">
+        <button class="sign-in-button" ng-click="$ctrl.step3 = false;$ctrl.step4 = true;$ctrl.progressBar = true;$ctrl.getEntropy()" ng-disabled="!$ctrl.formData.password || !$ctrl.formData.confirmPassword || $ctrl.formData.password !== $ctrl.formData.confirmPassword || $ctrl.okPressed">{{ 'GENERAL_NEXT' | translate }} <span class="fa fa-chevron-right" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-offset-3 col-md-6" ng-show="$ctrl.step4">
+    <div class="form-group">
+      <p style="font-size: 2em; font-family: 'Sans Light'; margin-bottom: 100px; color: white; text-align: center" ng-bind-html="'CACHE_ADD_ENTROPY_INFO' | translate"></p>
+    </div>
+    <div style="margin-bottom: 40px" class="form-group" ng-show="$ctrl.progressBar">
+      <div class="progressBar">
+        <div id="pBar"></div>
+      </div>
+    </div>
+    <div class="row form-group" ng-show="$ctrl.entropyDone">
+      <div class="flexing">
+        <button class="sign-in-button" ng-click="$ctrl.createWallet();" ng-disabled="$ctrl.okPressed">{{ 'GENERAL_NEXT' | translate }} <span class="fa fa-chevron-right" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="flexing" ng-show="$ctrl.step5">
+    <div class="flexing" style="text-align: center; margin-left: 150px; margin-right: 150px">
+      <p><span class="cache-subtext" ng-bind-html="'CACHE_ACCOUNT_SAFETY' | translate "></span></p>
+      <p><span class="cache-subtext" ng-bind-html="'CACHE_DOWNLOAD_WALLET_FILE' | translate " style="padding-top: 50px"></span></p>
+    </div>
+    <div class="flexing">
+      <div style="margin-top: 40px; margin-bottom: 40px">
+        <a class="sign-in-button flexing"  id="downloadWallet"><div>{{ 'CACHE_DOWNLOAD_WALLET' | translate }}</div></a>
+      </div>
+    </div>
+    <div class="flexing">
+      <button class="cache-confirm-button" style="width:100%;" ng-click="$ctrl.step5 = false;$ctrl.step6 = true;">{{ 'CACHE_CONFIRM' | translate }}</button>
+    </div>
+  </div>
+  <div class="flexing" style="text-align: center" ng-show="$ctrl.step6">
+    <p><span class="cache-subtext" ng-bind-html="'CACHE_ACCOUNT_SAFETY_2' | translate"></span></p>
+    <div class="form-group" style="margin-top: 40px">
+      <button type="button" class="sign-in-button" ng-click="!$ctrl.showWalletPrivateKey ? $ctrl.showWalletPrivateKey = true : $ctrl.showWalletPrivateKey = false;">{{ 'CACHE_SHOW_PRIVATE_KEY' | translate }}</button>
+    </div>
+    <div class="flexing" ng-show="$ctrl.showWalletPrivateKey">
+      <pre style="color: white;background-color: transparent;font-weight: bold; border-radius: 3px; border: 1px solid #615FC1; width: 50%"><code>{{ $ctrl.walletPrivateKey }}</code></pre>
+      <p><i class="fa fa-exclamation-triangle"></i> <span class="cache-warn-text" ng-bind-html="'SIGNUP_COMMON_WALLET_WARNING_BTN_2_INFO' | translate"></span></p>
+    </div>
+    <div class="col-md-10 col-sm-6" style="margin-top: 40px">
+      <button class="cache-confirm-button" ng-click="$ctrl.step6 = false;$ctrl.step7 = true;">{{ 'CACHE_SAVED_PRIVATE_KEY' | translate }}</button>
+    </div>
+  </div>
+  <div class="flexing" style="text-align: center" ng-show="$ctrl.step7">
+    <p><span class="cache-subtext" ng-bind-html="'CACHE_ACCOUNT_SAFETY_3' | translate"></span></p>
+    <p><span class="cache-subtext" style="margin-top: 40px" ng-bind-html="'CACHE_FINAL_CONFIRM' | translate"></span></p>
+    <div class="flexing" style="margin-top: 40px">
+      <button class="sign-in-button" ng-click="$ctrl.endSignup();">{{ 'CACHE_AGREE_END_SIGNUP' | translate }}</button>
+    </div>
+  </div>
+  <div class="flexing" ng-show="$ctrl.step8">
+    <div class="flexing" style="text-align: center">
+      <p class="cache-subtext" style="color: white;" ng-bind-html="'CACHE_WALLET_CONGRATS' | translate"></p>
+      <pre style="color: white;background-color: transparent;font-weight: bold; border-radius: 3px; border: 1px solid #615FC1; width: 500px; margin-top: 20px"><code>{{ $ctrl.tempWallet.accounts[0].address }}</code></pre>
+    </div>
+    <div class="form-group flexing">
+      <div style="margin-top: 40px" class="flexing">
+        <a href='https://getcache.io' target="_blank">
+          <button class="sign-in-button">Buy Cache</button>
+        </a>
+      </div>
+      <div style="margin-top: 20px" class="row">
+        <button class="cache-confirm-button" ui-sref="app.login">{{ 'CACHE_LOGIN_TO_DASHBOARD' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="alert alert-info text-center" style="margin-top: -20px;padding: 5px;" role="alert" ng-show="$ctrl.newUpdate">
+   <b>New version available!</b> <a href="{{$ctrl.updateInfo.html_url}}" target="_blank" style="color:#337ab7;">Download {{$ctrl.updateInfo.name}}</a>
+</div>
+<div class="home-page">
+   <div class="banner">
+      <div class="container">
+         <h1 ng-bind="::$ctrl.appName"></h1>
+         <p>{{ 'APP_NAME_SUB' | translate }}</p>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-1">
+         </div>
+         <div class="col-md-1">
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 1">
+            <i class="fa fa-send fa-4x"></i>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 2">
+            <i class="fa fa-user-plus fa-4x"></i>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 3">
+            <i class="fa fa-sitemap fa-4x"></i>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 4">
+            <i class="fa fa-th fa-4x"></i>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 5">
+            <i class="fa fa-chain fa-4x"></i>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 6">
+            <img src="images/apostille.png"/>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 7">
+            <i class="fa fa-4x">&#xf2bb; </i>
+         </div>
+         <div class="col-md-1" ng-mouseover="$ctrl.showInfo = 8">
+            <i class="fa fa-exchange fa-4x"></i>
+         </div>
+         <div class="col-md-1">
+         </div>
+         <div class="col-md-1">
+         </div>
+      </div>
+      <hr>
+      <div class="col-md-offset-3 col-md-6">
+         <div ng-show="!$ctrl.showInfo">
+            <p>{{ 'HOME_FEATURE_STAND_BY' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 1">
+            <p>{{ 'HOME_FEATURE_1' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 2">
+            <p>{{ 'PORTAL_MULTISIG_TEXT' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 3">
+            <p>{{ 'PORTAL_NS_TEXT' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 4">
+            <p>{{ 'PORTAL_MOSAIC_TEXT' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 5">
+            <p>{{ 'PORTAL_HARVESTING_TEXT' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 6">
+            <p>{{ 'PORTAL_APOSTILLE_TEXT' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 7">
+            <p>{{ 'PORTAL_ADDRESS_BOOK_TEXT' | translate }}</p>
+         </div>
+         <div ng-show="$ctrl.showInfo === 8">
+            <p>{{ 'PORTAL_EXCHANGE_TEXT' | translate }}</p>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="modal fade" id="noSupportModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-body" style="color:#444">
+               <img src="images/logomark.png" style="width: 125px;" />
+               <p>{{ 'HOME_UNSUPPORTED_BROWSER' | translate }}</p>
+               <p><b><u>{{ 'HOME_RECOMMENDED_BROWSERS' | translate }}</u></b></p>
+               <p>
+                  <a href="https://www.mozilla.org" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" class="ng-binding" data-original-title="Firefox">
+                  <i class="fa fa-firefox fa-3x"></i>
+                  </a>
+                  <a href="https://www.google.com/chrome/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" class="ng-binding" data-original-title="Chrome">
+                  <i class="fa fa-chrome fa-3x"></i>
+                  </a>
+                  <a href="http://www.apple.com/safari/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" class="ng-binding" data-original-title="Safari">
+                  <i class="fa fa-safari fa-3x"></i>
+                  </a>
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

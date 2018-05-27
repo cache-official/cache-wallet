@@ -1,0 +1,188 @@
+<div class="account-page">
+	<div class="container-fluid main">
+		<div class="row">
+			<div class="col-sm-8">
+				<h2>{{ 'ACCOUNT_TITLE' | translate }}</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel-heading">
+					<h4>{{ 'ACCOUNT_ACCOUNT_INFORMATION' | translate }}</h4>
+				</div>
+				<div class="panel-body">
+					<fieldset class="form-group" ng-show="$ctrl.showAccounts">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<label>{{ 'ACCOUNT_ACCOUNT_SELECT_LABEL' | translate }}: </label>
+							</span>
+							<select class="form-control" ng-model="$ctrl.selectedAccount"
+							        ng-options="address as (account.label || account.address) for (address, account) in $ctrl._Wallet.current.accounts"
+							        ng-change="$ctrl.changeCurrentAccount($ctrl.selectedAccount)">
+								<option value="" disabled selected>{{ 'ACCOUNT_ACCOUNT_SELECT' | translate }}</option>
+							</select>
+						</div>
+					</fieldset>
+					<!-- ACCOUNT ADDRESS -->
+					<fieldset style="margin-bottom: 20px" class="form-group-lg">
+						<div class="flexing-start">
+							<span class="account-labels">
+								<label>{{ 'GENERAL_ADDRESS' | translate }} </label>
+							</span>
+							<span class="form-control">{{ $ctrl._DataStore.account.metaData.account.address | fmtAddress }}
+								<button style="color: #61AAFF; background: transparent; outline: none; border: none"
+								        class="floatRight" type="button" ng-click="$ctrl.copyAddress();">
+									<i class="fa fa-clipboard"></i>
+								</button>
+							</span>
+						</div>
+					</fieldset>
+					<!-- ACCOUNT PUBLIC KEY -->
+					<fieldset style="margin-bottom: 20px" class="form-group-lg">
+						<div class="flexing-start">
+							<span class="account-labels">
+								<label>{{ 'GENERAL_PUBLIC_KEY' | translate }} </label>
+							</span>
+							<span class="form-control">
+								<span type="text"> {{ $ctrl._DataStore.account.metaData.account.publicKey || 'ACCOUNT_NO_PUBLIC_KEY' | translate }}</span>
+							</span>
+						</div>
+					</fieldset>
+					<fieldset style="margin-bottom: 20px" class="form-group-lg">
+						<div class="flexing-start">
+							<span class="account-labels">
+								<label>{{ 'ACCOUNT_IMPORTANCE_SCORE' | translate }} </label>
+							</span>
+							<span class="form-control">{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[1] }} * 10<sup>(-4)</sup></span>
+						</div>
+					</fieldset>
+					<fieldset style="margin-bottom: 20px" class="form-group-lg">
+						<div class="flexing-start">
+							<span class="account-labels">
+								<label>{{ 'ACCOUNT_VESTED_BALANCE' | translate }} </label>
+							</span>
+							<span class="form-control">{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[1] }} <b>XEM</b></span>
+						</div>
+					</fieldset>
+					<fieldset class="form-group">
+						<button type="button" class="add-account-btn" data-toggle="modal"
+						        data-target="#addAccountModal">{{ 'CACHE_ADD_NEW_ACCOUNT_BTN' | translate }}
+						</button>
+					</fieldset>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div ng-show="$ctrl._Wallet.algo !== 'trezor'">
+					<div class="panel-heading">
+						<h4>{{ 'GENERAL_PRIVATE_KEY' | translate }}</h4>
+					</div>
+					<div class="panel-body">
+						<div class="form-group-lg">
+							<p style="margin-bottom: 20px" class="feeText">
+								<span ng-bind-html="'CACHE_PRIVATE_KEY_NOTE' | translate"></span>
+							</p>
+							<div class="flexing-start">
+								<span class="account-labels" ng-show="$ctrl.commonPK.privateKey">
+									<label>{{ 'GENERAL_PRIVATE_KEY' | translate }}</label>
+								</span>
+								<span ng-show="!$ctrl.commonPK.privateKey" class="account-labels">
+									<label>{{ 'CACHE_GENERAL_PASSWORD' | translate }} </label>
+								</span>
+								<div>
+									<div style="display: flex; justify-content: space-between; align-items: center">
+										<password-input style="margin-top: -20px !important; min-width: 600px" common="$ctrl.commonPK"
+										                ng-show="$ctrl._Wallet.algo !== 'trezor' && !$ctrl.commonPK.privateKey">
+										</password-input>
+										<button class="show-pk-btn" type="button"
+										        ng-show="!$ctrl.commonPK.privateKey"
+										        style="margin-bottom: 15px"
+										        ng-disabled="$ctrl._Wallet.algo !== 'trezor' && !$ctrl.commonPK.password"
+										        ng-click="$ctrl.showPrivateKey()"
+										        title="{{ 'ACCOUNT_PRIVATE_KEY_SHOW' | translate }}"
+										        ng-style="$ctrl._Wallet.algo === 'trezor' ? {'width': '100%'} : {}">
+											<i class="fa fa-plus"></i>
+										</button>
+									</div>
+									<div style="display: flex; justify-content: space-between; align-items: center">
+										<input style="min-width: 600px" class="form-control"
+										       ng-model="$ctrl.commonPK.privateKey"
+										       ng-show="$ctrl.commonPK.privateKey" readOnly>
+										</input>
+										<button class="show-pk-btn" type="button" ng-show="$ctrl.commonPK.privateKey"
+										        ng-click="$ctrl.reset()" title="{{ 'GENERAL_CLEAR_ALL' | translate }}">
+											<i class="fa fa-minus"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-heading">
+					<h4>{{ 'ACCOUNT_BACKUP_WALLET' | translate }}</h4>
+				</div>
+				<div class="panel-body">
+					<fieldset class="form-group">
+						<div class="input-group">
+							<select style="height: 44px; width: 300px; outline: none" class=""
+							        ng-model="$ctrl.selectedWallet"
+							        ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
+								<option value="" disabled selected>{{ 'LOGIN_SELECT_WALLET' | translate }}</option>
+							</select>
+							<span style="padding-left: 20px; background-color: transparent" class="">
+								<button style="background-color: transparent; border: none; outline: none" class="" type="button"
+								        ng-show="$ctrl.selectedWallet"
+								        ng-click="$ctrl.downloadWallet()" title="{{'ACCOUNT_BACKUP_WALLET_DOWNLOAD' | translate}}"><img
+										src="../../../images/download-icon.svg"/>
+								</button>
+							</span>
+							<a id="downloadWallet" target="_blank"></a>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		<!-- Add new account modal -->
+		<div id="addAccountModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 style="color: #333" class="modal-title">{{ 'ACCOUNT_ADD_NEW_ACCOUNT_BTN' | translate }}</h4>
+					</div>
+					<p class="bg-danger"><i class="fa fa-exclamation-triangle "></i> <span
+							ng-bind-html="'ACCOUNT_ADD_NEW_ACCOUNT_WARNING' | translate"></span></p>
+					<div class="modal-body">
+						<!-- Password Field -->
+						<div style="max-width: 570px; overflow: hidden">
+							<password-input common="$ctrl.common"></password-input>
+						</div>
+						<fieldset class="form-group">
+							<div class="input-group">
+								<span class="input-group-btn">
+									<label>{{ 'GENERAL_ACCOUNT_LABEL' | translate }}:</label>
+								</span>
+								<input class="form-control form-control-lg"
+								       type="text"
+								       placeholder="{{ 'GENERAL_ACCOUNT_LABEL' | translate }} {{ 'GENERAL_OPTIONAL' | translate }}"
+								       ng-model="$ctrl.newAccountLabel"/>
+							</div>
+						</fieldset>
+						<button class="btn btn-success"
+						        type="submit"
+						        ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length"
+						        ng-click="$ctrl.addNewAccount()">
+							{{ 'ACCOUNT_ADD_NEW_ACCOUNT' | translate }}
+						</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'GENERAL_CLOSE' |
+							translate }}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

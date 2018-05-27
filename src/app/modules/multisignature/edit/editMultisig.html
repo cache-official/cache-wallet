@@ -1,0 +1,133 @@
+<div class="edit-multisig-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-sm-8">
+        <h2>{{ 'AGGREGATE_MODIFICATION_EDIT_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-7">
+
+        <div class="panel-heading">
+          <h3>{{ 'AGGREGATE_MODIFICATION_MULTISIG_NAME' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+
+            <!-- Multisig to edit selection -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'AGGREGATE_MODIFICATION_EDIT_SELECT_TITLE' |translate }}: </label>
+                </span>
+               	<select class="form-control" ng-options="(acc.address | fmtContact:$ctrl._Wallet.current) for acc in $ctrl._DataStore.account.metaData.meta.cosignatoryOf" ng-model="$ctrl.formData.multisigAccount" ng-change="$ctrl.processMultisigInput();">
+               		<option value="" disabled selected> {{ 'AGGREGATE_MODIFICATION_EDIT_SELECT' | translate }}</option>
+              	</select>
+              </div>
+            </fieldset>
+
+            <!-- Balance of selected account to edit -->
+            <fieldset class="form-group" ng-show="$ctrl.formData.multisigAccount">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <label>{{ 'FORM_SIDE_BTN_BALANCE' | translate }}: </label>
+                </span>
+                <div class="form-control formFloat" readOnly>
+                  <input class="readOnly" type="text" value="{{ ($ctrl.formData.multisigAccount.balance | fmtNemValue)[0] }}.{{ ($ctrl.formData.multisigAccount.balance | fmtNemValue)[1] }}" readOnly/>
+                  <label class="floatRight"><small>XEM</small></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Cosignatory via address book, recipient address, alias -->
+            <account-input account="$ctrl.cosignatoryToAdd" public-key="$ctrl.cosignatoryPubKey"></account-input>
+
+            <!-- Add / remove cosignatory buttons -->
+            <fieldset class="form-group">
+              <div class="col-md-2"></div>
+              <div class="col-md-10">
+                <button type="button" class="btn btn-warning col-md-6" style="border-radius: 0px;" ng-click="$ctrl.addCosig(1)" ng-disabled="!$ctrl.cosignatoryToAdd || $ctrl.cosignatoryToAdd === $ctrl.formData.multisigAccount.address || !$ctrl.formData.multisigAccount"><i class="fa fa-plus"></i> {{ 'AGGREGATE_ADD_COSIG' | translate }}</button>
+                <button type="button" class="btn btn-danger col-md-6" style="border-radius: 0px;" ng-click="$ctrl.addCosig(2)" ng-disabled="!$ctrl.cosignatoryToAdd || $ctrl.cosignatoryToAdd === $ctrl.formData.multisigAccount.address || !$ctrl.formData.multisigAccount"><i class="fa fa-minus"></i> {{ 'AGGREGATE_REMOVE_COSIG' | translate }}</button>
+              </div>
+            </fieldset>
+
+            <!-- Number of signature to remove/add -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+            	    <label>{{'AGGREGATE_MODIFICATION_RELATIVE_CHANGE' | translate}}: </label>
+                </span>
+                <input class="form-control"
+                  type="number"
+                  placeholder="{{'AGGREGATE_MODIFICATION_RELATIVE_CHANGE_PLACEHOLDER' | translate}}"
+                  ng-model="$ctrl.formData.relativeChange" min="-64" max="64" ng-change="$ctrl.prepareTransaction()"/>
+              </div>
+            </fieldset>
+
+            <!-- Transaction fee -->
+            <fee-input tx="$ctrl.preparedTransaction" is-multisig="$ctrl.formData.isMultisig"></fee-input>
+
+            <!-- Password Field -->
+            <password-input common="$ctrl.common"></password-input>
+
+            <!-- Send transaction -->
+            <button class="btn btn-success pull-xs-right"
+              type="submit" style="width:100%;" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || !$ctrl.formData.modifications.length && !$ctrl.formData.relativeChange || !$ctrl.isMinSignaturesValid(true)" ng-click="$ctrl.send()">
+              <i class="fa fa-send"></i> {{'GENERAL_SEND' | translate}}
+            </button>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <!-- Information of selected multisig account -->
+        <div class="panel-heading">
+          <h3>{{'AGGREGATE_SELECTED_ACCOUNT_INFO' | translate}}</h3>
+        </div>
+        <div class="panel-body" ng-show="$ctrl.multisigInfoData.cosignatories.length && $ctrl.formData.multisigAccount">
+          <div class="row">
+            <div class="col-sm-9 col-md-8 col-lg-8">
+            <h5>{{'GENERAL_COSIGNATORIES' | translate}}</h5>
+            <span ng-repeat="cosig in $ctrl.multisigInfoData.cosignatories">{{cosig.address}}<br></span>
+            </div>
+            <div class="col-sm-3 col-md-4 col-lg-4">
+              <h5>{{'AGGREGATE_MIN_SIGNATURES' | translate}}</h5>
+               {{$ctrl.multisigInfoData.minCosigs}}
+            </div>
+          </div>
+        </div>
+        <div class="panel-body" ng-show="!$ctrl.multisigInfoData.cosignatories.length || !$ctrl.formData.multisigAccount">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+        <!-- List of signer to be added / deleted -->
+        <div class="panel-heading">
+          <h3>{{ 'AGGREGATE_MODIFICATION_LIST' | translate }}</h3>
+          <paginate data="$ctrl.formData.modifications" current-page="$ctrl.currentPage" page-size="$ctrl.pageSize"></paginate>
+        </div>
+        <table class="table table-condensed" style="table-layout:fixed">
+          <thead>
+            <tr>
+              <th>{{ 'GENERAL_ADDRESS' | translate }}</th>
+              <th>{{ 'GENERAL_ACTION' | translate }}</th>
+              <th>{{ 'GENERAL_REMOVE' | translate }}</th>
+            </tr>
+          </thead>
+        </table>
+        <table class="table table-condensed" style="table-layout:fixed" ng-show="$ctrl.formData.modifications.length">
+          <tbody>
+            <tr ng-repeat="acct in $ctrl.formData.modifications | reverse | startFrom:$ctrl.currentPage*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+              <td style="word-break:break-all">{{acct.cosignatoryAccount | fmtPubToAddress:$ctrl._Wallet.network | fmtAddress}}</td>
+              <td ng-show="acct.modificationType == 1">{{ 'GENERAL_ADD' | translate }}</td>
+              <td ng-show="acct.modificationType == 2">{{ 'GENERAL_REMOVE' | translate }}</td>
+              <td><i class="fa fa-times" style="color:red;cursor:pointer;" ng-click="$ctrl.removeCosignFromList($ctrl.formData.modifications, acct)"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body" ng-show="!$ctrl.formData.modifications.length">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

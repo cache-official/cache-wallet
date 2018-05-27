@@ -1,0 +1,126 @@
+<div class="create-mosaic-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-md-10">
+        <h2>{{ 'MOSAIC_SUPPLY_CHANGE_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+  	  <div class="col-md-6">
+
+        <div class="panel-heading">
+          <div class="tabDescription">
+            <span ng-show="!$ctrl.formData.isMultisig">{{ 'MOSAIC_SUPPLY_CHANGE_NAME' | translate }}</span>
+            <span ng-show="$ctrl.formData.isMultisig">{{ 'MOSAIC_SUPPLY_CHANGE_MULTISIG_NAME' | translate }}</span>
+          </div>
+          <ul class="nav nav-tabs">
+            <li ng-class="$ctrl.formData.isMultisig ? '' : 'active'"><a ng-click="$ctrl.formData.isMultisig = false;$ctrl.updateCurrentAccountMosaics()">{{ 'GENERAL_TAB_NORMAL' | translate }}</a></li>
+            <li ng-show="$ctrl._DataStore.account.metaData.meta.cosignatoryOf.length" ng-class="$ctrl.formData.isMultisig ? 'active' : ''"><a ng-click="$ctrl.formData.isMultisig = true;$ctrl.updateCurrentAccountMosaics()">{{ 'GENERAL_TAB_MULTISIG' | translate }}</a></li>
+          </ul>
+        </div>
+        <div class="panel-body">
+
+          <!-- Multisig select -->
+          <multisig-select ng-show="$ctrl.formData.isMultisig" multisig-account="$ctrl.formData.multisigAccount" update-ctrl="$ctrl.updateCurrentAccountMosaics();"></multisig-select>
+
+          <!-- Select the mosaic -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label for="namespaceParent" class="control-label">{{ 'MOSAIC_SUPPLY_CHANGE_SELECT' | translate }}: </label>
+              </span>
+          	  <select class="form-control" ng-options="mosaicName for mosaicName in $ctrl.currentAccountMosaicNames" ng-model="$ctrl.selectedMosaic" ng-change="$ctrl.updateMosaic()">
+              </select>
+            </div>
+          </fieldset>
+
+          <!-- Transaction fee -->
+          <fee-input tx="$ctrl.preparedTransaction" is-multisig="$ctrl.formData.isMultisig"></fee-input>
+
+          <!-- Password Field -->
+          <password-input common="$ctrl.common"></password-input>
+
+          <!-- Send transaction -->
+          <button class="btn btn-success pull-xs-right" type="submit" style="width:100%;" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || !$ctrl.formData.delta || $ctrl.selectedMosaic == 'nem:xem'" ng-click="$ctrl.send()">
+            <i class="fa fa-send"></i> {{ 'GENERAL_SEND' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel-heading">
+          <h3>{{ 'MOSAIC_SUPPLY_CHANGE_SUPPLY' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+          
+          <!-- Original mosaic supply -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'MOSAIC_SUPPLY_CHANGE_CURRENT_SUPPLY' | translate }}: </label>
+              </span>
+              <div class="form-control formFloat mosaic block" disabled >
+                <strong>{{$ctrl._DataStore.mosaic.metaData[$ctrl.selectedMosaic].supply}}</strong>
+                <span class="text-muted">.{{(0 | fmtSupply:$ctrl.mosaicOwned[$ctrl.selectedMosaic].mosaicId:$ctrl._DataStore.mosaic.metaData)[1]}}</span>
+                <label class="floatRight"><small>{{ $ctrl.selectedMosaic }}</small></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Create / Delete types -->
+          <fieldset class="form-group row changeType">
+            <div class="col-sm-4">
+              <label>{{ 'MOSAIC_SUPPLY_CHANGE_TYPE' | translate }}: </label>
+            </div>
+            <div class="col-sm-4">
+              <label>
+                <input type="radio" ng-model="$ctrl.formData.supplyType" ng-value="1"> {{ 'MOSAIC_SUPPLY_CHANGE_TYPE_1' | translate }}
+              </label>
+            </div>
+            <div class="col-sm-4">
+              <label>
+                <input type="radio" ng-model="$ctrl.formData.supplyType" ng-value="2"> {{ 'MOSAIC_SUPPLY_CHANGE_TYPE_2' | translate }}
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Create / Delete amount -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'MOSAIC_SUPPLY_CHANGE_AMOUNT' | translate }}: </label>
+              </span>
+              <div class="form-control formFloat">
+                <input class="levy" type="number" ng-model="$ctrl.formData.delta" min="0">
+                <label class="floatRight"><small>{{ $ctrl.selectedMosaic }}</small></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Resulting mosaic supply -->
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn">
+                <label>{{ 'MOSAIC_SUPPLY_CHANGE_RES_SUPPLY' | translate }}</label>
+              </span>
+              <div class="form-control formFloat" disabled >
+                <span ng-show="$ctrl.formData.supplyType === 1">
+                  <strong>{{($ctrl.formData.delta + $ctrl._DataStore.mosaic.metaData[$ctrl.selectedMosaic].supply)}}</strong>
+                  <span class="text-muted">.{{(0 | fmtSupply:$ctrl.mosaicOwned[$ctrl.selectedMosaic].mosaicId:$ctrl._DataStore.mosaic.metaData)[1]}}</span>
+                </span>
+                <span ng-show="$ctrl.formData.supplyType === 2">
+                  <strong>{{(-$ctrl.formData.delta + $ctrl._DataStore.mosaic.metaData[$ctrl.selectedMosaic].supply)}}</strong>
+                  <span class="text-muted">.{{(0 | fmtSupply:$ctrl.mosaicOwned[$ctrl.selectedMosaic].mosaicId:$ctrl._DataStore.mosaic.metaData)[1]}}</span>
+                </span>
+                <label class="floatRight"><small>{{ $ctrl.selectedMosaic }}</small></label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

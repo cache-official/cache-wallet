@@ -1,0 +1,126 @@
+<div class="explorer-accounts">
+  <div class="container-fluid main">
+    <div class="row">
+      <div class="col-sm-11">
+        <h2>{{'ACCOUNTS_EXPLORER_TITLE' | translate}}</h2>
+      </div>
+    </div>
+
+    <explorer-nav></explorer-nav>
+
+      <div class="row">
+        <div class="col-md-6 searchBar">
+          <fieldset class="form-group">
+            <div class="input-group">
+              <span class="input-group-btn short">
+                <label>{{ 'ACCOUNTS_EXPLORER_SEARCH' | translate }}: </label>
+              </span>
+            <div class="form-control formFloat">
+              <input type="text" ng-model="$ctrl.rawInput" ng-model-options="{debounce:500}" placeholder="{{'FORM_ADDRESS_ALIAS_PLACEHOLDER' | translate}}" ng-change="$ctrl.processRawInput()"/>
+              <label class="floatRight"><i class="fa fa-search"></i></label>
+            </div>
+          </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel-heading">
+            <h4>{{ 'ACCOUNT_ACCOUNT_INFORMATION' | translate }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-7">
+          <div class="panel-body" ng-show="$ctrl.accountData.account">
+            <!-- ADDRESS IN SEARCH RESULTS -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn short">
+                  <label>{{ 'GENERAL_ADDRESS' | translate }}: </label>
+                </span>
+                <input type="text" class="form-control" value="{{ $ctrl.accountData.account.address }}" readOnly/>
+              </div>
+            </fieldset>
+            <!-- PUBLIC KEY OF ADDRESS -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn short">
+                  <label>{{ 'GENERAL_PUBLIC_KEY' | translate }}: </label>
+                </span>
+                <input type="text" class="form-control" value="{{ $ctrl.accountData.account.publicKey ? $ctrl.accountData.account.publicKey : '' }}" readOnly/>
+              </div>
+            </fieldset>
+          </div>
+          <div class="panel-body nothing" ng-show="!$ctrl.accountData.account">
+            <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="panel-body" ng-show="$ctrl.accountData.account">
+            <!-- BALANCE OF ADDRESS -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn short">
+                  <label>{{ 'FORM_SIDE_BTN_BALANCE' | translate }}: </label>
+                </span>
+                <div class="form-control formFloat" readOnly>
+                  <input class="readOnly accounts" type="text" value="{{ ($ctrl.accountData.account.balance | fmtNemValue)[0] }}.{{ ($ctrl.accountData.account.balance | fmtNemValue)[1] }}" readOnly/>
+                  <label class="floatRight"><small>XEM</small></button>
+                </div>
+              </div>
+            </fieldset>
+            <!-- IMPORTANCE OF ADDRESS -->
+            <fieldset class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn short">
+                  <label>{{ 'GENERAL_IMPORTANCE' | translate }}: </label>
+                </span>
+                <div class="form-control formFloat" readOnly>
+                  <input class="readOnly accounts" type="text" value="{{ ($ctrl.accountData.account.importance | fmtNemImportanceScore)[0] }}.{{ ($ctrl.accountData.account.importance | fmtNemImportanceScore)[1] }}" readOnly/>
+                  <label class="floatRight">* 10<sup>(-4)</sup></label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel-heading">
+            <h4>{{ 'GENERAL_TRANSACTIONS' | translate }}</h4>
+            <paginate data="$ctrl.transactions" current-page="$ctrl.currentPage" page-size="$ctrl.pageSize"></paginate>
+          </div>
+          <div class="panel-body" ng-show="$ctrl.transactions.length">
+            <table class="table table-condensed top">
+              <thead>
+                <tr>
+                  <th>{{ 'GENERAL_ACCOUNT' | translate }}</th>
+                  <th>{{ 'GENERAL_AMOUNT' | translate }}</th>
+                  <th>{{ 'GENERAL_MESSAGE' | translate }}</th>
+                  <th>{{ 'GENERAL_DATE' | translate }}</th>
+                </tr>
+              </thead>
+            </table>
+
+            <table class="table table-condensed">
+              <tbody>
+                <div>
+                  <div ng-repeat="tx in $ctrl.transactions | orderBy:'-transaction.timeStamp' | startFrom:$ctrl.currentPage*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+                    <tag-transaction d="tx" a="$ctrl.accountData.account.address" tooltip-position="'left'"></tag-transaction>
+                  </div>
+                </div>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-body nothing" ng-show="!$ctrl.transactions.length">
+            <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div ng-show="$ctrl.shouldShow" class="mosaic mosaic-amount col-lg-6 col-md-12">
+  <div class="panel-body" ng-repeat="mos in $ctrl.formData.mosaics">
+    <fieldset class="form-group">
+      <div class="input-group">
+        <div style="max-width: 600px; min-width: 600px; height: 40px; border-radius: 3px; border: none" class="form-control formFloat">
+          <input placeholder="Amount" id="{{mos.gid}}" type="text" ng-model="mos.quantity" maxlength="17" ng-change="$ctrl.updateCtrl();">
+          <label style="padding-bottom: 18px" class="floatRight"><small>CHE</small></label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

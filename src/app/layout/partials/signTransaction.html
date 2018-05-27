@@ -1,0 +1,13 @@
+<div id="needsSignature2-{{tx.timeStamp}}" ng-show="needsSignature">
+	<div class="row">
+	    <div class="col-sm-12">
+	        <hr style="border-style: dashed;margin:5px;" />
+		</div>
+	</div>
+    <div class="input-group">
+        <input type="password" class="form-control ng-valid ng-touched ng-dirty ng-valid-parse" ng-model="common.password" id="passwordDecoding" placeholder="{{'FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}" aria-invalid="false" style="background-color: rgba(15, 122, 225, 0.1) !important;" ng-show="Wallet.algo !== 'trezor'">
+        <span class="input-group-btn">
+        	<button class="btn btn-success" style="color: white; border-radius: 0px; border-color:#444;" type="button" ng-click="cosign(parentTx, tx, meta)">{{ 'LINE_TX_DETAILS_COSIGN' | translate }}</button>
+        </span>
+    </div>
+</div>

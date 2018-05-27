@@ -1,0 +1,16 @@
+<!-- Message Field -->
+<fieldset class="form-group">
+  <div class="input-group">
+    <div style="display: flex; flex-direction: column; justify-content: center">
+      <textarea style="outline: none;overflow: auto;max-width: 600px; min-width: 600px; height: 150px; border-top-right-radius: 3px; border: 1px solid white;" class="sendXem" ng-model="$ctrl.message" placeholder="{{'CACHE_FORM_MESSAGE_PLACEHOLDER' | translate}}" rows="4" ng-change="$ctrl.updateCharactersLeft();" ng-class="$ctrl.charactersLeft < 0 || $ctrl.messageType === 0 && $ctrl.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.message) ? 'has-error' : ''">
+      </textarea>
+      <div style="background-color: white; width: 600px; border-bottom-right-radius: 3px"><div style="padding-right: 5px;text-align:right">{{ $ctrl.charactersLeft }}</div></div>
+    </div>
+  </div>
+</fieldset>
+<!-- Message type -->
+<fieldset class="form-group">
+  <div class="input-group">
+    <select style="min-width: 600px; max-width: 600px; border-radius: 3px" class="form-control" ng-options="type.value as type.name for type in $ctrl.messageTypes" ng-model="$ctrl.messageType" ng-change="$ctrl.updateCharactersLeft();"></select>
+  </div>
+</fieldset>

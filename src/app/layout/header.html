@@ -1,0 +1,58 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a style="background: #27254B" class="navbar-brand cache-navbar-right">
+        <img src="images/cacheIcon-light.svg">
+        <span>{{ 'WALLET_NAME_1' | translate }}</span>
+        <span class="hue brand-name-2">{{ 'WALLET_NAME_2' | translate }}</span>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse cache-navbar-right" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" ng-show="$ctrl._DataStore.account.metaData.account">
+        <li>
+          <a style="outline:0;" ui-sref-active="active" ui-sref="app.dashboard" show-authed="true">{{ 'CACHE_HEADER_DASHBOARD' | translate }}
+          </a>
+        </li>
+        <li>
+          <a style="outline:0;" ui-sref-active="active" ui-sref="app.transferCache" show-authed="true">{{ 'CACHE_SEND_CACHE' | translate }}
+          </a>
+        </li>
+        <li>
+          <a style="outline:0;" ui-sref-active="active" ui-sref="app.transferTransaction" show-authed="true">{{ 'CACHE_SEND_XEM' | translate }}
+          </a>
+        </li>
+        <balance class="nav navbar-nav"></balance>
+        <li id="balanceDropdown" class="money dropdown" show-authed="true">
+          <a style="outline: 0">{{$ctrl.getCacheBalance()}} CHE</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly">
+        <li class="node cache-navbar-right" style="cursor:pointer;">
+          <a data-toggle="modal" data-target=".nodes" aria-haspopup="true" aria-expanded="false" show-authed="true">
+            <i class="fa fa-circle" ng-style="$ctrl._DataStore.connection.status ? {'color': '#00b300'} : {'color': 'red'}"></i> {{ 'HEADER_NODE' | translate }}
+          </a>
+        </li>
+        <li class="account cache-navbar-right" ng-show="$ctrl._DataStore.account.metaData.account">
+          <a ui-sref-active="active" ui-sref="app.account" show-authed="true">
+            {{ 'CACHE_MY_ACCOUNT' | translate }}
+          </a>
+        </li>
+        <li class="cache-navbar-right">
+          <a style="outline:0;cursor:pointer;border-right:none;" show-authed="true" ng-click="$ctrl.logout()">Logout</a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!-- NODE MODAL -->
+<node><node>

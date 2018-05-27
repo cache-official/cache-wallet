@@ -1,0 +1,62 @@
+<div class="explorer-apostilles">
+  <div class="container-fluid main">
+    <div class="row">
+      <div class="col-sm-8">
+        <h2>{{ 'EXPLORER_APOSTILLES_TITLE' | translate }}</h2>
+      </div>
+    </div>
+
+  	<explorer-nav></explorer-nav>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel-heading">
+          <paginate data="$ctrl.sinkData" current-page="$ctrl.currentPage" page-size="$ctrl.pageSize"></paginate>
+        </div>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>{{ 'GENERAL_OWNER' | translate }}</th>
+              <th>{{ 'APOSTILLE_FILE_HASH' | translate }}</th>
+              <th>{{ 'GENERAL_TRANSACTION_HASH' | translate }}</th>
+              <th>{{ 'GENERAL_DATE' | translate }}</th>
+            </tr>
+          </thead>
+        </table>
+        <table class="table table-condensed">
+          <tbody>
+            <tr ng-repeat="tx in $ctrl.sinkData | startFrom:$ctrl.currentPage*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+              <td>
+                <a ui-sref="app.accountsExplorer({address: (tx.transaction.signer | fmtPubToAddress:$ctrl._Wallet.network)})">{{tx.transaction.signer | fmtPubToAddress:$ctrl._Wallet.network | fmtAddress}}</a></td>
+              <td>
+                <span ng-show="tx.transaction.type === 257">
+                  {{ tx.transaction.message.payload }}
+                </span>
+                <span ng-show="tx.transaction.type === 4100">
+                  {{ tx.transaction.otherTrans.message.payload }}
+                </span>
+              </td>
+              <td>
+                <span ng-show="tx.transaction.type === 257">
+                  <a href="{{$ctrl._Wallet.chainLink}}{{tx.meta.hash.data}}" target="_blank">
+                    {{tx.meta.hash.data}}
+                  </a>
+                </span>
+                <span ng-show="tx.transaction.type === 4100">
+                  <a href="{{$ctrl._Wallet.chainLink}}{{tx.meta.innerHash.data}}" target="_blank">
+                    {{ tx.meta.innerHash.data }}
+                  </a>
+                </span>
+              </td>
+              <td>{{tx.transaction.timeStamp | fmtNemDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="panel-body nothing" ng-show="!$ctrl.sinkData.length">
+          <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

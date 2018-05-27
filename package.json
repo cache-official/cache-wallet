@@ -1,0 +1,105 @@
+{
+  "name": "CacheWallet",
+  "version": "1.0.0",
+  "description": "Official wallet for the Cache token",
+  "main": "main.js",
+  "scripts": {
+    "build": "gulp",
+    "start": "electron .",
+    "publish-mac": "build",
+    "publish-win": "build --win --x64",
+    "publish-linux": "build --linux",
+    "publish-all": "gulp && npm run publish-mac && npm run publish-win && npm run publish-linux"
+  },
+  "repository": "https://github.com/cache-official/cache-wallet",
+  "keywords": [
+    "nem",
+    "devslopes",
+    "cache",
+    "blockchain"
+  ],
+  "bugs": {
+    "url": "https://github.com/cache-official/cache-wallet/issues"
+  },
+  "author": "Cache",
+  "license": "MIT",
+  "dependencies": {
+    "@uirouter/angularjs": "1.0.6",
+    "angular": "1.6.2",
+    "angular-animate": "1.6.2",
+    "angular-chart.js": "1.0.0",
+    "angular-mocks": "1.6.2",
+    "angular-sanitize": "1.6.2",
+    "angular-translate": "2.11.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0",
+    "bitcoinjs-lib": "^3.3.1",
+    "bootstrap": "3.3.7",
+    "browserify": "^13.0.0",
+    "browserify-ngannotate": "^2.0.0",
+    "browser-sync": "^2.11.1",
+    "chart.js": "2.1.6",
+    "crypto-js": "^3.1.9-1",
+    "glob": "7.0.5",
+    "jquery": "3.0.0",
+    "marked": "^0.3.5",
+    "merge-stream": "^1.0.0",
+    "nem-sdk": "1.6.6",
+    "nem-voting": "^1.1.16",
+    "ng-toast": "2.0.0",
+    "ngstorage": "0.3.10",
+    "url-parse": "1.1.9",
+    "vinyl-source-stream": "^1.1.0",
+    "zxcvbn": "4.4.2"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "electron": "^2.0.0",
+    "electron-builder": "^19.55.3",
+    "electron-builder-http": "^19.27.5",
+    "electron-devtools-installer": "^2.2.1",
+    "electron-publisher-s3": "^19.55.2",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-notify": "2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.0.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.8"
+  },
+  "build": {
+    "productName": "CacheWallet",
+    "appId": "com.devslopes.cachewallet",
+    "dmg": {
+      "contents": [
+        {
+          "x": 600,
+          "y": 225,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 200,
+          "y": 225,
+          "type": "file"
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ]
+    }
+  },
+  "bin": {
+    "electron": "./node_modules/.bin/electron"
+  }
+}

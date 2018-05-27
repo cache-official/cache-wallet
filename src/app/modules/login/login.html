@@ -1,0 +1,46 @@
+<div class="login-page">
+  <div ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure" class="form-group cache-import-wallet">
+    <div type="button" class="fileUpload import-btn">
+      <img src="images/download-icon.svg"/>
+      <span>{{ 'LOGIN_IMPORT_BUTTON' | translate }}</span>
+      <input type="file" class="upload" multiple='multiple' read-wallet-files="$ctrl.loadWallet($fileContent, $isNCC)" />
+    </div>
+  </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1>{{ 'CACHE_LOGIN_TITLE' | translate }}</h1>
+      </div>
+    </div>
+    <div ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="flexing">
+            <div>
+              <select style="width: 300px; margin-bottom: 20px" class="form-control" ng-model="$ctrl.selectedWallet" ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
+                <option value="" disabled selected>{{ 'CACHE_LOGIN_SELECT_WALLET' | translate }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="flexing">
+            <div>
+              <input class="form-control ph-left login-password-input" type="password" ng-model="$ctrl.common.password" placeholder="{{ 'FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flexing">
+        <div>
+          <button id="loginBtn" class="sign-in-button"
+                  type="submit" ng-click="$ctrl.login($ctrl.selectedWallet)">
+            {{ 'CACHE_LOGIN_BUTTON' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-md-offset-3" ng-show="!$ctrl.needsUpgrade && !$ctrl.showSafetyMeasure">
+      <hr>
+      <p class="text-center"><span style="color: white; font-family: 'Sans Light'" ng-bind-html="'LOGIN_NOTE' | translate"></span> <a style="color: #61AAFF" href="#!/signup">Create a wallet</a></p>
+    </div>
+  </div>
+</div>

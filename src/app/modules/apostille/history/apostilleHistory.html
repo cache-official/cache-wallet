@@ -1,0 +1,85 @@
+<div class="apostille-history-page">
+  <div class="container-fluid main">
+
+    <div class="row">
+      <div class="col-sm-9">
+        <h2>{{ 'APOSTILLE_HISTORY_TITLE' | translate }}</h2>
+      </div>
+    </div>
+    <div class="row">
+
+      <p ng-show="$ctrl._Wallet.ntyData === undefined" class="bg-info" ng-click="$ctrl.uploadNty()" style="cursor:pointer">
+        <b><i class="fa  fa-exclamation-triangle"></i> {{ 'EXPLORER_APOSTILLES_NO_NTY' | translate }}</b>
+      </p>
+      <input id="uploadNty" style="visibility:hidden;position:absolute;" import-nty-file="$ctrl.loadNty($fileContent)" type="file">
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6">
+          <h4>{{ 'EXPLORER_APOSTILLES_YOURS' | translate }}</h4>
+          </div>
+          <div class="col-md-6">
+            <div class="backupPurge">
+              <span ng-click="$ctrl.download()"><i class="fa fa-download"></i> {{ 'APOSTILLE_HISTORY_BACKUP' | translate }}</span>
+              <span ng-click="$ctrl.purge()"><i class="fa fa-trash"></i> {{ 'APOSTILLE_HISTORY_PURGE' | translate }}</span>
+            </div>
+            <paginate data="$ctrl._Wallet.ntyData.data" current-page="$ctrl.currentPage" page-size="$ctrl.pageSize"></paginate>
+          </div>
+        </div>
+
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>{{ 'APOSTILLE_FILENAME' | translate }}</th>
+              <th>{{ 'GENERAL_TAGS' | translate }}</th>
+              <th>{{ 'APOSTILLE_NTY_ACCOUNT' | translate }}</th>
+              <th>{{ 'APOSTILLE_FILE_HASH' | translate }}</th>
+              <th>{{ 'GENERAL_DATE' | translate }}</th>
+              <th>{{ 'GENERAL_ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+        </table>
+        <table class="table table-hover table-condensed">
+          <tbody>
+            <tr ng-repeat="ap in $ctrl._Wallet.ntyData.data | reverse | startFrom:$ctrl.currentPage*$ctrl.pageSize | limitTo:$ctrl.pageSize">
+              <td>{{ap.filename}}</td>
+              <td>{{ap.tags}}</td>
+              <td ui-sref="app.accountsExplorer({address: ap.dedicatedAccount})" style="cursor:pointer"><a>{{ap.dedicatedAccount}}</a></td>
+              <td>
+                <span ng-show="!ap.txMultisigHash.length">
+                  <a href="{{$ctrl._Wallet.chainLink}}{{ap.txHash}}" target="_blank">
+                    {{ap.fileHash}}
+                  </a>
+                </span>
+                <span ng-show="ap.txMultisigHash.length">
+                  <a href="{{$ctrl._Wallet.chainLink}}{{ap.txMultisigHash}}" target="_blank">
+                    {{ap.fileHash}}
+                  </a>
+                </span>
+              </td>
+              <td>{{ap.timeStamp}}</td>
+              <td class="row buttans">
+                <div class="col-md-6">
+                  <button class="btn btn-success" type="button" ui-sref="app.createApostille({address: ap.dedicatedAccount, privateKey: ap.dedicatedPrivateKey, tags: ap.tags, isUpdate: true})" ng-show="ap.dedicatedAccount !== $ctrl.sink" ng-disabled="$ctrl._Wallet.algo === 'trezor'">{{ 'GENERAL_UPDATE' | translate }}</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-success" type="button" ui-sref="app.apostilleMessage({address: ap.dedicatedAccount, privateKey: ap.dedicatedPrivateKey})" ng-show="ap.dedicatedAccount !== $ctrl.sink">{{ 'GENERAL_MESSAGE' | translate }}</button>
+                </div>
+                <div class="col-md-12">
+                  <button class="btn btn-success" type="button" ng-show="ap.dedicatedAccount !== $ctrl.sink" ui-sref="app.createMultisig({address: ap.dedicatedAccount, privateKey: ap.dedicatedPrivateKey})">{{ 'APOSTILLE_HISTORY_BTN_TRANSFER' | translate }}</button>
+                </div>
+                <p class="col-md-12" ng-show="ap.dedicatedAccount === $ctrl.sink">{{ 'GENERAL_NONE' | translate }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          <div class="panel-body nothing" ng-show="!$ctrl._Wallet.ntyData.data">
+                <p>{{ 'GENERAL_NO_RESULTS' | translate }}</p>
+            </div>
+
+      </div>
+
+      <a id="downloadNty" style="visibility:hidden" target="_blank"></a>
+    </div>
+  </div>
+</div>
