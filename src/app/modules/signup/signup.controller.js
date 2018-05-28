@@ -1,6 +1,7 @@
 import nem from 'nem-sdk';
 import Helpers from '../../utils/helpers';
 import zxcvbn from 'zxcvbn';
+const shell = window.require('electron').remote.shell;
 
 class SignupCtrl {
 
@@ -321,6 +322,10 @@ class SignupCtrl {
                 elem.innerHTML = Math.round(width * 1)  + '%';
             }
         });
+    }
+
+    openWebsite(url) {
+        shell.openExternal(url);
     }
 
     copyPrivateKey() {
