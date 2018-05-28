@@ -1,6 +1,6 @@
 {
   "name": "CacheWallet",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Official wallet for the Cache token",
   "main": "main.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "publish-mac": "build",
     "publish-win": "build --win --x64",
     "publish-linux": "build --linux",
-    "publish-all": "gulp && npm run publish-mac && npm run publish-win && npm run publish-linux"
+    "publish-all": "gulp && npm run publish-mac && npm run publish-win && npm run publish-linux",
+    "dist": "electron-builder --win --x64"
   },
   "repository": "https://github.com/cache-official/cache-wallet",
   "keywords": [
@@ -96,7 +97,8 @@
     "linux": {
       "target": [
         "deb"
-      ]
+      ],
+      "maintainer": "https://github.com/cache-official/cache-wallet"
     }
   },
   "bin": {

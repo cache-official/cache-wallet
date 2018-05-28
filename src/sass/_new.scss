@@ -183,7 +183,7 @@ input.readOnly {
   border: 0;
 }
 select {
-  //border: 1px solid $blueLite !important;
+  border: 1px solid $blueLite !important;
   border-radius: 0 !important;
 }
 label {
@@ -1531,7 +1531,7 @@ textarea {
   font-family: "Sans Light";
   font-size: 2rem !important;
   color: white;
-  //border-bottom: 1px solid #615FC1;
+  border-bottom: 1px solid #615FC1;
   background: #27254b;
   min-width: 400px;
   max-width: 402px;
@@ -1540,12 +1540,6 @@ textarea {
   &::-webkit-input-placeholder {
     color: #cccaf7;
   }
-}
-.wallet-name::before {
-  content:'';
-  background-image: -webkit-linear-gradient(to right, #404BDE, #75F0E0);
-  height: 4px;
-  display: block;
 }
 
 .cache-subtext {
