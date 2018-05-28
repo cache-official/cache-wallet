@@ -92,7 +92,6 @@ class SignupCtrl {
      */
     changeWalletType() {
         this._selectedType = this.walletTypes[0];
-        // this.network = this._AppConstants.defaultNetwork;
         this.network = this._AppConstants.defaultNetwork;
         this.showBackBtn = true;
         this.step1 = false;
@@ -322,6 +321,30 @@ class SignupCtrl {
                 elem.innerHTML = Math.round(width * 1)  + '%';
             }
         });
+    }
+
+    copyPrivateKey() {
+        let dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        let pkInput = document.getElementById("pkCopy");
+        let pk = pkInput.innerText;
+        dummy.setAttribute('value', pk);
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        this._Alert.privateKeyCopiedSuccess();
+    }
+
+    copyAddress() {
+        let dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        let addressInput = document.getElementById("addressCopy");
+        let address = addressInput.innerText;
+        dummy.setAttribute('value', address);
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        this._Alert.addressCopiedSuccess();
     }
 
     /**

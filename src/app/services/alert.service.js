@@ -621,7 +621,14 @@ export default class Alert {
 
     addressCopiedSuccess() {
         this._ngToast.create({
-            content: this._$filter('translate')('ADDRESS_COPIED'),
+            content: this._$filter('translate')('Address Copied'),
+            className: 'success'
+        });
+    }
+
+   privateKeyCopiedSuccess() {
+        this._ngToast.create({
+            content: this._$filter('translate')('Private Key Copied'),
             className: 'success'
         });
     }

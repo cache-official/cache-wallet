@@ -19,7 +19,7 @@ function createWindow () {
 	  minHeight: 570,
 	  minWidth: 1280,
       webPreferences: {
-	      devTools: prodDebug
+	      devTools: true
       }
   })
 

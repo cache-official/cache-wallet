@@ -1,0 +1,15 @@
+{
+  "name": "CacheWallet",
+  "version": "1.0.0",
+  "description": "Official wallet for the Cache token",
+  "license": "MIT",
+  "main":"start.html",
+  "window":{
+    "fullscreen": false,
+    "width": 1600,
+    "height": 900,
+    "min_width":800,
+    "min_height":600,
+    "icon": "images/cacheIcon-light.svg"
+  }
+}
