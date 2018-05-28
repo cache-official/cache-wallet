@@ -29,7 +29,13 @@
 					</div>
 					<fee-input tx="$ctrl.preparedTransaction" is-multisig="$ctrl.formData.isMultisig"></fee-input>
 					<password-input common="$ctrl.common"></password-input>
-					<button style="margin-top: 40px; width: 200px !important; height: 44px !important;" class="sign-in-button" type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || $ctrl.formData.recipient.length !== 40 || $ctrl.formData.messageType === 2 && $ctrl.formData.recipientPublicKey.length !== 64 || $ctrl.isMosaicTransfer && $ctrl.formData.isMultisig && !$ctrl.preparedTransaction.otherTrans.mosaics.length || $ctrl.isMosaicTransfer && !$ctrl.formData.isMultisig && !$ctrl.preparedTransaction.mosaics.length || !$ctrl._Helpers.isTextAmountValid($ctrl.formData.amount) || $ctrl.charactersLeft < 0 || $ctrl.formData.messageType === 0 && $ctrl.formData.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.formData.message)" ng-click="$ctrl.send()">{{ 'GENERAL_SEND' | translate }}</button>
+					<div style="display: flex; align-items: center;margin-top: 40px;width: 360px;justify-content: space-between">
+						<button style="width: 200px; height: 44px !important;" class="sign-in-button" type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || $ctrl.formData.recipient.length !== 40 || $ctrl.formData.messageType === 2 && $ctrl.formData.recipientPublicKey.length !== 64 || $ctrl.isMosaicTransfer && $ctrl.formData.isMultisig && !$ctrl.preparedTransaction.otherTrans.mosaics.length || $ctrl.isMosaicTransfer && !$ctrl.formData.isMultisig && !$ctrl.preparedTransaction.mosaics.length || !$ctrl._Helpers.isTextAmountValid($ctrl.formData.amount) || $ctrl.charactersLeft < 0 || $ctrl.formData.messageType === 0 && $ctrl.formData.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.formData.message)" ng-click="$ctrl.send()">{{ 'GENERAL_SEND' | translate }}
+						</button>
+						<a ng-click="$ctrl.openWebsite('https://getcache.io')" target="_blank">
+							<button style="height: 44px; width: 120px" class="sign-in-button">Buy Cache</button>
+						</a>
+					</div>
 				</div>
 			</div>
 			<attach-mosaic ng-show="$ctrl.isMosaicTransfer" form-data="$ctrl.formData" selected-mosaic="$ctrl.selectedMosaic" account-mosaics="$ctrl.currentAccountMosaicData" update-ctrl="$ctrl.prepareTransaction();"></attach-mosaic>

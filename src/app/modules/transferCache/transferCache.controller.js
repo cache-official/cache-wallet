@@ -1,5 +1,6 @@
 import nem from 'nem-sdk';
 import Helpers from '../../utils/helpers';
+const shell = window.require('electron').remote.shell;
 
 class TransferCacheCtrl {
 
@@ -157,6 +158,10 @@ class TransferCacheCtrl {
         // Default selected is nem:xem
         this.selectedMosaic = "cache:cache";
         return;
+    }
+
+    openWebsite(url) {
+        shell.openExternal(url)
     }
 
     /**

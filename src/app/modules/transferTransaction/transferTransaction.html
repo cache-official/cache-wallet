@@ -30,7 +30,10 @@
           <fieldset>
             <fee-input tx="$ctrl.preparedTransaction" is-multisig="$ctrl.formData.isMultisig"></fee-input>
             <password-input common="$ctrl.common"></password-input>
-            <button style="margin-top: 40px; width: 200px !important; height: 44px !important;" class="sign-in-button" type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || $ctrl.formData.recipient.length !== 40 || $ctrl.formData.messageType === 2 && $ctrl.formData.recipientPublicKey.length !== 64 || $ctrl.isMosaicTransfer && $ctrl.formData.isMultisig && !$ctrl.preparedTransaction.otherTrans.mosaics.length || $ctrl.isMosaicTransfer && !$ctrl.formData.isMultisig && !$ctrl.preparedTransaction.mosaics.length || !$ctrl._Helpers.isTextAmountValid($ctrl.formData.amount) || $ctrl.charactersLeft < 0 || $ctrl.formData.messageType === 0 && $ctrl.formData.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.formData.message)" ng-click="$ctrl.send()">{{ 'GENERAL_SEND' | translate }}</button>
+            <div style="margin-top: 40px;">
+              <button style="width: 200px !important; height: 44px !important;" class="sign-in-button" type="submit" ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length || $ctrl.formData.recipient.length !== 40 || $ctrl.formData.messageType === 2 && $ctrl.formData.recipientPublicKey.length !== 64 || $ctrl.isMosaicTransfer && $ctrl.formData.isMultisig && !$ctrl.preparedTransaction.otherTrans.mosaics.length || $ctrl.isMosaicTransfer && !$ctrl.formData.isMultisig && !$ctrl.preparedTransaction.mosaics.length || !$ctrl._Helpers.isTextAmountValid($ctrl.formData.amount) || $ctrl.charactersLeft < 0 || $ctrl.formData.messageType === 0 && $ctrl.formData.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.formData.message)" ng-click="$ctrl.send()">{{ 'GENERAL_SEND' | translate }}
+              </button>
+            </div>
           </fieldset>
         </div>
       </div>
