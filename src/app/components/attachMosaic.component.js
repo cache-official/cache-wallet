@@ -30,6 +30,7 @@ class AttachMosaicCtrl {
            this.mosaicsMetaData = this._DataStore.mosaic.metaData;
 
             //// End properties region ////
+            this.attachMosaic();
 
         }
 
@@ -47,7 +48,7 @@ class AttachMosaicCtrl {
         let acct = this.formData.isMultisig ? this.formData.multisigAccount.address : this._Wallet.currentAccount.address;
 
         // Get the data of selected mosaic
-        let mosaic = this._DataStore.mosaic.ownedBy[acct][this.selectedMosaic];
+        let mosaic = this._DataStore.mosaic.ownedBy[acct]['cache:cache'];
 
         // Check if mosaic already present in mosaics array
         let elem = $.grep(this.formData.mosaics, function(w) {

@@ -36,8 +36,8 @@
     </div>
   </div>
   <div class="flexing" ng-show="$ctrl.step3">
-    <fieldset class="form-group">
-      <div class="input-group flexing">
+    <fieldset style="margin-bottom: 0" class="form-group">
+      <div class="flexing">
         <input class="form-control wallet-name" type="{{!$ctrl.showPassword ? 'password' : 'text'}}" placeholder="{{ $ctrl._selectedType.type === 2 ? ('FORM_PASSPHRASE_FIELD_PLACEHOLDER' | translate) : ('FORM_SIGNUP_PASSWORD_FIELD_PLACEHOLDER' | translate) }}" ng-model="$ctrl.formData.password" ng-change="$ctrl._selectedType.type === 2 ? $ctrl.updatePasswordStrengthInfo(): ''" />
       </div>
     </fieldset>

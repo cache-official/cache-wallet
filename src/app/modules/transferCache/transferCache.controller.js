@@ -41,7 +41,7 @@ class TransferCacheCtrl {
         // Switch between mosaic transfer and normal transfers
         this.isMosaicTransfer = true;
         // Selected mosaic
-        this.selectedMosaic = "devslopes:cache";
+        this.selectedMosaic = "cache:cache";
         // Mosaics data for current account
         this.currentAccountMosaicData = "";
         // Prevent user to click twice on send when already processing
@@ -57,7 +57,6 @@ class TransferCacheCtrl {
         // Update the fee in view
         this.prepareTransaction();
         this.setMosaicTransfer();
-
     }
 
     /**
@@ -156,7 +155,7 @@ class TransferCacheCtrl {
         // Set current account mosaics names and data, if account owns any
         this.currentAccountMosaicData = undefined !== this._DataStore.mosaic.ownedBy[acct] ? this._DataStore.mosaic.ownedBy[acct]: "";
         // Default selected is nem:xem
-        this.selectedMosaic = "devslopes:cache";
+        this.selectedMosaic = "cache:cache";
         return;
     }
 

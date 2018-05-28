@@ -14,8 +14,8 @@ if (process.env.NODE_ENV === 'development' || prodDebug) {
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-	  width: 1280,
-	  height: 728,
+	  width: 1440,
+	  height: 900,
 	  minHeight: 570,
 	  minWidth: 1280,
       webPreferences: {

@@ -29,7 +29,7 @@
 							<span class="account-labels">
 								<label>{{ 'GENERAL_ADDRESS' | translate }} </label>
 							</span>
-							<span class="form-control">{{ $ctrl._DataStore.account.metaData.account.address | fmtAddress }}
+							<span style=" background: #27254B;color: #cccaf7" class="form-control">{{ $ctrl._DataStore.account.metaData.account.address | fmtAddress }}
 								<button style="color: #61AAFF; background: transparent; outline: none; border: none"
 								        class="floatRight" type="button" ng-click="$ctrl.copyAddress();">
 									<i class="fa fa-clipboard"></i>
@@ -43,7 +43,7 @@
 							<span class="account-labels">
 								<label>{{ 'GENERAL_PUBLIC_KEY' | translate }} </label>
 							</span>
-							<span class="form-control">
+							<span style=" background: #27254B;color: #cccaf7" class="form-control">
 								<span type="text"> {{ $ctrl._DataStore.account.metaData.account.publicKey || 'ACCOUNT_NO_PUBLIC_KEY' | translate }}</span>
 							</span>
 						</div>
@@ -53,7 +53,7 @@
 							<span class="account-labels">
 								<label>{{ 'ACCOUNT_IMPORTANCE_SCORE' | translate }} </label>
 							</span>
-							<span class="form-control">{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[1] }} * 10<sup>(-4)</sup></span>
+							<span style=" background: #27254B;color: #cccaf7" class="form-control">{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.importance | fmtNemImportanceScore)[1] }} * 10<sup>(-4)</sup></span>
 						</div>
 					</fieldset>
 					<fieldset style="margin-bottom: 20px" class="form-group-lg">
@@ -61,7 +61,7 @@
 							<span class="account-labels">
 								<label>{{ 'ACCOUNT_VESTED_BALANCE' | translate }} </label>
 							</span>
-							<span class="form-control">{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[1] }} <b>XEM</b></span>
+							<span style=" background: #27254B;color: #cccaf7" class="form-control">{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[0] }}.{{ ($ctrl._DataStore.account.metaData.account.vestedBalance | fmtNemValue)[1] }} <b>XEM</b></span>
 						</div>
 					</fieldset>
 					<fieldset class="form-group">
@@ -104,7 +104,7 @@
 										</button>
 									</div>
 									<div style="display: flex; justify-content: space-between; align-items: center">
-										<input style="min-width: 600px" class="form-control"
+										<input style="min-width: 600px; font-size: 1.5rem;color: #cccaf7; background: #27254b" class="form-control"
 										       ng-model="$ctrl.commonPK.privateKey"
 										       ng-show="$ctrl.commonPK.privateKey" readOnly>
 										</input>
@@ -124,16 +124,14 @@
 				<div class="panel-body">
 					<fieldset class="form-group">
 						<div class="input-group">
-							<select style="height: 44px; width: 300px; outline: none" class=""
-							        ng-model="$ctrl.selectedWallet"
-							        ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
-								<option value="" disabled selected>{{ 'LOGIN_SELECT_WALLET' | translate }}</option>
+							<select style="height: 44px; width: 300px; outline: none; background: #27254b;color: #cccaf7" ng-model="$ctrl.selectedWallet" ng-options="wallet.name group by (wallet.accounts[0].network | toNetworkName) for wallet in $ctrl._storage.wallets">
+								<option style="color: #cccaf7" value="" disabled selected>{{ 'LOGIN_SELECT_WALLET' | translate }}</option>
 							</select>
-							<span style="padding-left: 20px; background-color: transparent" class="">
-								<button style="background-color: transparent; border: none; outline: none" class="" type="button"
+							<span style="padding-left: 10px; background-color: transparent" class="">
+								<button style="background-color: transparent; border: none; outline: none" type="button"
 								        ng-show="$ctrl.selectedWallet"
-								        ng-click="$ctrl.downloadWallet()" title="{{'ACCOUNT_BACKUP_WALLET_DOWNLOAD' | translate}}"><img
-										src="../../../images/download-icon.svg"/>
+								        ng-click="$ctrl.downloadWallet()" title="{{'ACCOUNT_BACKUP_WALLET_DOWNLOAD' | translate}}">
+									<img style="width:24px" src="images/download-icon.svg"/>
 								</button>
 							</span>
 							<a id="downloadWallet" target="_blank"></a>
@@ -156,7 +154,11 @@
 					<div class="modal-body">
 						<!-- Password Field -->
 						<div style="max-width: 570px; overflow: hidden">
-							<password-input common="$ctrl.common"></password-input>
+							<fieldset class="form-group" ng-show="Wallet.algo !== 'trezor'">
+								<div class="input-group">
+									<input class="sendXem password modalPasswordInput" type="password" placeholder="{{ 'CACHE_FORM_PASSWORD_FIELD_PLACEHOLDER' | translate }}" ng-model="common.password" ng-class="!common.password.length ? 'has-error' : ''"/>
+								</div>
+							</fieldset>
 						</div>
 						<fieldset class="form-group">
 							<div class="input-group">
@@ -171,7 +173,6 @@
 						</fieldset>
 						<button class="btn btn-success"
 						        type="submit"
-						        ng-disabled="$ctrl.okPressed || $ctrl._Wallet.algo !== 'trezor' && !$ctrl.common.password.length"
 						        ng-click="$ctrl.addNewAccount()">
 							{{ 'ACCOUNT_ADD_NEW_ACCOUNT' | translate }}
 						</button>

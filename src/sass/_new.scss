@@ -1538,10 +1538,14 @@ textarea {
   font-size: 2rem !important;
   color: white;
   border-bottom: 1px solid #615FC1;
-  background: #19173F;
+  background: #27254b;
   min-width: 400px;
   max-width: 400px;
   text-align: center;
+  border-radius: 3px;
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
 }
 
 .cache-subtext {
@@ -1621,14 +1625,32 @@ textarea {
 .login-password-input {
   width: 300px;
   margin-bottom: 30px;
-  border-radius: 3px
+  border-radius: 3px;
+  background: #27254b;
+  color: #cccaf7;
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
 }
 .password-input {
+  color: #cccaf7;
+  background: #27254B;
   max-width: 600px;
   min-width: 600px;
   height: 44px;
   margin-top: 20px;
-  outline: none
+  outline: none;
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
+}
+.modalPasswordInput {
+  color: #333;
+  background: white;
+  min-width: 570px;
+  height: 44px;
+  margin-top: 20px;
+  outline: none;
 }
 .copyPrivateKeyButton {
   position: absolute;
@@ -1637,4 +1659,9 @@ textarea {
   background: transparent;
   right: 10px;
   color: #61AAFF;
+}
+.placeholderColor {
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
 }

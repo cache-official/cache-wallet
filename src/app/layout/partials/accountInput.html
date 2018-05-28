@@ -1,9 +1,9 @@
 <!--  ADDRESS BOOK, RECIPIENT ADDRESS, ALIAS-->
 <fieldset class="form-group">
   <div style="max-width: 600px !important; min-width: 600px;" class="input-group">
-    <input ng-show="!$ctrl.showContacts" class="form-control form-control-lg" type="text" placeholder="{{ (!$ctrl.isCosignatory ? 'CACHE_FORM_RECIPIENT_PLACEHOLDER' : 'CACHE_FORM_RECIPIENT_PLACEHOLDER') | translate}}" ng-model="$ctrl.accountView" ng-change="$ctrl.processInput(false)" ng-class="!$ctrl.isValid($ctrl.accountView) ? 'has-error' : ''"/>
-    <select ng-show="$ctrl.showContacts" class="form-control form-control-lg" ng-model="$ctrl.accountView" ng-options="contact.address as contact.label for contact in $ctrl._Wallet.contacts" ng-change="$ctrl.processInput(false);$ctrl.showContacts = false;">
-      <option value="" disabled selected>{{ 'FORM_SELECT_CONTACT' | translate }}</option>
+    <input ng-show="!$ctrl.showContacts" style="color: #cccaf7; background: #27254B" class="form-control form-control-lg placeholderColor" type="text" placeholder="{{ (!$ctrl.isCosignatory ? 'CACHE_FORM_RECIPIENT_PLACEHOLDER' : 'CACHE_FORM_RECIPIENT_PLACEHOLDER') | translate}}" ng-model="$ctrl.accountView" ng-change="$ctrl.processInput(false)" ng-class="!$ctrl.isValid($ctrl.accountView) ? 'has-error' : ''"/>
+    <select style="color: #cccaf7; background: #27254B" ng-show="$ctrl.showContacts" class="form-control form-control-lg" ng-model="$ctrl.accountView" ng-options="contact.address as contact.label for contact in $ctrl._Wallet.contacts" ng-change="$ctrl.processInput(false);$ctrl.showContacts = false;">
+      <option style="color: #cccaf7; background: #27254B" value="" disabled selected>{{ 'FORM_SELECT_CONTACT' | translate }}</option>
     </select>
     <span class="input-group-btn addSubtract">
       <button type="button" class="btn btn-warning" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="{{ 'FORM_BTN_GET_ALIAS' | translate }}" ng-click="$ctrl.processInput(true);" ng-disabled="$ctrl.showContacts || !$ctrl.isAlias($ctrl.accountView) || !($ctrl.accountView.length > 1)">
