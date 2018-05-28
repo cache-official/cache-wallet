@@ -37,7 +37,9 @@ class AppHeaderCtrl {
     }
 
     getCacheBalance() {
+        if (this._DataStore.account.metaData === undefined) { return 0; }
         let address = this._DataStore.account.metaData.account.address;
+        if (undefined === this._DataStore.mosaic.ownedBy[address]) return;
         if (undefined === this._DataStore.mosaic.ownedBy[address]['cache:cache']) {
             return 0
         }

@@ -51,20 +51,22 @@ class AttachMosaicCtrl {
         let mosaic = this._DataStore.mosaic.ownedBy[acct]['cache:cache'];
 
         // Check if mosaic already present in mosaics array
+        if (this.formData.mosaics === null) return;
         let elem = $.grep(this.formData.mosaics, function(w) {
             return nem.utils.format.mosaicIdToName(mosaic.mosaicId) === nem.utils.format.mosaicIdToName(w.mosaicId);
         });
 
         // If not present, update the array
-        if (elem.length === 0) {
-            this.formData.mosaics.push({
-                'mosaicId': mosaic['mosaicId'],
-                'quantity': 0,
-                'gid': 'mos_id_' + this.counter
-            });
-            // Update fee
-            this.updateCtrl();
-        }
+        if (undefined === mosaic) return;
+            if (elem.length === 0) {
+                this.formData.mosaics.push({
+                    'mosaicId': mosaic['mosaicId'],
+                    'quantity': 0,
+                    'gid': 'mos_id_' + this.counter
+                });
+                // Update fee
+                this.updateCtrl();
+            }
     }
 
     /**
