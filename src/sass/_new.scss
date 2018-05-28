@@ -55,9 +55,6 @@ table {
   margin-bottom: 0px !important;
   letter-spacing: .5px;
 }
-//span {
-//  color: white;
-//}
 thead {
   border-bottom: $borderUnderline;
 }
@@ -76,8 +73,6 @@ td {
 }
 th {
   color: white;
-  //font-size: 13px;
-  //font-weight: 500;
   min-width: 55px;
   border-bottom: $borderUnderline;
   padding-top: $pad * 2;
@@ -188,7 +183,7 @@ input.readOnly {
   border: 0;
 }
 select {
-  border: 1px solid $blueLite !important;
+  //border: 1px solid $blueLite !important;
   border-radius: 0 !important;
 }
 label {
@@ -797,9 +792,9 @@ footer {
     border: none;
     margin-top: 20px;
     height: 1px;
-    width: 50%;
+    width: 300px;
     background-color: #c0c8c9;
-    background-image: -webkit-linear-gradient(0deg, #fff, #c0c8c9, #fff);
+    background-image: -webkit-linear-gradient(0deg, #404BDE, #75F0E0);
   }
   p{
     color: #7b8993;
@@ -870,7 +865,6 @@ footer {
     height: 20px;
     border-radius: 10px;
     background-image: -webkit-linear-gradient(0deg, #75F0E0, #404BDE);
-    //background-color: #4CAF50;
     text-align: center;
     line-height: 20px;
     color: white;
@@ -1537,15 +1531,21 @@ textarea {
   font-family: "Sans Light";
   font-size: 2rem !important;
   color: white;
-  border-bottom: 1px solid #615FC1;
+  //border-bottom: 1px solid #615FC1;
   background: #27254b;
   min-width: 400px;
-  max-width: 400px;
+  max-width: 402px;
   text-align: center;
   border-radius: 3px;
   &::-webkit-input-placeholder {
     color: #cccaf7;
   }
+}
+.wallet-name::before {
+  content:'';
+  background-image: -webkit-linear-gradient(to right, #404BDE, #75F0E0);
+  height: 4px;
+  display: block;
 }
 
 .cache-subtext {

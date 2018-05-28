@@ -19,7 +19,7 @@
           <fieldset class="form-group" ng-show="!$ctrl.isMosaicTransfer">
             <div class="input-group">
               <div style="max-width: 600px; min-width: 600px; height: 40px; border-radius: 3px; border: none;color: #cccaf7; background: #27254B" class="form-control formFloat" ng-disabled="$ctrl.isMosaicTransfer">
-                <input style="background: #27254B" placeholder="Amount" type="text" ng-disabled="$ctrl.isMosaicTransfer" ng-model="$ctrl.formData.amount" maxlength="17" ng-change="$ctrl.prepareTransaction();" />
+                <input style="background: #27254B" class="placeholderColor" placeholder="Amount" type="text" ng-disabled="$ctrl.isMosaicTransfer" ng-model="$ctrl.formData.amount" maxlength="17" ng-change="$ctrl.prepareTransaction();" />
                 <label style="padding-bottom: 18px" class="floatRight"><small>XEM</small></label>
               </div>
             </div>
