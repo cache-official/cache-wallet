@@ -15,7 +15,7 @@ class AttachMosaicCtrl {
         this.$onInit = () => {
 
             //// Component dependencies region ////
-
+            this.shouldShow = true;
             this._$filter = $filter;
             this._Helpers = Helpers;
             this._$timeout = $timeout;
@@ -30,6 +30,7 @@ class AttachMosaicCtrl {
            this.mosaicsMetaData = this._DataStore.mosaic.metaData;
 
             //// End properties region ////
+            this.attachMosaic();
 
         }
 
@@ -47,23 +48,25 @@ class AttachMosaicCtrl {
         let acct = this.formData.isMultisig ? this.formData.multisigAccount.address : this._Wallet.currentAccount.address;
 
         // Get the data of selected mosaic
-        let mosaic = this._DataStore.mosaic.ownedBy[acct][this.selectedMosaic];
+        let mosaic = this._DataStore.mosaic.ownedBy[acct]['cache:cache'];
 
         // Check if mosaic already present in mosaics array
+        if (this.formData.mosaics === null) return;
         let elem = $.grep(this.formData.mosaics, function(w) {
             return nem.utils.format.mosaicIdToName(mosaic.mosaicId) === nem.utils.format.mosaicIdToName(w.mosaicId);
         });
 
         // If not present, update the array
-        if (elem.length === 0) {
-            this.formData.mosaics.push({
-                'mosaicId': mosaic['mosaicId'],
-                'quantity': 0,
-                'gid': 'mos_id_' + this.counter
-            });
-            // Update fee
-            this.updateCtrl();
-        }
+        if (undefined === mosaic) return;
+            if (elem.length === 0) {
+                this.formData.mosaics.push({
+                    'mosaicId': mosaic['mosaicId'],
+                    'quantity': 0,
+                    'gid': 'mos_id_' + this.counter
+                });
+                // Update fee
+                this.updateCtrl();
+            }
     }
 
     /**

@@ -1,6 +1,7 @@
 import nem from 'nem-sdk';
 import Helpers from '../../utils/helpers';
 import zxcvbn from 'zxcvbn';
+const shell = window.require('electron').remote.shell;
 
 class SignupCtrl {
 
@@ -11,9 +12,7 @@ class SignupCtrl {
      */
     constructor(AppConstants, $state, Alert, WalletBuilder, $localStorage, $timeout, $scope, Wallet, AddressBook) {
         'ngInject';
-
         //// Module dependencies region ////
-
         this._storage = $localStorage;
         this._Alert = Alert;
         this._WalletBuilder = WalletBuilder;
@@ -22,6 +21,7 @@ class SignupCtrl {
         this._$timeout = $timeout;
         this._Wallet = Wallet;
         this._AddressBook = AddressBook;
+        this.showBackBtn = false;
 
         //// End dependencies region ////
 
@@ -69,13 +69,15 @@ class SignupCtrl {
         }];
 
         // Selected wallet type
-        this._selectedType = undefined;
+        this._selectedType = this.walletTypes[0];
 
         // Password strength info given by zxcvbn
         this.passwordStrengthInfo = {};
+        this.step6 = false;
+        this.step7 = false;
 
         //// End properties region ////
-        
+
         // Will stop catching entropy if user change page in the middle of movement capture
         $scope.$on("$destroy", () => {
             $("html").off('mousemove');
@@ -89,8 +91,12 @@ class SignupCtrl {
      *
      * @param {number} type - Type number
      */
-    changeWalletType(type) {
-        this._selectedType = this.walletTypes[type - 1];
+    changeWalletType() {
+        this._selectedType = this.walletTypes[0];
+        this.network = this._AppConstants.defaultNetwork;
+        this.showBackBtn = true;
+        this.step1 = false;
+        this.step2 = true;
     }
 
     /**
@@ -98,20 +104,8 @@ class SignupCtrl {
      *
      * @param {number} id - The network id to use at wallet creation
      */
-    changeNetwork(id) {
-        if (id == nem.model.network.data.mijin.id && this._AppConstants.mijinDisabled) {
-            this._Alert.mijinDisabled();
-            // Reset network to default
-            this.network = this._AppConstants.defaultNetwork;
-            return;
-        } else if (id == nem.model.network.data.mainnet.id && this._AppConstants.mainnetDisabled) {
-            this._Alert.mainnetDisabled();
-            // Reset network to default
-            this.network = this._AppConstants.defaultNetwork;
-            return;
-        }
-        // Set Network
-        this.network = id;
+    changeNetwork() {
+        this.network = nem.model.network.data[1];
     }
 
     /**
@@ -143,84 +137,35 @@ class SignupCtrl {
 
         // Create the wallet from form data
         return this._WalletBuilder.createWallet(this.formData.walletName, this.formData.password, this.formData.entropy, this.network).then((wallet) => {
-            this._$timeout(() => {
-                if (wallet && typeof wallet === 'object') {
-                    //
-                    this.arrangeSafetyProtocol(wallet);
-                    // We need private key for view so we create a common object with the wallet password
-                    let common = nem.model.objects.create("common")(this.formData.password, "");
-                    // Decrypt / generate and check primary
-                    if (!this._Wallet.decrypt(common, wallet.accounts[0], wallet.accounts[0].algo, wallet.accounts[0].network)) {
-                        // Enable send button
-                        this.okPressed = false;
+                this._$timeout(() => {
+                    if (wallet && typeof wallet === 'object') {
+                        this.arrangeSafetyProtocol(wallet);
+                        // We need private key for view so we create a common object with the wallet password
+                        let common = nem.model.objects.create("common")(this.formData.password, "");
+                        // Decrypt / generate and check primary
+                        if (!this._Wallet.decrypt(common, wallet.accounts[0], wallet.accounts[0].algo, wallet.accounts[0].network)) {
+                            // Enable send button
+                            this.okPressed = false;
+                            return;
+                        } else {
+                            // Set the decrypted private key for view
+                            this.walletPrivateKey = common.privateKey;
+                        }
+                        // Hide step
+                        this.step4 = false;
+                        // Show next step
+                        this.step5 = true;
                         return;
-                    } else {
-                        // Set the decrypted private key for view
-                        this.walletPrivateKey = common.privateKey;
                     }
-                    // Hide step
-                    this.step4 = false;
-                    // Show next step
-                    this.step5 = true;
-                    return;
-                }
-            }, 10);
-        },
-        (err) => {
-            // Unlock button
-            this.okPressed = false;
-            return;
-        });
+                }, 10);
+            },
+            (err) => {
+                // Unlock button
+                this.okPressed = false;
+                return;
+            });
     }
 
-    /**
-     * Create a new brain wallet
-     */
-    /*createBrainWallet() {
-        // Check if passwords match
-        if (!this.checkPasswordsMatch()) return;
-
-        // Mainnet passphrase must be at least 40 characters long
-        if (this.network === nem.model.network.data.mainnet.id && this.formData.password.length < 40) {
-            this._Alert.brainPasswordTooShort();
-            return;
-        }
-
-        // Mainnet passphrase must have a score of at least 3/4
-        if (this.network === nem.model.network.data.mainnet.id && zxcvbn(this.formData.password).score < 3) {
-            this._Alert.passphraseIsWeak();
-            return;
-        }
-
-        // Lock button
-        this.okPressed = true;
-
-        // Create the wallet from form data
-        return this._WalletBuilder.createBrainWallet(this.formData.walletName, this.formData.password, this.network).then((wallet) => {
-            this._$timeout(() => {
-                if (wallet && typeof wallet === 'object') {
-                    //
-                    this.arrangeSafetyProtocol(wallet);
-                    // Store private key for account safety protocol
-                    this.walletPrivateKey = nem.crypto.helpers.derivePassSha(this.formData.password, 6000).priv;
-                    // Hide step
-                    this.step3 = false;
-                    // Show next step
-                    this.step5 = true;
-                    return;
-                }
-            }, 10);
-        },
-        (err) => {
-            // Unlock button
-            this.okPressed = false;
-            return;
-        });
-    }*/
-
-    /**
-     * Create a new private key wallet
-     */
     createPrivateKeyWallet() {
         // Check if passwords match
         if (!this.checkPasswordsMatch()) return;
@@ -230,24 +175,23 @@ class SignupCtrl {
 
         // Create the wallet from form data
         return this._WalletBuilder.createPrivateKeyWallet(this.formData.walletName, this.formData.password, this.formData.privateKey, this.network).then((wallet) => {
-            this._$timeout(() => {
-                if (wallet && typeof wallet === 'object') {
-                    //
-                    this.arrangeSafetyProtocol(wallet);
-                    this.walletPrivateKey = this.formData.privateKey;
-                    // Hide step
-                    this.step4 = false;
-                    // Show next step
-                    this.step5 = true;
-                    return;
-                }
-            }, 10);
-        },
-        (err) => {
-            // Unlock button
-            this.okPressed = false;
-            return;
-        });
+                this._$timeout(() => {
+                    if (wallet && typeof wallet === 'object') {
+                        this.arrangeSafetyProtocol(wallet);
+                        this.walletPrivateKey = this.formData.privateKey;
+                        // Hide step
+                        this.step4 = false;
+                        // Show next step
+                        this.step5 = true;
+                        return;
+                    }
+                }, 10);
+            },
+            (err) => {
+                // Unlock button
+                this.okPressed = false;
+                return;
+            });
     }
 
     /**
@@ -293,8 +237,7 @@ class SignupCtrl {
      * Hide signup steps / reset to wallet type selection
      */
     hideAllSteps() {
-        this.start = false;
-        this.step1 = false;
+        this.step1 = undefined;
         this.step2 = false;
         this.step3 = false;
         this.step4 = false;
@@ -302,6 +245,54 @@ class SignupCtrl {
         this.entropyDone = false;
         document.getElementById("pBar").style.width = '0%';
         this.formData.entropy = "";
+    }
+
+    clearEntropyProgress() {
+        this.progressBar = false;
+        this.entropyDone = false;
+        this.formData.entropy = "";
+        document.getElementById("pBar").style.width = '0%';
+        $("html").off('mousemove');
+    }
+
+    goBackToPreviousPage() {
+        switch (true) {
+            case this.step2: {
+                this.showBackBtn = false;
+                this.step2 = false;
+                this.step1 = undefined;
+                break;
+            }
+            case this.step3: {
+                this.step3 = false;
+                this.step2 = true;
+                break;
+            }
+            case this.step4: {
+                this.clearEntropyProgress();
+                this.step4 = false;
+                this.step3 = true;
+                break;
+            }
+            case this.step5: {
+                this.step5 = false;
+                this.step4 = true;
+                break;
+            }
+            case this.step6: {
+                this.step6 = false;
+                this.step5 = true;
+                break;
+            }
+            case this.step7: {
+                this.step7 = false;
+                this.step6 = true;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     /**
@@ -314,8 +305,6 @@ class SignupCtrl {
         let entropy = "";
         // Watch for cursor movements
         $("html").mousemove((e) => {
-            //console.log("pos x: " + e.pageX);
-            //console.log("pos y: " + e.pageY);
             if (width >= 100) {
                 this._$timeout(() => {
                     // Stop catching cursor movements
@@ -326,11 +315,39 @@ class SignupCtrl {
                 });
             } else {
                 entropy += e.pageX + "" + e.pageY;
-                width += 0.15; 
-                elem.style.width = width + '%'; 
+                width += 0.15;
+                elem.style.width = width + '%';
                 elem.innerHTML = Math.round(width * 1)  + '%';
             }
         });
+    }
+
+    openWebsite(url) {
+        shell.openExternal(url);
+    }
+
+    copyPrivateKey() {
+        let dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        let pkInput = document.getElementById("pkCopy");
+        let pk = pkInput.innerText;
+        dummy.setAttribute('value', pk);
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        this._Alert.privateKeyCopiedSuccess();
+    }
+
+    copyAddress() {
+        let dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        let addressInput = document.getElementById("addressCopy");
+        let address = addressInput.innerText;
+        dummy.setAttribute('value', address);
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        this._Alert.addressCopiedSuccess();
     }
 
     /**
@@ -347,8 +364,9 @@ class SignupCtrl {
         this._Alert.createWalletSuccess();
         // Reset form data
         this.formData = {};
-        this.step8 = false;
-        this.step9 = true;
+        this.showBackBtn = false;
+        this.step7 = false;
+        this.step8 = true;
     }
 
     /**

@@ -1,8 +1,28 @@
 {
-  "name": "NanoWallet",
-  "version": "2.2.0",
-  "description": "Cross-platform lite wallet for NEM",
-  "author": "https://github.com/QuantumMechanics",
+  "name": "CacheWallet",
+  "version": "1.0.9",
+  "description": "Official wallet for the Cache token",
+  "main": "main.js",
+  "scripts": {
+    "build": "gulp",
+    "start": "electron .",
+    "publish-mac": "build",
+    "publish-win": "build --win --x64",
+    "publish-linux": "build --linux",
+    "publish-all": "gulp && npm run publish-mac && npm run publish-win && npm run publish-linux",
+    "dist": "electron-builder --win --x64"
+  },
+  "repository": "https://github.com/cache-official/cache-wallet",
+  "keywords": [
+    "nem",
+    "devslopes",
+    "cache",
+    "blockchain"
+  ],
+  "bugs": {
+    "url": "https://github.com/cache-official/cache-wallet/issues"
+  },
+  "author": "Cache",
   "license": "MIT",
   "dependencies": {
     "@uirouter/angularjs": "1.0.6",
@@ -16,20 +36,12 @@
     "babelify": "^7.2.0",
     "bitcoinjs-lib": "^3.3.1",
     "bootstrap": "3.3.7",
-    "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "browserify-ngannotate": "^2.0.0",
+    "browser-sync": "^2.11.1",
     "chart.js": "2.1.6",
     "crypto-js": "^3.1.9-1",
     "glob": "7.0.5",
-    "gulp": "^3.9.1",
-    "gulp-angular-templatecache": "^1.8.0",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-notify": "^2.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.0.0",
-    "gulp-uglify": "^1.5.3",
-    "gulp-util": "^3.0.8",
     "jquery": "3.0.0",
     "marked": "^0.3.5",
     "merge-stream": "^1.0.0",
@@ -37,28 +49,59 @@
     "nem-voting": "^1.1.16",
     "ng-toast": "2.0.0",
     "ngstorage": "0.3.10",
-    "nw": "^0.26.6",
-    "nw-builder": "^3.4.1",
     "url-parse": "1.1.9",
     "vinyl-source-stream": "^1.1.0",
     "zxcvbn": "4.4.2"
   },
-  "directories": {
-    "test": "tests"
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "electron": "^2.0.0",
+    "electron-builder": "^19.55.3",
+    "electron-builder-http": "^19.27.5",
+    "electron-devtools-installer": "^2.2.1",
+    "electron-publisher-s3": "^19.55.2",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-notify": "2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.0.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.8"
   },
-  "scripts": {
-    "test": "gulp tests browserifyTests",
-    "devApp": "nw build/"
+  "build": {
+    "productName": "CacheWallet",
+    "appId": "com.devslopes.cachewallet",
+    "dmg": {
+      "contents": [
+        {
+          "x": 600,
+          "y": 225,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 200,
+          "y": 225,
+          "type": "file"
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "maintainer": "https://github.com/cache-official/cache-wallet"
+    }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NemProject/NanoWallet.git"
-  },
-  "keywords": [
-    "nem"
-  ],
-  "bugs": {
-    "url": "https://github.com/NemProject/NanoWallet/issues"
-  },
-  "homepage": "https://github.com/NemProject/NanoWallet#readme"
+  "bin": {
+    "electron": "./node_modules/.bin/electron"
+  }
 }

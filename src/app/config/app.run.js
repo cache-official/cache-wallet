@@ -2,7 +2,6 @@ function AppRun(AppConstants, $rootScope, $timeout, Wallet, Alert, $transitions)
     'ngInject';
 
     const publicStates = [
-        "app.home",
         "app.login",
         "app.signup",
         "app.faq",
@@ -18,12 +17,12 @@ function AppRun(AppConstants, $rootScope, $timeout, Wallet, Alert, $transitions)
         // Enable tooltips globally
         $timeout( function() {
             $('[data-toggle="tooltip"]').tooltip()
-        });     
+        });
     });
 
     // Check if a wallet is loaded before accessing private states
-    $transitions.onStart({ 
-        to: (state) => { 
+    $transitions.onStart({
+        to: (state) => {
             for (let i = 0; i < publicStates.length; i++) {
                 if (publicStates[i] === state.name) return false;
             }
@@ -31,8 +30,7 @@ function AppRun(AppConstants, $rootScope, $timeout, Wallet, Alert, $transitions)
         }
     }, (transition) => {
         if (!Wallet.current) {
-            Alert.noWalletLoaded();
-            return transition.router.stateService.target('app.home');
+            return transition.router.stateService.target('app.login');
         }
     });
 

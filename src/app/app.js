@@ -5,7 +5,6 @@ import $ from 'jquery';
 import constants from './config/app.constants';
 import appConfig from './config/app.config';
 import appRun from './config/app.run';
-import nwConfig from './config/nw.js';
 
 // Import Angular modules
 import '@uirouter/angularjs';
@@ -36,6 +35,7 @@ import './modules/signup';
 import './modules/login';
 import './modules/languages';
 import './modules/transferTransaction';
+import './modules/transferCache';
 import './modules/portal';
 import './modules/account';
 import './modules/multisignature';
@@ -64,6 +64,7 @@ const requires = [
     'app.home',
     'app.dashboard',
     'app.transferTransaction',
+    'app.transferCache',
     'app.createMultisig',
     'app.editMultisig',
     'app.signMultisig',
@@ -112,11 +113,6 @@ window.$ = window.jQuery = $;
 
 // Load twitter bootstrap with require or jQuery is not defined
 require('bootstrap');
-
-// Apply nw.js config if using Chrome
-if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
-    nwConfig();
-}
 
 // Mount on window
 window.app = angular.module('app', requires);

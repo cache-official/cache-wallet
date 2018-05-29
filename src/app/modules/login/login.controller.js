@@ -17,6 +17,13 @@ class LoginCtrl {
         this._Login = Login;
         this._$timeout = $timeout;
 
+        window.addEventListener('keydown', function (e) {
+            if (e.which === 13) {
+                let btn = document.getElementById('loginBtn');
+                btn.click();
+            }
+        });
+
         //// End dependencies region ////
 
         //// Module properties region ////
@@ -75,28 +82,28 @@ class LoginCtrl {
         this.okPressed = true;
         // Upgrade
         return this._Wallet.upgrade(this.common, this.selectedWallet).then(()=> {
-            this._$timeout(() => {
-                // Unlock button
-                this.okPressed = false;
-                // Clean common object
-                this.common = nem.model.objects.get("common");
-                // Prepare wallet download link
-                this._Wallet.prepareDownload(this.selectedWallet);
-                // Store base64 format for safety protocol
-                this.rawWallet = this._Wallet.base64Encode(this.selectedWallet);
-                //
-                this.needsUpgrade = false;
-                this.showSafetyMeasure = true;
-            });
-        }, 
-        (err) => {
-            this._$timeout(() => {
-                // Unlock button
-                this.okPressed = false;
-                // Clean common object
-                this.common = nem.model.objects.get("common");
-            });
-        })
+                this._$timeout(() => {
+                    // Unlock button
+                    this.okPressed = false;
+                    // Clean common object
+                    this.common = nem.model.objects.get("common");
+                    // Prepare wallet download link
+                    this._Wallet.prepareDownload(this.selectedWallet);
+                    // Store base64 format for safety protocol
+                    this.rawWallet = this._Wallet.base64Encode(this.selectedWallet);
+                    //
+                    this.needsUpgrade = false;
+                    this.showSafetyMeasure = true;
+                });
+            },
+            (err) => {
+                this._$timeout(() => {
+                    // Unlock button
+                    this.okPressed = false;
+                    // Clean common object
+                    this.common = nem.model.objects.get("common");
+                });
+            })
     }
 
     //// End methods region ////

@@ -11,7 +11,7 @@ class BalanceCtrl {
         'ngInject';
 
         //// Component dependencies region ////
-        
+
         this._DataStore = DataStore;
         this._$timeout = $timeout;
         this._$filter = $filter;
@@ -21,7 +21,7 @@ class BalanceCtrl {
         //// Component properties region ////
 
         this.markets = [];
-        this.selectedMarket = this._DataStore.market.selected;
+        this.selectedMarket = 'XEM';
         this.balance = '0.000000';
 
         //// End properties region ////
@@ -37,7 +37,7 @@ class BalanceCtrl {
             if (!val || !val.btc || !val.xem) return;
             // Ignore selected market changes
             if (val.selected !== oldVal.selected) return;
-            this.arrangeMarkets()
+            this.arrangeMarkets();
             this.updateBalance();
         }, true);
     }
@@ -47,8 +47,15 @@ class BalanceCtrl {
     /**
      * Calculate balance according to selected market
      */
+    getNemBalance() {
+        if (this._DataStore.account.metaData === undefined) { return 0.00; }
+        this.balance = this._$filter("fmtNemValue")(this._DataStore.account.metaData.account.balance || 0)[0] + "." + this._$filter("fmtNemValue")(this._DataStore.account.metaData.account.balance || 0)[1];
+        return this.balance
+    }
+
     computeBalance() {
         if (undefined === this._DataStore.account.metaData) return;
+        if (undefined === this._DataStore.market.xem) return;
         if (this._DataStore.market.selected === 'XEM') {
             this.balance = this._$filter("fmtNemValue")(this._DataStore.account.metaData.account.balance || 0)[0] + "." + this._$filter("fmtNemValue")(this._DataStore.account.metaData.account.balance || 0)[1];
         } else if (this._DataStore.market.selected === 'BTC') {

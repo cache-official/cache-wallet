@@ -1,17 +1,3 @@
-<footer>
-  <div class="container-fluid">
-    <div class="col-lg-6 col-sm-6">
-      {{ 'FOOTER_POWERED_BY_1' | translate }} <b>{{ 'FOOTER_POWERED_BY_2' | translate }}</b>
-    </div>
-    <div class="col-lg-6 col-sm-6">
-    	{{ 'FOOTER_VERSION' | translate }}: <b>{{ $ctrl._AppConstants.version }}</b>
-    	<span style="color:red;margin-left:20px;cursor:pointer;" ng-if="$ctrl._storage.wallets.length" data-toggle="modal" data-target="#purgeModal" show-authed="false">
-		  <i class="fa fa-trash"></i>
-		</span>
-  	</div>
-  </div>
-</footer>
-
 <!-- Modal -->
 <div class="modal fade" id="purgeModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">

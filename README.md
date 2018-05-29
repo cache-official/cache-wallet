@@ -1,59 +1,39 @@
-# Nano Wallet #
+![Cache Logo](resources/cache-logo.png)
+# Cache Wallet
+This is the official Cache Wallet.
 
-### How to use Nano Wallet ? ###
+This project is an enhanced version of the NEM Nano Wallet.
 
-After downloading the latest version here https://forum.nem.io/t/nano-wallet-beta-1-1-11-5-000-xem-bug-bounty/2791, extract the NanoWallet folder from the archive, then you can simply click on start.html to open the app in your default browser. No installation or local server needed.
+It is built with AngularJS (Old Angular) and wrapped in Electron
 
-### How to import NCC wallet ? ###
+## Use the Wallet
 
-Open NCC and your wallet, clicking on user icon should reveal a drop-down menu with "Export to ligthwallet".
-Once your have your wallet (.json format), open Nano and import it from the login page. It'll ask for an upgrade and trigger the download of your updated wallet.
-Do not delete your old NCC wallet and keep it safe somewhere.
+To use the Cache Wallet download the latest release of the app for your operating system:
 
-### Imported accounts that are already harvesting using NCC ###
+[Cache Wallet Releases](https://github.com/cache-official/cache-wallet/releases)
 
-NCC is using a different way to generate the remote associated with an account. Nano Wallet uses BIP32 to generate it deterministically and make everything easier. In order to manage and monitor harvesting, you'll need to deactivate the old remote account from NCC and activate your new remote account from Nano. Alternatively you can use a custom delegated public key in Nano Wallet importance transaction page.
+# Developers
 
-**/!\ Main network: Please note that if you are part of the Supernodes program you'll need to re-enroll your node using your new delegated public key.**
+## Installation
 
-### How to update Nano Wallet ? ###
+This project is built using Node v10.2.1 and NPM 6.1.0
 
-Before update make sure that you don't have any wallets stored into the NanoWallet folder (you can place them anywhere you want). Then, just delete old version and unzip new version.
+1. Run  `git clone https://github.com/cache-official/cache-wallet.git`
+2. Run `cd cache-wallet`
+3. Run `npm install`
 
-###  Dashboard is empty and no balance is showing ###
+## Development
 
-It is probably that the node you are connected to is down.
-Look at the navigation bar, at the top of the page.
-If the circle next to `Node` is red, click on it and select another node from the list.
+To run the app in development mode, after performing installation steps stay inside the project directory and:
 
-# Developers #
+1.  Run `npm build`
+2.  Then run `npm start`
 
-### Build from source ###
+## Deployment
 
-1) Install gulp
+After installation steps, to publish for macOS, Windows, and Linux do the following:
 
-<pre>npm install -g gulp-cli</pre>
-
-2) Open a console to the path of the NanoWallet folder and install all the needed dependencies
-
-<pre>npm install</pre>
-
-3) Build:
-
-<pre>gulp</pre>
-
-##### OR #####
-
-4) Run NanoWallet as App (packaged with chromium browser)
-
-<pre>npm run devApp</pre>
-
-##### OR #####
-
-5) Build NanoWallet apps, default set to : win64,osx64,linux64
-
-<pre>gulp build-app</pre>
-
-### Known issues ###
-
-- Sometimes, depending the node used, unconfirmed data to sign is not incoming from websocket
+1. Run `npm build`
+2. Run `npm run publish-mac`
+3. Run `npm run publish-win`
+4. Run `npm run publish-linux`

@@ -109,7 +109,7 @@ class AccountCtrl {
      */
     changeCurrentAccount(accountIndex) {
         // Close the connector
-        this._DataBridge.connector.close()
+        this._DataBridge.connector.close();
         this._DataStore.connection.status = false;
         // Reset DataBridge service properties
         this._DataBridge.reset();
@@ -182,7 +182,7 @@ class AccountCtrl {
         dummy.select();
         document.execCommand("copy");
         document.body.removeChild(dummy);
-        alert("Address copied!");
+        this._Alert.addressCopiedSuccess();
     }
 
     /**

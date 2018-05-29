@@ -1,4 +1,5 @@
 import Languages from '../utils/languages';
+const shell = window.require('electron').remote.shell;
 
 class AppHeaderCtrl {
 
@@ -9,9 +10,7 @@ class AppHeaderCtrl {
      */
     constructor(Alert, $localStorage, $translate, Wallet, $location, DataBridge, DataStore) {
         'ngInject';
-
         //// Module dependencies region ////
-
         this._storage = $localStorage;
         this._Alert = Alert;
         this._$translate = $translate;
@@ -38,6 +37,21 @@ class AppHeaderCtrl {
 
     }
 
+    getCacheBalance() {
+        if (this._DataStore.account.metaData === undefined) { return 0; }
+        let address = this._DataStore.account.metaData.account.address;
+        if (undefined === this._DataStore.mosaic.ownedBy[address]) return;
+        if (undefined === this._DataStore.mosaic.ownedBy[address]['cache:cache']) {
+            return 0
+        }
+        let supply = this._DataStore.mosaic.ownedBy[address]['cache:cache'].quantity;
+        return supply / 1000000;
+    }
+
+    openWebsite(url) {
+        shell.openExternal(url);
+    }
+
     //// Module methods region ////
 
     /**
@@ -45,7 +59,7 @@ class AppHeaderCtrl {
      */
     logout() {
         // Redirect to home
-        this._$location.path('/');
+        this._$location.path('/login');
         // Close connector
         this._DataBridge.connector.close();
         // Set connection status to false

@@ -1,16 +1,7 @@
 <div class="transferTransaction-page">
   <div class="container-fluid main">
     <div class="row">
-      <div class="col-sm-8">
-        <h2>{{'RELEASE_OFFLINE_TX_TITLE' | translate}}</h2>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-lg-6 col-md-12">
-        <div class="panel-heading">
-          <h3>{{'RELEASE_OFFLINE_TX_PARAMETERS' | translate}}</h3>
-        </div>
-        <!-- Transaction form -->
         <div class="panel-body">
           <fieldset class="form-group">
             <div class="input-group">
@@ -36,8 +27,6 @@
                 <label>{{ 'OFFLINE_TX_SIGNED' | translate }}: </label>
               </span>
               <textarea class="form-control" rows="8" cols="25" ng-model="$ctrl.transaction" style="white-space: normal;" ng-show="!$ctrl.showReader"></textarea>
-              <!--<video id="preview" width="100%" height="250" ng-show="$ctrl.showReader"></video>
-              <span class="input-group-addon btn" ng-click="$ctrl.showHideReader();" style="background-color:#444;color:#fff;cursor:pointer;border-left:1px solid #ccc;" ng-show="!$ctrl.hideScan"><i class="fa fa-qrcode" ></i></span>-->
             </div>
           </fieldset>
           <button class="btn btn-success" type="submit" ng-disabled="$ctrl.okPressed || !$ctrl.transaction" ng-click="$ctrl.send()">
@@ -45,7 +34,6 @@
           </button>
         </div>
       </div>
-
       <div class="col-lg-6 col-md-12">
         <div class="panel-heading">
             <h3>{{ 'GENERAL_INFORMATION' |  translate }}</h3>

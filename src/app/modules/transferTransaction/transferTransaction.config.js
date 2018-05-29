@@ -9,7 +9,7 @@ function TransferTransactionConfig($stateProvider) {
             templateUrl: 'modules/transferTransaction/transferTransaction.html',
             title: 'Send a transaction',
             params: {
-            	address: ''
+                address: ''
             }
         });
 

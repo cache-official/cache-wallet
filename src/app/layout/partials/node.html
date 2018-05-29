@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" id="gridSystemModalLabel">{{ 'HEARDER_NODE_LIST' | translate }}</h3>
+        <h3 class="modal-title" style="color: #333" id="gridSystemModalLabel">{{ 'HEADER_NODE_LIST' | translate }}</h3>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -30,7 +30,7 @@
             <fieldset class="form-group">
               <div class="input-group">
                 <span class="input-group-btn">
-                  <label>{{ 'HEARDER_NODE_LIST' | translate }}: </label>
+                  <label>{{ 'HEADER_NODE_LIST' | translate }}: </label>
                 </span>
                 <select class="form-control" ng-model="$ctrl.selectedNode" ng-change="$ctrl.changeNode($ctrl.selectedNode)" ng-options="node.uri as (node.uri | toHostname) for node in $ctrl._Wallet.nodes"><option value="" disabled selected>{{ 'HEADER_NODE_SELECT' | translate }}</option></select>
               </div>
@@ -42,9 +42,9 @@
                   <label data-toggle="tooltip" data-placement="bottom" title="{{ 'HEADER_NODE_CUSTOM_TOOLTIP' | translate }}">{{ 'HEADER_NODE_CUSTOM' | translate }}: <i class="fa fa-question-circle-o"></i> </label>
                 </span>
                 <input class="form-control"
-                    type="text" autocomplete="off"
-                    placeholder="{{ 'HEADER_NODE_CUSTOM_INFO' | translate }}"
-                    ng-model="$ctrl.customNode"/>
+                       type="text" autocomplete="off"
+                       placeholder="{{ 'HEADER_NODE_CUSTOM_INFO' | translate }}"
+                       ng-model="$ctrl.customNode"/>
                 <span class="input-group-btn adding">
                   <button type="button" class="btn btn-warning" ng-click="$ctrl.changeNode($ctrl.customNode)">
                     <i class="fa fa-plus"></i>

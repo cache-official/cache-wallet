@@ -1,34 +1,40 @@
 /*** GLOBAL STYLES ***/
 html {
-	position: relative;
-	min-height: 100vh;
-	padding-bottom: 100px;
-	font-family: 'Roboto';
-	z-index: -1;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 100px;
+  font-family: 'Sans Regular';
+  z-index: -1;
+  background: #19173F;
+}
+body {
+  background: #19173F;
 }
 h1 {
-  font-weight: 300;
-  font-size: 40px;
+  font-family: "Sans Light";
+  font-size: 50px;
 }
 h2 {
-	color: $gray;
-	font-size: 55px;
-	font-weight: 100;
+  font-family: "Sans Regular";
+  color: white;
+  font-size: 55px;
+  font-weight: 100;
   text-align: left;
   margin-top: 0px;
 }
 h3 {
   padding: 0;
   margin: 0;
+  font-family: "Sans Light";
   font-size: 19px;
-  color: $gray;
+  color: white;
   font-weight: 300;
 }
 h4{
-	padding-top: $pad;
-	color: $gray;
-	font-size: 24px;
-	font-weight: 300;
+  font-family: "Sans Light";
+  padding-top: $pad;
+  color: white;
+  font-size: 24px;
 }
 .secondary h4 {
   padding-top: 0px !important;
@@ -37,11 +43,13 @@ h4{
   }
 }
 h5 {
-  color: $gray;
+  font-family: "Sans Regular";
+  color: white;
   font-weight: 300;
   font-size: 16px;
 }
 table {
+  color: white;
   table-layout: auto;
   word-break: break-all;
   margin-bottom: 0px !important;
@@ -54,7 +62,7 @@ tr, td {
   border: none !important;
 }
 tr {
-  border-bottom:1px solid $grayLite !important;
+  border-bottom:1px solid transparent !important;
 }
 tbody {
   border: none;
@@ -64,36 +72,52 @@ td {
   vertical-align: middle !important;
 }
 th {
-  color: grey;
-  font-size: 13px;
-  font-weight: 500;
+  color: white;
   min-width: 55px;
   border-bottom: $borderUnderline;
   padding-top: $pad * 2;
-	a, a:active, a:focus {
-		color: grey;
-		text-decoration: none;
-	}
-	a:hover {
-		color: $blue;
-		text-decoration: none;
-	}
+  a, a:active, a:focus {
+    color: #61AAFF;
+    text-decoration: none;
+  }
+  a:hover {
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+  }
 
+}
+.tt {
+  @extend %tableDisplay;
 }
 tt {
   @extend %tableDisplay;
 }
+.flexing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flexing-start {
+  @extend .flexing;
+  align-items: flex-start;
+}
+
 .table-hover>tbody>tr:hover {
-  background-color: $blueXLite;
+  background-color: #27254B;
 }
 .table-bordered {
   border: 0;
+  //color: white;
 }
 .accordion-inner {
-  background-color: $blueXLite !important;
+  color: white;
+  background-color: #27254B !important;
   hr {
     border-style: none !important;
-    border: 1px solid $grayLite !important;
+    border: 0.5px solid #615FC1 !important;
+    opacity: 0.3;
     margin: 0 !important;
   }
 }
@@ -109,10 +133,10 @@ tt {
   padding-right: 0px;
 }
 .panel-default {
-	border-radius: 0px;
-	border-color: transparent;
-	background-color: transparent;
-	margin-bottom: 0px;
+  border-radius: 0px;
+  border-color: transparent;
+  background-color: transparent;
+  margin-bottom: 0px;
 }
 .inner {
   padding-left: 0px;
@@ -129,13 +153,14 @@ tt {
 }
 .formFloat {
   .mosaic {
+    color: white;
     max-width: 40%;
-    text-overflow: hidden;
+    text-overflow: clip;
     white-space: nowrap;
   }
   .floatRight {
-   max-width: 60%
- }
+    max-width: 60%
+  }
   input {
     width: 88%;
     border: 0px;
@@ -160,7 +185,7 @@ input.readOnly {
 }
 select {
   border: 1px solid $blueLite !important;
-  border-radius: none !important;
+  border-radius: 0 !important;
 }
 label {
   font-size: 16px;
@@ -187,22 +212,22 @@ label {
   text-align: right;
   cursor: pointer;
   h4:hover{
-    color: $blue;
+    color: white;
   }
 }
 .input-group-btn {
   min-width: 170px;
   vertical-align: middle;
-	&.message {
-		vertical-align: top;
-	}
-	&.showHide, &.dLoad {
-		max-width: $pad * 2;
-		min-width: $pad * 2;
-		.btn {
-			border-radius: 0px;
-		}
-	}
+  &.message {
+    vertical-align: top;
+  }
+  &.showHide, &.dLoad {
+    max-width: $pad * 2;
+    min-width: $pad * 2;
+    .btn {
+      border-radius: 0px;
+    }
+  }
   &.short {
     min-width: 130px;
   }
@@ -248,7 +273,7 @@ label {
   background: transparent;
   .btn:hover, .btn:active, .btn:focus {
     background: transparent;
-    color: black;
+    //color: black;
   }
 }
 .btn-dark {
@@ -264,8 +289,8 @@ label {
 .btn-success {
   background-color: $blue;
   border-color: $blue;
-  width: 100%;
-  border-radius: 0px;
+  //width: 100%;
+  //border-radius: 0px;
 }
 .btn-success:hover, .btn-success:active, .btn-success:focus {
   background-color: $blueLite !important;
@@ -297,7 +322,7 @@ input.form-control.short{
   padding-right: 0;
   padding-left: 0;
   border: 0;
-  box-shadow: 0;
+  box-shadow: transparent;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 .text-danger {
@@ -308,25 +333,25 @@ input.form-control.short{
 }
 
 fieldset .form-control {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	max-width: 260px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 260px;
 }
 fieldset .form-control-static{
- padding-top: 0px;
+  padding-top: 0px;
 }
 fieldset .form-control.password {
-	overflow: visible;
-	white-space: normal;
-	// text-overflow: ellipsis;
-	// max-width: 260px;
+  overflow: visible;
+  white-space: normal;
+  // text-overflow: ellipsis;
+  // max-width: 260px;
 }
 fieldset .form-control.formFloat {
-	overflow: visible;
-	white-space: normal;
-	// text-overflow: ellipsis;
-	// max-width: 260px;
+  overflow: visible;
+  white-space: normal;
+  // text-overflow: ellipsis;
+  // max-width: 260px;
 }
 .has-error {
   color: $red;
@@ -355,11 +380,11 @@ fieldset .form-control.has-error {
     border: none;
     box-shadow: none;
     background: transparent;
-    color: $gray;
+    color: white;
     weight: 1;
   }
   b {
-    color: $gray;
+    color: white;
   }
 }
 
@@ -372,8 +397,8 @@ fieldset .form-control.has-error {
 /*** CONFIRMED/UNCONFIRMED TABS, SEND/RECEIVE TABS **/
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover, .nav-tabs > li > a.active {
   cursor: default;
-  background-color: $blue;
-	color: white;
+  background-color: #615FC1;
+  color: white;
   padding-bottom: 12px;
   border: 0;
 }
@@ -382,34 +407,37 @@ fieldset .form-control.has-error {
   border-bottom: none;
   /*z-index: 10;*/
   li a {
-  	color: grey;
+    color: white;
     outline: 0;
     cursor: pointer;
     display: inline;
     letter-spacing: .8px;
     &:hover {
+      border: none;
+      outline: none;
+      background-color: transparent;
       text-decoration: underline;
     }
     &:hover .badge {
-    // color: $blue;
-    // background-color: white;
+      // color: $blue;
+      background-color: #615FC1;
     }
   }
   li.active .badge {
-      color: $blue;
-      background-color: white;
+    color: white;
+    //background-color: white;
   }
   .badge {
     color: white;
-    background-color: $blue;
+    background-color: #615FC1;
     margin-right: $pad / 2;
   }
 }
 .tabDescription {
+  font-family: "Sans Regular";
   float: right;
   position: relative;
-  color: $gray;
-  font-weight: 500;
+  color: white;
   @media only screen and (max-width : $lg) {
     display: none;
   }
@@ -432,7 +460,7 @@ fieldset .form-control.has-error {
     filter: alpha(opacity=0);
   }
   input.upload[disabled] {
-      cursor: not-allowed;
+    cursor: not-allowed;
   }
 }
 /*** CHROME SPECIFIC STYLES ***/
@@ -442,9 +470,9 @@ fieldset .form-control.has-error {
 
 /*** TOOLTIP GLOBAL STYLES ***/
 .tooltip-inner {
-	color: $white;
-	border: 1px solid $blue;
-	background: #444;
+  color: $white;
+  border: 1px solid $blue;
+  background: #444;
 }
 .tooltip.top .tooltip-arrow {
   border-top-color: $blue;
@@ -459,39 +487,39 @@ fieldset .form-control.has-error {
   border-bottom-color: $blue;
 }
 i.fa-question-circle-o, i.fa-question {
-	font-size: 16px;
-	vertical-align: top;
+  font-size: 16px;
+  vertical-align: top;
 }
 /*** FILE UPLOAD GLOBAL STYLES ***/
 .fileUpload {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 .fileUpload input.upload {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
 .loading-overlay {
-	position: absolute;
-	z-index: 5;
-	background-color: rgba(68, 68, 68, 0.29);
-	width: 100%;
-	top: 0;
-	bottom: 0;
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(68, 68, 68, 0.29);
+  width: 100%;
+  top: 0;
+  bottom: 0;
 }
 .loading-text {
-	font-weight: bold;
-	color: white;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-	font-size: 23px;
-	position: absolute;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-size: 23px;
+  position: absolute;
 }
 .loader {
   border: 20px solid transparent;
@@ -503,8 +531,8 @@ i.fa-question-circle-o, i.fa-question {
   width: 200px;
 }
 .loader-image {
-	height: 90px;
-	margin-left: -25px;
+  height: 90px;
+  margin-left: -25px;
 }
 .loading-text:after {
   overflow: hidden;
@@ -535,76 +563,99 @@ input[type=checkbox] + label:before {
   display: inline-block;
 }
 input[type=checkbox] + label:before {
-   content: "\f096";
+  content: "\f096";
 } /* unchecked icon */
 input[type=checkbox] + label:before {
-   letter-spacing: 10px;
+  letter-spacing: 10px;
 } /* space between checkbox and label */
 
 input[type=checkbox]:checked + label:before {
-   content: "\f046";
+  content: "\f046";
 } /* checked icon */
 input[type=checkbox]:checked + label:before {
-   letter-spacing: 8px;
+  letter-spacing: 8px;
 } /* allow space for check mark */
 .checkboxes {
-	input[disabled] + label:before {
-		color: $gray;
-		cursor: no-drop;
-	}
+  input[disabled] + label:before {
+    color: white;
+    cursor: no-drop;
+  }
 }
 
 /*** MAIN HEADER/NAVBAR STYLES ***/
 .navbar-brand {
+  display: flex;
+  align-items: center;
   padding-left: $pad * 1.5;
-  span:first-of-type {
-    font-weight: 100;
+  img {
+    padding-right: 10px;
+    width: 44px;
+    height: 44px;
   }
-  span:last-of-type {
-    font-weight: 700;
+  span {
+    font-family: "Sans Regular";
+    font-size: 1em;
+    color: #fff;
+    padding-right: 4px;
   }
 }
 .brand-name-2 {
-  color: #177245;
+  color: #ffffff;
 }
 .navbar {
-	border:none;
-	border-radius:0px;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
-	box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+  border:none;
+  border-radius:0px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
   z-index: 10;
 }
+.navbar-account {
+  background-color: #615FC1;
+}
 .navbar-default {
-  background-color: white;
+  background-color: #27254B;
   .navbar-brand {
-  	color: black;
-    background-color: white;
-  	box-shadow: 1px 0 0 rgba(0,0,0,0.05);
+    color: white;
+    background-color: #19173F;
+    box-shadow: 1px 0 0 rgba(0,0,0,0.05);
   }
   .navbar-nav li {
     &.money, &.node {
       border-right: 1px solid rgba(0,0,0,0.05);
       border-left: 1px solid rgba(0,0,0,0.05);
+      a {
+        color: white;
+        font-weight: 500;
+        &.active {
+          color: #61AAFF;
+        }
+        &:hover {
+          color: #61AAFF
+        }
+      }
     }
     .node {
       color: pink !important;
     }
     a {
-      color: $black;
+      color: white;
       font-weight: 500;
       &.active {
-        color: grey;
+        color: #61AAFF;
+      }
+      &:hover {
+        color: #61AAFF
       }
     }
-		.dropdown-menu {
-			min-width: 200px;
-			width: 200px;
-		}
+    .dropdown-menu {
+      min-width: 200px;
+      width: 200px;
+    }
   }
   .address {
     border-right: 1px solid rgba(0,0,0,0.05);
     @media only screen and (max-width : $lg) {
-        display: none;
+      display: none;
     }
   }
   .login {
@@ -618,26 +669,26 @@ input[type=checkbox]:checked + label:before {
   .account2 a {
     padding-left: 0px !important;
     margin-left: 0px !important;
-    color: grey !important;
+    color: white !important;
   }
 }
 .modal .modal-sm {
-	min-width: 700px;
-	.col-sm-12 {
-		padding: $pad * 2;
-	}
-	.btn-danger {
-		width: 100%;
-		border-radius: 0;
-	}
-	.book {
-		border-radius: 0px;
-		background: transparent;
-		padding-left: 0px;
-		&:hover {
-			color: $blueDark;
-		}
-	}
+  min-width: 700px;
+  .col-sm-12 {
+    padding: $pad * 2;
+  }
+  .btn-danger {
+    width: 100%;
+    border-radius: 0;
+  }
+  .book {
+    border-radius: 0px;
+    background: transparent;
+    padding-left: 0px;
+    &:hover {
+      color: white;
+    }
+  }
 }
 /*** GLOBAL FOOTER STYLES ***/
 footer {
@@ -647,7 +698,7 @@ footer {
   padding-left: $pad * 1.5;
   padding-right: $pad * 1.5;
   width: 100%;
-  background-color: $white;
+  //background-color: $white;
   z-index: 10;
   font-size: 13px;
   .container-fluid {
@@ -655,14 +706,14 @@ footer {
     color: $gray;
   }
   .col-lg-6:first-of-type{
-  	text-align: left;
-  	margin-left: 0px;
-  	padding-left: 0px;
+    text-align: left;
+    margin-left: 0px;
+    padding-left: 0px;
   }
   .col-lg-6:last-of-type{
-  	text-align: right;
-  	margin-right: 0px;
-  	padding-right: 0px;
+    text-align: right;
+    margin-right: 0px;
+    padding-right: 0px;
   }
   b {
     color: $black;
@@ -671,7 +722,7 @@ footer {
 
 /*** LOGIN, HOME & SIGNUP PAGE ***/
 .login-page, .signup-page, .home-page {
-  color: white;
+  color: #19173F;
   .container {
     margin-top: $pad * 5;
   }
@@ -688,9 +739,9 @@ footer {
 .home-page {
   text-align: center;
   h1 {
-    color: #333;
+    color: #ffffff;
     font-weight: 300;
-    font-size: 6em;
+    font-size: 3.125rem;
   }
   p{
     color: #7b8993;
@@ -715,12 +766,12 @@ footer {
 /*** LOGIN PAGE ***/
 .login-page {
   .btn-import {
-  	background-color: #dfa82f;
-  	border-radius: 0px;
-  	color: white;
+    background-color: #dfa82f;
+    border-radius: 0px;
+    color: white;
   }
   .btn-import:hover {
-  	background-color: #daa022;
+    background-color: #daa022;
   }
   .loginButtons {
     .col-md-3:nth-of-type(1) {
@@ -731,9 +782,9 @@ footer {
     }
   }
   h1 {
-    color: #333;
+    color: #ffffff;
     font-weight: 300;
-    font-size: 6em;
+    font-size: 3.125rem;
   }
   label {
     color: #444;
@@ -742,9 +793,9 @@ footer {
     border: none;
     margin-top: 20px;
     height: 1px;
-    width: 50%;
+    width: 300px;
     background-color: #c0c8c9;
-    background-image: -webkit-linear-gradient(0deg, #fff, #c0c8c9, #fff);
+    background-image: -webkit-linear-gradient(0deg, #404BDE, #75F0E0);
   }
   p{
     color: #7b8993;
@@ -762,11 +813,12 @@ footer {
 /*** SIGNUP PAGE ***/
 .signup-page {
   .nav-tabs li a {
-  	color: white;
+    color: white;
     outline: 0;
     cursor: pointer;
     display: inline;
     &:hover {
+      color: white;
       background: $blueLite;
       border: 0;
       text-decoration: none;
@@ -780,11 +832,11 @@ footer {
       color: red;
     }
   }
-  h1 {
-    color: #333;
-    font-weight: 300;
-    font-size: 6em;
-  }
+  //h1 {
+  //  color: #333;
+  //  font-weight: 300;
+  //  font-size: 6em;
+  //}
   p{
     color: #7b8993;
     font-size: 1.3em;
@@ -806,38 +858,41 @@ footer {
   }
   .progressBar {
     width: 100%;
-    background-color: #ddd;
+    background-color: #24234D;
+    border-radius: 10px;
   }
   #pBar {
     width: 0%;
-    height: 30px;
-    background-color: #4CAF50;
+    height: 20px;
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(0deg, #75F0E0, #404BDE);
     text-align: center;
-    line-height: 30px;
+    line-height: 20px;
     color: white;
   }
 }
 
 .seedpoint {
-    width: 6px;
-    height: 6px;
-    display: block;
-    border-radius: 3px;
-    background-color: transparent; /*#009900;*/
-    position: fixed; /*absolute;*/
-    z-index: 10;
-  }
+  width: 6px;
+  height: 6px;
+  display: block;
+  border-radius: 3px;
+  background-color: transparent; /*#009900;*/
+  position: fixed; /*absolute;*/
+  z-index: 10;
+}
 
 /*** DASHBOARD PAGE ***/
 .dashboard-page {
   h1 {
-    color: black;
-    font-weight: 500;
+    color: white;
+    font-family: "Sans Regular";
     font-size: 26px;
     margin-top: 0px;
   }
   h5 {
-    color: black;
+    color: white;
+    font-family: "Sans Regular";
     font-size: 15px;
   }
   .harvestedBlocks {
@@ -854,12 +909,12 @@ footer {
   }
   .updates {
     p {
-  	  font-size: 12px;
+      font-size: 12px;
     }
     a{
-    	color: $blue;
-    	text-decoration: underline;
-    	font-weight: 500;
+      color: $blue;
+      text-decoration: underline;
+      font-weight: 500;
     }
   }
   .arrows {
@@ -894,7 +949,7 @@ table.top {
   @extend %overflowHide;
   @extend %tableDisplay;
   // font-size: 12px;
-  color: black;
+  color: white;
 }
 .messageTx {
   width: 20%;
@@ -913,7 +968,23 @@ td:last-of-type {
   box-shadow: none;
   font-size: 15px;
   min-width: 100%;
-  border-radius: 0px;
+  border-radius: 0;
+}
+.form-control::-webkit-input-placeholder {
+  text-align: center;
+}
+.ph-left {
+  &::-webkit-input-placeholder {
+    text-align: left !important;
+  }
+}
+.sendXem {
+  text-indent: 10px;
+  @extend .form-control;
+  &::-webkit-input-placeholder {
+    text-align: left;
+    text-indent: 10px;
+  }
 }
 textarea {
   border-bottom: $borderUnderline;
@@ -947,9 +1018,9 @@ textarea {
   th:nth-of-type(5), td:nth-of-type(5) {
     width: 10%;
     text-align: center;
-		span {
-			color: $red;
-		}
+    span {
+      color: $red;
+    }
   }
 }
 
@@ -1039,7 +1110,7 @@ textarea {
     }
   }
   th {
-    color: $gray;
+    color: white;
     font-weight: 700;
     font-size: 12px;
   }
@@ -1080,7 +1151,7 @@ textarea {
     float: right;
     position: relative;
     bottom: $pad;
-    font-family: 'Roboto';
+    font-family: 'Sans Light';
     display: block;
     color: $gray;
     font-weight: 700;
@@ -1090,12 +1161,12 @@ textarea {
 /*** APOSTILLE ADD PAGE ***/
 .rejected {
   float: right;
-	margin-top: $pad * 2;
-	color: $gray;
-	font-weight: 300;
-	i {
-		color: $blue;
-	}
+  margin-top: $pad * 2;
+  color: $gray;
+  font-weight: 300;
+  i {
+    color: $blue;
+  }
 }
 .create-apostille-page {
   tr th:first-child, tr td:first-child {
@@ -1116,12 +1187,12 @@ textarea {
   tr th:nth-of-type(6), tr td:nth-of-type(6) {
     width: 10%;
   }
-	tr th:nth-of-type(7), tr td:nth-of-type(7) {
+  tr th:nth-of-type(7), tr td:nth-of-type(7) {
     width: 10%;
-		// text-align: center;
-		i {
-			color: $red;
-		}
+    // text-align: center;
+    i {
+      color: $red;
+    }
   }
 }
 /*** APOSTILLE HISTORY PAGE ***/
@@ -1147,26 +1218,26 @@ textarea {
   .backupPurge {
     float: right;
     cursor: pointer;
-		margin-top: $pad * 2;
+    margin-top: $pad * 2;
     span {
       font-size: 13px;
       font-weight: 500;
       color: $gray;
     }
-		i.fa-trash{
-			color: $red;
-		}
-		i.fa-download{
-			color: $green;
-		}
-    span:first-of-type(){
+    i.fa-trash{
+      color: $red;
+    }
+    i.fa-download{
+      color: $green;
+    }
+    span:first-of-type {
       margin-right: $pad;
     }
   }
-	.arrows {
-		margin-right: $pad;
-		margin-top: $pad * 1.9;
-	}
+  .arrows {
+    margin-right: $pad;
+    margin-top: $pad * 1.9;
+  }
   .buttans {
     .col-md-12 {
       margin-top: $pad / 4;
@@ -1195,9 +1266,9 @@ textarea {
 }
 
 /*** CHANGELLY WIDGET ***/
-  #changwidget {
-    margin-top: $pad * 3;
-  }
+#changwidget {
+  margin-top: $pad * 3;
+}
 .explorer-home-page, .explorer-apostilles, .explorer-namespaces-mosaics-page, .explorer-accounts, explorer-transactions {
   overflow: hidden;
   li {
@@ -1264,15 +1335,16 @@ textarea {
   li.list-group-item{
     padding-left: $pad /2;
     &.active, &:hover, &:focus, &:active {
-      background: $blueLite;
+      background: #27254B;
       border-radius: 0;
       border-bottom: 0px;
       color: $white;
     }
   }
   .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
-    background-color: $blue;
-    border-color: $blue;
+    color: white;
+    background-color: #27254B;
+    border-color: #27254B;
   }
   .namespacesArrows {
     .col-lg-6 {
@@ -1294,14 +1366,17 @@ textarea {
 /*** ACCOUNT INFO PAGE ***/
 .account-page {
   #downloadWallet {
-  visibility: hidden;
+    visibility: hidden;
   }
 
   .form-control {
     white-space: nowrap;
   }
   .btn-block {
-    border-radius: 0;
+    height: 40px;
+    width: 100px;
+    font-size: 1.2rem;
+    border-radius: 3px;
     color: white;
     background: $blue;
     border: 1px solid $blue;
@@ -1326,17 +1401,17 @@ textarea {
 
 /*** MARKET INFO WIDGET ***/
 .market-info .header{
-	color: rgba(0, 0, 0, 0.3);
-	font-size: 12px;
-	font-weight: 700;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  font-weight: 700;
 }
 .market-info h4 {
   margin-bottom: $pad;
 }
 .market-info .header span{
-	font-weight: 500;
-	font-size: 18px;
-	color: black;
+  font-weight: 500;
+  font-size: 18px;
+  color: black;
   @media only screen and (max-width : $xl) {
     font-size: 15px;
   }
@@ -1345,7 +1420,7 @@ textarea {
   }
 }
 .market-info .ticker {
-	padding-top: $pad;
+  padding-top: $pad;
   @media only screen and (max-width : $md) {
     padding-top: 0px;
   }
@@ -1395,7 +1470,7 @@ textarea {
 
 /*** FIX SLOW NG-ANIMATE ***/
 .ng-hide.ng-hide-animate{
-     display: none !important;
+  display: none !important;
 }
 
 /*** ALERTS ***/
@@ -1407,4 +1482,181 @@ textarea {
 }
 .alert a {
   color: white;
+}
+
+.sign-in-button {
+  outline: none;
+  height: 40px;
+  width: 150px;
+  font-family: "Sans Regular";
+  font-size: 1em;
+  border-radius: 3px;
+  color: white;
+  background: #19173F;
+  border: 1px solid #615FC1;
+  &:hover, &:active {
+    background: #615FC1;
+    border: 1px solid #615FC1;
+    color: white;
+  }
+  @extend %plusMinus;
+}
+.import-btn {
+  margin-top: 30px;
+  font-family: "Sans Bold";
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #61AAFF;
+  height: 44px;
+  width: 250px;
+  background: transparent;
+  border: 1px solid #615FC1;
+  border-radius: 3px;
+  img {
+    padding-right: 10px;
+    width: 30px;
+    height: 30px;
+  }
+}
+.sign-in-button[disabled] {
+  opacity: 0.7;
+  &:hover {
+    cursor: not-allowed;
+    background: transparent;
+  }
+}
+.wallet-name {
+  margin-bottom: 30px;
+  font-family: "Sans Light";
+  font-size: 2rem !important;
+  color: white;
+  border-bottom: 1px solid #615FC1;
+  background: #27254b;
+  min-width: 400px;
+  max-width: 402px;
+  text-align: center;
+  border-radius: 3px;
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
+}
+
+.cache-subtext {
+  font-family: "Sans Light";
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+}
+.cache-confirm-button {
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #61AAFF;
+  font-family: "Sans Light";
+  font-size: 1em;
+}
+.cache-warn-text {
+  width: 80%;
+  font-family: "Sans Light";
+  font-size: 0.8em;
+  color: white;
+  text-align: center;
+}
+.cache-navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.cache-import-wallet {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 95%;
+}
+.feeText {
+  margin-top: 20px;
+  font-family: "Sans Regular";
+  font-size: 1em;
+  color: white;
+  text-align: left;
+  letter-spacing: 0.8px;
+}
+.account-labels {
+  color: white;
+  font-family: "Sans Light";
+  text-align: left;
+  label {
+    font-size: 1em;
+    letter-spacing: 0.5px;
+  }
+}
+.show-pk-btn {
+  color: white;
+  outline: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin-left: 10px;
+  background: #61AAFF;
+  z-index: 10;
+}
+.show-pk-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.add-account-btn {
+  @extend .sign-in-button;
+  height: 50px;
+  width: 250px;
+  margin-top: 30px;
+  font-size: 1.2em;
+}
+.mosaic-amount {
+  position: absolute;
+  top: 280px;
+}
+.login-password-input {
+  width: 300px;
+  margin-bottom: 30px;
+  border-radius: 3px;
+  background: #27254b;
+  color: #cccaf7;
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
+}
+.password-input {
+  color: #cccaf7;
+  background: #27254B;
+  max-width: 600px;
+  min-width: 600px;
+  height: 44px;
+  margin-top: 20px;
+  outline: none;
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
+}
+.modalPasswordInput {
+  color: #333;
+  background: white;
+  min-width: 570px;
+  height: 44px;
+  margin-top: 20px;
+  outline: none;
+}
+.copyPrivateKeyButton {
+  position: absolute;
+  border: none;
+  outline: none;
+  background: transparent;
+  right: 10px;
+  color: #61AAFF;
+}
+.placeholderColor {
+  &::-webkit-input-placeholder {
+    color: #cccaf7;
+  }
 }

@@ -1,8 +1,7 @@
 {
-  "name": "NanoWallet",
-  "version": "2.2.0",
-  "description": "Cross-platform lite wallet for NEM",
-  "author": "https://github.com/QuantumMechanics",
+  "name": "CacheWallet",
+  "version": "1.0.0",
+  "description": "Official wallet for the Cache token",
   "license": "MIT",
   "main":"start.html",
   "window":{
@@ -11,6 +10,6 @@
     "height": 900,
     "min_width":800,
     "min_height":600,
-    "icon": "images/logomark.png"
+    "icon": "images/cacheIcon-light.svg"
   }
 }

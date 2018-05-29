@@ -1,19 +1,16 @@
- <!-- Message Field -->
+<!-- Message Field -->
 <fieldset class="form-group">
   <div class="input-group">
-    <span class="input-group-btn message">
-      <label>{{'FORM_MESSAGE_PLACEHOLDER' | translate}}: </label>
-    </span>
-    <textarea class="form-control" ng-model="$ctrl.message" placeholder="{{'FORM_MESSAGE_PLACEHOLDER' | translate}}" rows="4" ng-change="$ctrl.updateCharactersLeft();" ng-class="$ctrl.charactersLeft < 0 || $ctrl.messageType === 0 && $ctrl.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.message) ? 'has-error' : ''"></textarea>
-    <p style="text-align:right;border-bottom:1px solid rgba(15, 122, 225, 0.6);background-color: #eee;"><span style="margin-right: 5px;"><b>{{ 'GENERAL_CHARACTERS_LEFT' | translate }}</b>: {{ $ctrl.charactersLeft }}</span></p>
+    <div style="display: flex; flex-direction: column; justify-content: center">
+      <textarea style="color: #cccaf7;outline: none;overflow: auto;max-width: 600px; min-width: 600px; height: 150px; border-top-right-radius: 3px; background: #27254B" class="sendXem placeholderColor" ng-model="$ctrl.message" placeholder="{{'CACHE_FORM_MESSAGE_PLACEHOLDER' | translate}}" rows="4" ng-change="$ctrl.updateCharactersLeft();" ng-class="$ctrl.charactersLeft < 0 || $ctrl.messageType === 0 && $ctrl.message.length && !$ctrl._Helpers.isHexadecimal($ctrl.message) ? 'has-error' : ''">
+      </textarea>
+      <div style="background-color: #615FC1;color:white; width: 600px; border-bottom-right-radius: 3px"><div style="padding-right: 5px;text-align:right">{{ $ctrl.charactersLeft }}</div></div>
+    </div>
   </div>
 </fieldset>
 <!-- Message type -->
 <fieldset class="form-group">
   <div class="input-group">
-    <span class="input-group-btn">
-      <label for="box1">{{'TRANSFER_TRANSACTION_MESSAGE_TYPE' | translate}}:</label>
-    </span>
-    <select class="form-control" ng-options="type.value as type.name for type in $ctrl.messageTypes" ng-model="$ctrl.messageType" ng-change="$ctrl.updateCharactersLeft();"></select>
+    <select style="min-width: 600px; max-width: 600px; border-radius: 3px;color: #cccaf7; background: #27254B" class="form-control" ng-options="type.value as type.name for type in $ctrl.messageTypes" ng-model="$ctrl.messageType" ng-change="$ctrl.updateCharactersLeft();"></select>
   </div>
 </fieldset>
