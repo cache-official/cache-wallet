@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa193639-e685-4721-a0a5-c1526a27063e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change beforePath="$PROJECT_DIR$/src/app/config/app.templates.js" afterPath="$PROJECT_DIR$/src/app/config/app.templates.js" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout/header.component.js" afterPath="$PROJECT_DIR$/src/app/layout/header.component.js" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout/header.html" afterPath="$PROJECT_DIR$/src/app/layout/header.html" />
-      <change beforePath="$PROJECT_DIR$/src/app/modules/languages/en.js" afterPath="$PROJECT_DIR$/src/app/modules/languages/en.js" />
-      <change beforePath="$PROJECT_DIR$/src/app/modules/transferCache/transferCache.controller.js" afterPath="$PROJECT_DIR$/src/app/modules/transferCache/transferCache.controller.js" />
-      <change beforePath="$PROJECT_DIR$/src/app/modules/transferCache/transferCache.html" afterPath="$PROJECT_DIR$/src/app/modules/transferCache/transferCache.html" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -62,11 +55,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.constants.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.constants.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/config/app.constants.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
               <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="14" column="1" lean-forward="false" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -192,7 +205,6 @@
         <option value="$PROJECT_DIR$/src/app/modules/signup/signup.html" />
         <option value="$PROJECT_DIR$/src/app/modules/signup/signup.controller.js" />
         <option value="$PROJECT_DIR$/src/app/modules/transferTransaction/transferTransaction.html" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/app/config/app.constants.js" />
         <option value="$PROJECT_DIR$/src/app/modules/dashboard/dashboard.html" />
         <option value="$PROJECT_DIR$/src/sass/_new.scss" />
@@ -202,6 +214,7 @@
         <option value="$PROJECT_DIR$/src/app/modules/transferCache/transferCache.controller.js" />
         <option value="$PROJECT_DIR$/src/app/modules/transferCache/transferCache.html" />
         <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -315,12 +328,6 @@
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="transferCache" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="cache-wallet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cache-wallet" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="sass" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -383,7 +390,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63717000" />
+    <option name="totallyTimeSpent" value="63779000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="85" y="41" width="1591" height="925" extended-state="0" />
@@ -620,13 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="1" lean-forward="false" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/layout/partials/messageArea.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -690,14 +690,6 @@
             <element signature="n#style#0;n#div#0;n#fieldset#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#button#0;n#div#0;n#fieldset#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="27" lean-forward="false" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -780,6 +772,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="14" column="1" lean-forward="false" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
           <folding />
         </state>
       </provider>
