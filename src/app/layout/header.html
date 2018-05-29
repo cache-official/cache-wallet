@@ -36,6 +36,10 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right" style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly">
+        <li>
+          <a style="outline:0; color: #61AAFF; cursor: pointer" ng-click="$ctrl.openWebsite('https://getcache.io')" ui-sref-active="active" show-authed="true">{{ 'CACHE_GET_CACHE' | translate }}
+          </a>
+        </li>
         <li class="node cache-navbar-right" style="cursor:pointer;">
           <a data-toggle="modal" data-target=".nodes" aria-haspopup="true" aria-expanded="false" show-authed="true">
             <i class="fa fa-circle" ng-style="$ctrl._DataStore.connection.status ? {'color': '#00b300'} : {'color': 'red'}"></i> {{ 'HEADER_NODE' | translate }}

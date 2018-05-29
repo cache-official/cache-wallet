@@ -1,4 +1,5 @@
 import Languages from '../utils/languages';
+const shell = window.require('electron').remote.shell;
 
 class AppHeaderCtrl {
 
@@ -45,6 +46,10 @@ class AppHeaderCtrl {
         }
         let supply = this._DataStore.mosaic.ownedBy[address]['cache:cache'].quantity;
         return supply / 1000000;
+    }
+
+    openWebsite(url) {
+        shell.openExternal(url);
     }
 
     //// Module methods region ////

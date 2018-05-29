@@ -853,7 +853,8 @@ function EnglishProvider($translateProvider) {
         CACHE_TRANSFER_TITLE: 'Send Cache',
         CACHE_PRIVATE_KEY_NOTE: 'Your private key holds all the power of your account. It is a priority to make sure it is stored safely somewhere <b><u>offline</u></b>: password encrypted into a .wlt file, written on a piece of paper, or on a picture.',
         CACHE_GENERAL_PASSWORD: 'Password',
-        CACHE_ADD_NEW_ACCOUNT_BTN: 'Add New Account'
+        CACHE_ADD_NEW_ACCOUNT_BTN: 'Add New Account',
+        CACHE_GET_CACHE: 'Get Cache'
     });
 }
 
