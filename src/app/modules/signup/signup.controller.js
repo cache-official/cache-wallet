@@ -139,7 +139,6 @@ class SignupCtrl {
         return this._WalletBuilder.createWallet(this.formData.walletName, this.formData.password, this.formData.entropy, this.network).then((wallet) => {
                 this._$timeout(() => {
                     if (wallet && typeof wallet === 'object') {
-                        //
                         this.arrangeSafetyProtocol(wallet);
                         // We need private key for view so we create a common object with the wallet password
                         let common = nem.model.objects.create("common")(this.formData.password, "");
@@ -178,7 +177,6 @@ class SignupCtrl {
         return this._WalletBuilder.createPrivateKeyWallet(this.formData.walletName, this.formData.password, this.formData.privateKey, this.network).then((wallet) => {
                 this._$timeout(() => {
                     if (wallet && typeof wallet === 'object') {
-                        //
                         this.arrangeSafetyProtocol(wallet);
                         this.walletPrivateKey = this.formData.privateKey;
                         // Hide step

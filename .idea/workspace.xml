@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa193639-e685-4721-a0a5-c1526a27063e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app/config/app.run.js" afterPath="$PROJECT_DIR$/src/app/config/app.run.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/app/modules/offlineTransaction/broadcast/broadcast.html" afterPath="$PROJECT_DIR$/src/app/modules/offlineTransaction/broadcast/broadcast.html" />
+      <change beforePath="$PROJECT_DIR$/src/app/modules/signup/signup.controller.js" afterPath="$PROJECT_DIR$/src/app/modules/signup/signup.controller.js" />
+      <change beforePath="$PROJECT_DIR$/src/start.html" afterPath="$PROJECT_DIR$/src/start.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -63,11 +66,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.run.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.run.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/config/app.run.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="792">
               <caret line="33" column="9" lean-forward="true" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="broadcast.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/modules/offlineTransaction/broadcast/broadcast.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="35" column="12" lean-forward="false" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="signup.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/modules/signup/signup.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4012">
+              <caret line="178" column="63" lean-forward="false" selection-start-line="178" selection-start-column="63" selection-end-line="178" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/start.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="502">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,7 +172,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/app/app.mjs" />
-        <option value="$PROJECT_DIR$/src/start.html" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/app/layout/partials/balance.html" />
@@ -169,7 +201,6 @@
         <option value="$PROJECT_DIR$/src/app/components/balance.component.js" />
         <option value="$PROJECT_DIR$/src/app/components/attachMosaic.component.js" />
         <option value="$PROJECT_DIR$/src/app/modules/signup/signup.html" />
-        <option value="$PROJECT_DIR$/src/app/modules/signup/signup.controller.js" />
         <option value="$PROJECT_DIR$/src/app/modules/transferTransaction/transferTransaction.html" />
         <option value="$PROJECT_DIR$/src/app/modules/dashboard/dashboard.html" />
         <option value="$PROJECT_DIR$/src/sass/_new.scss" />
@@ -182,6 +213,9 @@
         <option value="$PROJECT_DIR$/src/app/config/app.constants.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/app/config/app.run.js" />
+        <option value="$PROJECT_DIR$/src/app/modules/offlineTransaction/broadcast/broadcast.html" />
+        <option value="$PROJECT_DIR$/src/app/modules/signup/signup.controller.js" />
+        <option value="$PROJECT_DIR$/src/start.html" />
       </list>
     </option>
   </component>
@@ -203,8 +237,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="85" />
-    <option name="y" value="41" />
+    <option name="x" value="101" />
+    <option name="y" value="50" />
     <option name="width" value="1591" />
     <option name="height" value="925" />
   </component>
@@ -365,10 +399,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64582000" />
+    <option name="totallyTimeSpent" value="64810000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="101" y="51" width="1591" height="925" extended-state="0" />
+    <frame x="101" y="50" width="1591" height="925" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22627279" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -414,20 +448,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/utils/image-path-constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/gulp-notify/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/modules/login/login.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -565,6 +585,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -600,13 +621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="418" column="4" lean-forward="false" selection-start-line="418" selection-start-column="4" selection-end-line="418" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/modules/signup/signup.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -740,6 +754,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="792">
           <caret line="33" column="9" lean-forward="true" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/modules/offlineTransaction/broadcast/broadcast.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="35" column="12" lean-forward="false" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/modules/signup/signup.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4012">
+          <caret line="178" column="63" lean-forward="false" selection-start-line="178" selection-start-column="63" selection-end-line="178" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/start.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
