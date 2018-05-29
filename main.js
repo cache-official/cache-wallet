@@ -5,11 +5,7 @@ const {app, BrowserWindow, protocol, Menu} = require('electron');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-const prodDebug = false;
-
-if (process.env.NODE_ENV === 'development' || prodDebug) {
-    require('electron-debug')({enabled: true});
-}
+const prodDebug = true;
 
 function createWindow () {
   // Create the browser window.
@@ -56,6 +52,8 @@ function createWindow () {
             { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
             { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
             { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+            { type: "separator" },
+            { label: "Toggle Developer Tools", accelerator: "Alt+CmdOrCtrl+I", click() { (prodDebug) ? mainWindow.toggleDevTools() : null }},
         ]}
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
