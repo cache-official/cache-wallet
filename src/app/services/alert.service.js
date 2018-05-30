@@ -553,6 +553,13 @@ export default class Alert {
         });
     }
 
+    insufficientBalanceForFee() {
+        this._ngToast.create({
+            content: this._$filter('translate')("Insufficient balance to cover XEM fee"),
+            className: 'danger'
+        });
+    }
+
     /***
      * Success alerts
      */
@@ -573,6 +580,13 @@ export default class Alert {
     successLogout() {
         this._ngToast.create({
             content: this._$filter('translate')('ALERT_SUCCESS_LOGOUT'),
+            className: 'success'
+        });
+    }
+
+    downloadWalletSuccess() {
+        this._ngToast.create({
+            content: this._$filter('translate')("Wallet Downloaded Successfully"),
             className: 'success'
         });
     }

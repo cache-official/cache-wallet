@@ -5,7 +5,7 @@ const {app, BrowserWindow, protocol, Menu} = require('electron');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-const prodDebug = false;
+const prodDebug = true;
 
 function createWindow () {
   // Create the browser window.

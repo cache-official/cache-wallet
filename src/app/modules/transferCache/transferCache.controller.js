@@ -159,6 +159,12 @@ class TransferCacheCtrl {
         return;
     }
 
+    getXemBalance() {
+        if (this._DataStore.account.metaData === undefined) { return 0.00; }
+        let balance = this._DataStore.account.metaData.account.balance;
+        return undefined !== balance ? balance : 0.00;
+    }
+
     /**
      * Prepare and broadcast the transaction to the network
      */
@@ -171,6 +177,11 @@ class TransferCacheCtrl {
 
         // Prepare the transaction
         let entity = this.prepareTransaction();
+        let totalXem = this.getXemBalance();
+        if (totalXem < entity.fee) {
+            this._Alert.insufficientBalanceForFee();
+            return;
+        }
 
         // Sending will be blocked if recipient is an exchange and no message set
         if (!this._Helpers.isValidForExchanges(entity)) {

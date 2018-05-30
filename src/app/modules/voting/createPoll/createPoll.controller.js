@@ -322,7 +322,7 @@ class createPollCtrl {
         // Initial checks that may forbid the operation move forward
         if (this._DataStore.account.metaData.account.balance < this.fee) {
             // This account has insufficient funds to perform the operation
-            this._Alert.insufficientBalance();
+            this._Alert.insufficientBalanceForFee();
             this.creating = false;
             return;
         }
