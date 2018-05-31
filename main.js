@@ -5,7 +5,6 @@ const {app, BrowserWindow, protocol, Menu, ipcMain} = require('electron');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let testNetSelected = false;
-// let mainNetSelected = true;
 
 const prodDebug = false;
 
@@ -59,17 +58,15 @@ function createWindow () {
         ]}, {
         label: "Developer",
         submenu: [
-            {label: "Use TestNet", type: 'checkbox', checked: testNetSelected, click: function() {mainWindow.webContents.send('testNet', testNetSelected ? -104 : 104);}},
-            // {label: "Use MainNet", type: 'checkbox', checked: mainNetSelected, click: function() {mainWindow.webContents.send('mainNet', 104);}}
+            {label: "Use TestNet", type: 'checkbox', checked: testNetSelected, click: function() {mainWindow.webContents.send('testNet', !testNetSelected ? -104 : 104);}}
         ]}
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 }
 
-// ipcMain.on('networkSelected', (e, arg) => {
-//     testNetSelected = !arg;
-//     mainNetSelected = arg
-// })
+ipcMain.on('networkSelected', (e, arg) => {
+    testNetSelected = !testNetSelected;
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

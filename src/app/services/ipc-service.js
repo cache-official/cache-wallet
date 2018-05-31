@@ -1,21 +1,15 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-const {ipcMain, getCurrentWindow} = require('electron').remote;
-const {ipcRenderer} = require('electron');
+const {ipcRenderer} = window.require('electron');
 
 const _obs_switchNetworks = new BehaviorSubject(0);
 
-export class IpcService {
+export default class IpcService {
 	static networkSwitched() {
 		return _obs_switchNetworks.asObservable();
 	};
 }
 
-ipcRenderer.on('testNet', (e, arg) => {
+ipcRenderer.on('testNet', function(e, arg) {
 	_obs_switchNetworks.next(arg);
-	// ipcRenderer.send('networkSelected', false);
+	ipcRenderer.send('networkSelected', arg);
 })
-
-// ipcRenderer.on('mainNet', (e, arg) => {
-// 	_obs_switchNetworks.next(arg);
-// 	ipcRenderer.send('networkSelected', true);
-// })
