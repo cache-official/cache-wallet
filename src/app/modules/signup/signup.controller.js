@@ -1,7 +1,14 @@
 import nem from 'nem-sdk';
 import Helpers from '../../utils/helpers';
 import zxcvbn from 'zxcvbn';
+import IpcService from "../../services/ipc-service";
 const shell = window.require('electron').remote.shell;
+
+let defaultNet = 104;
+IpcService.networkSwitched().subscribe(function(net) {
+    if (net === 0) { return }
+    defaultNet = net
+});
 
 class SignupCtrl {
 
@@ -28,7 +35,7 @@ class SignupCtrl {
         //// Module properties region ////
 
         // Default network
-        this.network = this._AppConstants.defaultNetwork;
+        this.network = defaultNet;
 
         // Available networks
         this.networks = nem.model.network.data;
@@ -93,7 +100,7 @@ class SignupCtrl {
      */
     changeWalletType() {
         this._selectedType = this.walletTypes[0];
-        this.network = this._AppConstants.defaultNetwork;
+        this.network = defaultNet;
         this.showBackBtn = true;
         this.step1 = false;
         this.step2 = true;
@@ -105,7 +112,7 @@ class SignupCtrl {
      * @param {number} id - The network id to use at wallet creation
      */
     changeNetwork() {
-        this.network = nem.model.network.data[1];
+        this.network = defaultNet;
     }
 
     /**

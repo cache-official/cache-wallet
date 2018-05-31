@@ -1,9 +1,10 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, protocol, Menu} = require('electron');
+const {app, BrowserWindow, protocol, Menu, ipcMain} = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let testNetSelected = false;
 
 const prodDebug = false;
 
@@ -54,10 +55,18 @@ function createWindow () {
             { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
             { type: "separator" },
             { label: "Toggle Developer Tools", accelerator: "Alt+CmdOrCtrl+I", click() { (prodDebug) ? mainWindow.toggleDevTools() : null }},
+        ]}, {
+        label: "Developer",
+        submenu: [
+            {label: "Use TestNet", type: 'checkbox', checked: testNetSelected, click: function() {mainWindow.webContents.send('testNet', !testNetSelected ? -104 : 104);}}
         ]}
     ];
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 }
+
+ipcMain.on('networkSelected', (e, arg) => {
+    testNetSelected = !testNetSelected;
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
