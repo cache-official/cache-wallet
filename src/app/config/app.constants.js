@@ -1,3 +1,12 @@
+import {IpcService} from '../services/ipc-service';
+
+let defaultNet = 104
+
+IpcService.networkSwitched().subscribe((net) => {
+    if (!net) { return }
+    defaultNet = net
+});
+
 const AppConstants = {
     //Application name
     appName: 'CacheWallet',
@@ -5,7 +14,7 @@ const AppConstants = {
     version: '1.0.0',
 
     //Network
-    defaultNetwork: 104,
+    defaultNetwork: defaultNet,
 
     // Ports
     defaultNisPort: 7890,
