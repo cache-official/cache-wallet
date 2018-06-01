@@ -1,4 +1,5 @@
 import Languages from '../utils/languages';
+import {Actions} from '../services/actions';
 const shell = window.require('electron').remote.shell;
 
 class AppHeaderCtrl {
@@ -70,6 +71,7 @@ class AppHeaderCtrl {
         this._DataBridge.reset();
         // Reset data in Wallet service
         this._Wallet.reset();
+        Actions.setLoginStatus(false);
         return;
     }
 

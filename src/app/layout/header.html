@@ -19,6 +19,7 @@
     <div class="collapse navbar-collapse cache-navbar-right" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" ng-show="$ctrl._DataStore.account.metaData.account">
         <li>
+          <span id="copyAddress" ng-show="false">{{ $ctrl._DataStore.account.metaData.account.address | fmtAddress }}</span>
           <a style="outline:0;" ui-sref-active="active" ui-sref="app.dashboard" show-authed="true">{{ 'CACHE_HEADER_DASHBOARD' | translate }}
           </a>
         </li>
