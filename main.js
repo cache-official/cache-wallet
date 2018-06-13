@@ -7,7 +7,7 @@ let mainWindow, contextMenu, tray, icon;
 let loggedIn = false;
 let testNetSelected = false;
 
-const prodDebug = true;
+const prodDebug = false;
 
 function createWindow () {
   // Create the browser window.
