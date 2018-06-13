@@ -45,6 +45,7 @@ class AppHeaderCtrl {
         if (undefined === this._DataStore.mosaic.ownedBy[address]['cache:cache']) {
             return 0
         }
+        Actions.setCurrentAddress(address.substr(address.length - 4));
         let supply = this._DataStore.mosaic.ownedBy[address]['cache:cache'].quantity;
         return supply / 1000000;
     }

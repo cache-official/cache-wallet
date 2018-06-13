@@ -23,6 +23,11 @@ Actions.obs_userLoggedIn().subscribe(function(status) {
 	ipcRenderer.send('loggedIn', status);
 });
 
+Actions.obs_userAddress().subscribe(function(address) {
+	if (undefined === address) { return }
+	ipcRenderer.send('currentAddress', address)
+});
+
 ipcRenderer.on('copyAddress', function(e, arg) {
     let dummy = document.createElement('input');
     document.body.appendChild(dummy);
