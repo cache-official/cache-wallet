@@ -33,7 +33,8 @@ ipcRenderer.on('copyAddress', function(e, arg) {
     document.body.appendChild(dummy);
     let addressInput = document.getElementById("copyAddress");
     let address = addressInput.innerText;
-    dummy.setAttribute('value', address);
+    let formattedAddress = address.replace(/-/g, "").toUpperCase();
+    dummy.setAttribute('value', formattedAddress);
     dummy.select();
     document.execCommand("copy");
     document.body.removeChild(dummy);
