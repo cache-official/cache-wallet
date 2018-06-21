@@ -1,4 +1,5 @@
 import nem from 'nem-sdk';
+import {Actions} from '../../services/actions';
 
 class LoginCtrl {
 
@@ -71,6 +72,7 @@ class LoginCtrl {
         if (this._Login.login(this.common, wallet)) {
             // Clean common object
             this.common = nem.model.objects.get("common");
+            Actions.setLoginStatus(true);
         }
     }
 

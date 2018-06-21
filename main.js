@@ -1,9 +1,10 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, protocol, Menu, ipcMain} = require('electron');
+const {app, BrowserWindow, protocol, Menu, ipcMain, Tray, nativeImage} = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow, contextMenu, tray, icon;
+let loggedIn = false;
 let testNetSelected = false;
 
 const prodDebug = false;
@@ -18,7 +19,40 @@ function createWindow () {
       webPreferences: {
 	      devTools: prodDebug
       }
-  })
+  });
+
+  // Create tray item
+  icon = nativeImage.createFromPath('./src/images/cacheIcon.png');
+  contextMenu = Menu.buildFromTemplate([
+      {label: 'Copy Address', enabled: false, click: function() {
+          mainWindow.send('copyAddress');
+          }}
+  ]);
+    tray = new Tray(icon);
+    tray.setToolTip('Cache Wallet address');
+    tray.setHighlightMode('never');
+    tray.setContextMenu(contextMenu);
+
+    //Create new enabled/disabled contextMenu based on login status
+    ipcMain.on('loggedIn', function(e, arg) {
+        contextMenu = null;
+        loggedIn = arg;
+        contextMenu = Menu.buildFromTemplate([
+        {label: 'Copy Address', enabled: loggedIn, click: function() {
+            mainWindow.send('copyAddress');}}
+        ]);
+        tray.setContextMenu(contextMenu);
+    });
+
+    //Get current address to copy in tray
+    ipcMain.on('currentAddress', function(e, arg) {
+        contextMenu = null;
+        contextMenu = Menu.buildFromTemplate([
+            {label: 'Copy Address ' + '(...' + arg + ')', enabled: loggedIn, click: function() {
+                mainWindow.send('copyAddress');}}
+        ]);
+        tray.setContextMenu(contextMenu);
+    });
 
 	protocol.registerFileProtocol('atom', (request, callback) => {
 		const url = request.url.substr(7)
